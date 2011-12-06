@@ -717,9 +717,6 @@ static err_t low_level_init(struct netif *netif)
 #if LPC_EMAC_RMII
 	/* RMII setup */
 	LPC_EMAC->Command = EMAC_CR_PASS_RUNT_FRM | EMAC_CR_RMII;
-	LPC_EMAC->SUPP = EMAC_SUPP_RES_RMII;
-	msDelay(10);
-	LPC_EMAC->SUPP = 0;
 #else
 	/* MII setup */
 	LPC_EMAC->CR = EMAC_CR_PASS_RUNT_FRM;
