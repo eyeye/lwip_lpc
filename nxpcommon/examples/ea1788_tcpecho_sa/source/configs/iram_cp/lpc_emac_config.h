@@ -126,6 +126,16 @@ extern "C"
  */
 #define LPC_NUM_BUFF_TXDESCS 2
 
+/** \brief  Set this define to 1 to enable bounce buffers for transmit pbufs
+ *          that cannot be sent via the zero-copy method. Some chained pbufs
+ *          may have a payload address that links to an area of memory that
+ *          cannot be used for transmit DMA operations. If this define is
+ *          set to 1, an extra check will be made with the pbufs. If a buffer
+ *          is determined to be non-usable for zero-copy, a temporary bounce
+ *          buffer will be created and used instead.
+ */
+#define LPC_TX_PBUF_BOUNCE_EN 0
+
 /**		  
  * @}
  */
