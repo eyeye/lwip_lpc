@@ -490,10 +490,10 @@ static err_t lpc_tx_setup(struct lpc_enetdata *lpc_enetdata)
 #if LPC_PBUF_TX_ZEROCOPY
 /** \brief  Attempt to free TX buffers that are complete
 
-    \param [in]      lpc_enetdata  Pointer to driver data structure
-    \param cidx  EMAC current descriptor comsumer index
+    \param [in] lpc_enetdata  Pointer to driver data structure
+    \param [in] cidx  EMAC current descriptor comsumer index
  */
-static void lpc_tx_reclaim(struct lpc_enetdata *lpc_enetdata, u32_t cidx)
+void lpc_tx_reclaim(struct lpc_enetdata *lpc_enetdata, u32_t cidx)
 {
 	while (cidx != lpc_enetdata->lpc_last_tx_idx) {
 		if (lpc_enetdata->txb[lpc_enetdata->lpc_last_tx_idx] != NULL) {
@@ -543,6 +543,21 @@ s32_t lpc_tx_ready(struct netif *netif)
 	return fb;
 }
 
+/** \brief  Determine if the passed address is usable for the ethernet
+            DMA controller.
+
+    \param [in] addr Address of packet to check for DMA safe operation
+    \return          1 if the packet address is not safe, otherwise 0
+ */
+static s32_t lpc_packet_addr_notsafe(void *addr) {
+	/* Check for legal address ranges */
+	if ((((u32_t) addr >= 0x20000000) && ((u32_t) addr < 0x20008000)) ||
+		(((u32_t) addr >= 0x80000000) && ((u32_t) addr < 0xF0000000)))
+		return 0;
+
+	return 1;
+}
+
 /** \brief  Low level output of a packet. Never call this from an
             interrupt context, as it may block until TX descriptors
 			become available.
@@ -560,7 +575,8 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 	u32_t idx, sz = 0;
 	err_t err = ERR_OK;
 #if LPC_PBUF_TX_ZEROCOPY
-	u32_t dn;
+	struct pbuf *np;
+	u32_t dn, notdmasafe = 0;
 #endif
 
 	/* Error handling for TX underruns. This should never happen unless
@@ -590,15 +606,56 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 
 #if LPC_PBUF_TX_ZEROCOPY
 	/* Zero-copy TX buffers may be fragmented across mutliple payload
-	   segments. Determine the number of descriptors needed for the
-	   transfer. The pbuf fragmentation can be a mess. */
+	   chains. Determine the number of descriptors needed for the
+	   transfer. The pbuf chaining can be a mess! */
 	dn = (u32_t) pbuf_clen(p);
 
-	/* Increment packet reference to prevent de-allocation - the TX cleanup
-	   task will de-allocate it once the hardware is done with it. */
-	pbuf_ref(p);
+	/* Test to make sure packet addresses are DMA safe. A DMA safe
+	   address is once that uses external memory or periphheral RAM.
+	   IRAM and FLASH are not safe! */
+	for (q = p; q != NULL; q = q->next)
+		notdmasafe += lpc_packet_addr_notsafe(q->payload);
+
+#if LPC_TX_PBUF_BOUNCE_EN==1
+	/* If the pbuf is not DMA safe, a new bounce buffer (pbuf) will be
+	   created that will be used instead. This requires an copy from the
+	   non-safe DMA region to the new pbuf */
+	if (notdmasafe) {
+		/* Allocate a pbuf in DMA memory */
+		np = pbuf_alloc(PBUF_RAW, p->tot_len, PBUF_RAM);
+		if (np == NULL)
+			return ERR_MEM;	
+
+		/* This buffer better be contiguous! */
+		LWIP_ASSERT("lpc_low_level_output: New transmit pbuf is chained",
+			(pbuf_clen(np) == 1));
+
+		/* Copy to DMA safe pbuf */
+		dst = (u8_t *) np->payload;
+	 	for(q = p; q != NULL; q = q->next) {
+			/* Copy the buffer to the descriptor's buffer */
+	  		MEMCPY(dst, (u8_t *) q->payload, q->len);
+		  dst += q->len;
+		}
+		np->len = p->tot_len; 
+
+		LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
+			("lpc_low_level_output: Switched to DMA safe buffer, old=%p, new=%p\n",
+			q, np));
+
+		/* use the new buffer for descrptor queueing. The original pbuf will
+		   be de-allocated outsuide this driver. */
+		p = np;
+		dn = 1;
+	}
+#else
+	if (notdmasafe)
+		LWIP_ASSERT("lpc_low_level_output: Not a DMA safe pbuf",
+			(notdmasafe == 0));
+#endif
 
 	/* Wait until enough descriptors are available for the transfer. */
+	/* THIS WILL BLOCK UNTIL THERE ARE ENOUGH DESCRIPTORS AVAILABLE */
 	while (dn > lpc_tx_ready(netif));
 
 	/* Get free TX buffer index */
@@ -609,22 +666,30 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 	while (dn > 0) {
 		dn--;
 
+		lpc_enetdata->txb[idx] = q;
+
 		/* Only save pointer to free on last descriptor */
 		if (dn == 0) {
-			lpc_enetdata->txb[idx] = p;
-
 			/* Save size of packet and signal it's ready */
 			lpc_enetdata->ptxd[idx].control = (q->len - 1) | EMAC_TCTRL_INT |
 				EMAC_TCTRL_LAST;
 		}
 		else {
-			lpc_enetdata->txb[idx] = 0;
-
 			/* Save size of packet, descriptor is not last */
 			lpc_enetdata->ptxd[idx].control = (q->len - 1) | EMAC_TCTRL_INT;
 		}
 
+		LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
+			("lpc_low_level_output: pbuf packet(%p) sent, chain# = %d,"
+			" size = %d\n", q->payload, dn, q->len));
+
 		lpc_enetdata->ptxd[idx].packet = (u32_t) q->payload;
+
+		/* Increment packet reference to prevent de-allocation only if buffers
+		   are zero-copy - the TX cleanup task will de-allocate it once the
+		   hardware is done with it. */
+		if (!notdmasafe)
+			pbuf_ref(q);
 		q = q->next;
 
 		idx++;
@@ -659,13 +724,13 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 	if (idx >= LPC_NUM_BUFF_TXDESCS)
 		idx = 0;
 	LPC_EMAC->TxProduceIndex = idx;
-#endif
-
-	LINK_STATS_INC(link.xmit);
 
 	LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
 		("lpc_low_level_output: pbuf packet(%p) sent, chains = %d,"
-		" size = %d\n", p, (u32_t) pbuf_clen(p), p->len));
+		" size = %d\n", p, (u32_t) pbuf_clen(p), p->tot_len));
+#endif
+
+	LINK_STATS_INC(link.xmit);
 
 	return ERR_OK;
 }
