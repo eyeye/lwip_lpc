@@ -1,8 +1,8 @@
 /**********************************************************************
-* $Id$		application_config.h			2011-11-20
+* $Id$		lwipopts.h			2011-11-20
 *//**
-* @file		application_config.h
-* @brief	Application specific configuration
+* @file		lwipopts.h
+* @brief	LWIP option overrides
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
