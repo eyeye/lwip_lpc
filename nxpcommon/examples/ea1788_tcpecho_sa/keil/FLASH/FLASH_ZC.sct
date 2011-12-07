@@ -1,0 +1,33 @@
+;-------------------------------------------------------------------------------------
+; Copyright (c) 2009-2011 Razer Ltd.
+; All rights reserved. This program contains proprietary and confidential information.
+;
+; Compiler:
+;   Keil Software µVision v4.03q, with NXP Semiconductor LPC313x proccessor support.
+;
+; Abstract:
+;   This file is the Scatter-Loading Description File and places the Device code as 
+;   well as the corresponding data into the proper arenas.
+;-------------------------------------------------------------------------------------
+
+; Load region is in internal FLASH, 256KBytes
+FLASH 0x00000000 0x40000 {
+  ; All code and RO data in in FLASH
+  ER_RO 0x00000000 0x10000 {
+    startup_LPC177x_8x.o (RESET, +FIRST)
+    *.o (+RO)
+  }
+
+    ; All non-DMA related RW/ZI data is in internal IRAM
+  ISRAM 0x10000000 0x10000 {
+    *.o (+RW)
+    *.o (+ZI)
+  }
+
+  ; DMA buffers need to be located in peripheral RAM, but not pbufs
+  PIRAM 0x20000000 0x8000 {
+    lpc_emac_zcbuffs.o (+RW, +ZI)
+	mem.o (+RW, +ZI)
+	memp.o (+RW, +ZI)
+  }
+}
