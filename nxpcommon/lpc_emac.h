@@ -97,7 +97,7 @@ err_t lpc_enetif_init(struct netif *netif);
 s32_t lpc_rx_queue(struct netif *netif);
 #endif
 #if LPC_PBUF_TX_ZEROCOPY
-void lpc_tx_reclaim(struct lpc_enetdata *lpc_enetdata, u32_t cidx);
+void lpc_tx_reclaim(struct netif *netif);
 #endif
 
 /**		  

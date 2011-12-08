@@ -183,52 +183,13 @@ err_t lpc_mii_read(u32_t PhyReg, u32_t *data)
 	return sts;
 }
 
-/** \brief  Sets up the RX descriptor ring buffers.
-
-    This function sets up the descriptor list used for receive packets.
-
-    \param [in]  lpc_enetdata  Pointer to driver data structure
-	\returns                   Always returns ERR_OK
- */
-static err_t lpc_rx_setup(struct lpc_enetdata *lpc_enetdata)
-{
-	s32_t idx;
-
-	/* Setup pointers to RX structures */
-	LPC_EMAC->RxDescriptor = (u32_t) &lpc_enetdata->prxd[0];
-	LPC_EMAC->RxStatus = (u32_t) &lpc_enetdata->prxs[0];
-	LPC_EMAC->RxDescriptorNumber = LPC_NUM_BUFF_RXDESCS - 1;
-
-#if LPC_PBUF_RX_ZEROCOPY
-	lpc_enetdata->rx_free_descs = LPC_NUM_BUFF_RXDESCS;
-	lpc_enetdata->rx_fill_desc_index = 0;
-
-	/* Build RX buffer and descriptors */
-	for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++)
-		lpc_rx_queue(lpc_enetdata->netif);
-
-#else
-	/* Build RX descriptors */
-	for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++) {
-		/* Setup DMA RX descriptor */
-		lpc_enetdata->prxd[idx].packet = (u32_t) &lpc_enetdata->lpc_rx_buffs[idx][0];
-		lpc_enetdata->prxd[idx].control = EMAC_RCTRL_INT |
-			(EMAC_ETH_MAX_FLEN - 1);
-		lpc_enetdata->prxs[idx].statusinfo = 0xFFFFFFFF;
-		lpc_enetdata->prxs[idx].statushashcrc = 0xFFFFFFFF;
-	}
-#endif
-
-	return ERR_OK;
-}
-
 #if LPC_PBUF_RX_ZEROCOPY
 /** \brief  Queues a pbuf into the RX descriptor list
 
     \param lpc_enetdata Pointer to the drvier data structure
     \param p            Pointer to pbuf to queue
  */
-static void lpc_queue_pbuf(struct lpc_enetdata *lpc_enetdata, struct pbuf *p)
+static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_enetdata, struct pbuf *p)
 {
 	u32_t idx;
 
@@ -245,7 +206,8 @@ static void lpc_queue_pbuf(struct lpc_enetdata *lpc_enetdata, struct pbuf *p)
 	lpc_enetdata->rxb[idx] = p;
 
 	LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
-		("lpc_queue_pbuf: pbuf packet queued, size = %d\n", p->len));
+		("lpc_rxqueue_pbuf: pbuf packet queued: %p (free desc=%d)\n", p,
+			lpc_enetdata->rx_free_descs));
 
 	/* Wrap at end of descriptor list */
 	idx++;
@@ -275,19 +237,48 @@ s32_t lpc_rx_queue(struct netif *netif)
 	/* Allocate a pbuf from the pool. We need to allocate at the maximum size
 	   as we don't know the size of the yet to be received packet. */
 	p = pbuf_alloc(PBUF_RAW, (u16_t) EMAC_ETH_MAX_FLEN, PBUF_RAM);
-	if (p == NULL)
-		return 0;	
+	if (p == NULL) {
+		LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
+			("lpc_rx_queue: could not allocate RX pbuf (free desc=%d)\n",
+			lpc_enetdata->rx_free_descs));
+		return 0;
+	}
 
 	/* pbufs allocated from the RAM pool should be non-chained. */
 	LWIP_ASSERT("lpc_rx_queue: pbuf is not contiguous (chained)",
 		pbuf_clen(p) <= 1);
 
 	/* Queue packet */
-	lpc_queue_pbuf(lpc_enetdata, p);
+	lpc_rxqueue_pbuf(lpc_enetdata, p);
 
 	return 1;
 }
-#endif
+
+/** \brief  Sets up the RX descriptor ring buffers.
+
+    This function sets up the descriptor list used for receive packets.
+
+    \param [in]  lpc_enetdata  Pointer to driver data structure
+	\returns                   Always returns ERR_OK
+ */
+static err_t lpc_rx_setup(struct lpc_enetdata *lpc_enetdata)
+{
+	s32_t idx;
+
+	/* Setup pointers to RX structures */
+	LPC_EMAC->RxDescriptor = (u32_t) &lpc_enetdata->prxd[0];
+	LPC_EMAC->RxStatus = (u32_t) &lpc_enetdata->prxs[0];
+	LPC_EMAC->RxDescriptorNumber = LPC_NUM_BUFF_RXDESCS - 1;
+
+	lpc_enetdata->rx_free_descs = LPC_NUM_BUFF_RXDESCS;
+	lpc_enetdata->rx_fill_desc_index = 0;
+
+	/* Build RX buffer and descriptors */
+	for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++)
+		lpc_rx_queue(lpc_enetdata->netif);
+
+	return ERR_OK;
+}
 
 /** \brief  Allocates a pbuf and returns the data from the incoming packet.
 
@@ -318,7 +309,6 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 		LPC_EMAC->MAC1 |= EMAC_MAC1_RES_RX;
 		LPC_EMAC->IntClear = EMAC_INT_RX_OVERRUN;
 
-#if LPC_PBUF_RX_ZEROCOPY
 		/* De-allocate all queued RX pbufs */
 		for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++) {
 			if (lpc_enetdata->rxb[idx] != NULL) {
@@ -326,7 +316,6 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 				lpc_enetdata->rxb[idx] = NULL;
 			}
 		}
-#endif
 
 		/* Start RX side again */
 		lpc_rx_setup(lpc_enetdata);
@@ -356,7 +345,6 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 			/* Drop the frame */
 			LINK_STATS_INC(link.drop);
 
-#if LPC_PBUF_RX_ZEROCOPY
 			/* Free the pbuf associated with this descriptor. The RX
 			   queue function will queue a new pbuf later. */
 			if (lpc_enetdata->rxb[idx] != NULL) {
@@ -364,7 +352,6 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 				lpc_enetdata->rxb[idx] = NULL;
 				lpc_enetdata->rx_free_descs++;
 			}
-#endif
 
 			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
 				("lpc_low_level_input: Packet dropped with errors\n"));
@@ -373,10 +360,6 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 			/* A packet is waiting, get length */
 			length = (lpc_enetdata->prxs[idx].statusinfo & 0x7FF) + 1;
 
-			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
-				("lpc_low_level_input: Packet received: size %d\n", length));
-
-#if LPC_PBUF_RX_ZEROCOPY
 			/* Zero-copy */
 			p = lpc_enetdata->rxb[idx];
 			p->len = (u16_t) length;
@@ -385,11 +368,120 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 			lpc_enetdata->rxb[idx] = NULL;
 			lpc_enetdata->rx_free_descs++;
 
-#else
+			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
+				("lpc_low_level_input: Packet received: %p, size %d (index=%d)\n",
+				p, length, idx));
+
+			/* Save size */
+			p->tot_len = (u16_t) length;
+			LINK_STATS_INC(link.recv);
+		}
+	}
+
+	return p;  
+}
+
+#else /* Copied RX obuf driver starts here */
+/** \brief  Sets up the RX descriptor ring buffers.
+
+    This function sets up the descriptor list used for receive packets.
+
+    \param [in]  lpc_enetdata  Pointer to driver data structure
+	\returns                   Always returns ERR_OK
+ */
+static err_t lpc_rx_setup(struct lpc_enetdata *lpc_enetdata)
+{
+	s32_t idx;
+
+	/* Setup pointers to RX structures */
+	LPC_EMAC->RxDescriptor = (u32_t) &lpc_enetdata->prxd[0];
+	LPC_EMAC->RxStatus = (u32_t) &lpc_enetdata->prxs[0];
+	LPC_EMAC->RxDescriptorNumber = LPC_NUM_BUFF_RXDESCS - 1;
+
+	/* Build RX descriptors */
+	for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++) {
+		/* Setup DMA RX descriptor */
+		lpc_enetdata->prxd[idx].packet = (u32_t) &lpc_enetdata->lpc_rx_buffs[idx][0];
+		lpc_enetdata->prxd[idx].control = EMAC_RCTRL_INT |
+			(EMAC_ETH_MAX_FLEN - 1);
+		lpc_enetdata->prxs[idx].statusinfo = 0xFFFFFFFF;
+		lpc_enetdata->prxs[idx].statushashcrc = 0xFFFFFFFF;
+	}
+
+	return ERR_OK;
+}
+
+/** \brief  Allocates a pbuf and returns the data from the incoming packet.
+
+    \param netif the lwip network interface structure for this lpc_enetif
+    \return a pbuf filled with the received packet (including MAC header)
+ *         NULL on memory error
+ */
+static struct pbuf *lpc_low_level_input(struct netif *netif)
+{
+	struct lpc_enetdata *lpc_enetdata = netif->state;
+	struct pbuf *p = NULL, *q;
+	u32_t idx, length;
+	u8_t *src;
+
+	/* Monitor RX overrun status. This should never happen unless
+	   (possibly) the internal bus is behing held up by something.
+	   Unless your system is running at a very low clock speed or
+	   there are possibilities that the internal buses may be held
+	   up for a long time, this can probably safely be removed. */
+	if (LPC_EMAC->IntStatus & EMAC_INT_RX_OVERRUN) {
+		LINK_STATS_INC(link.err);
+		LINK_STATS_INC(link.drop);
+
+		/* Temporarily disable RX */
+		LPC_EMAC->MAC1 &= ~EMAC_MAC1_REC_EN;
+
+		/* Reset the RX side */
+		LPC_EMAC->MAC1 |= EMAC_MAC1_RES_RX;
+		LPC_EMAC->IntClear = EMAC_INT_RX_OVERRUN;
+
+		/* Start RX side again */
+		lpc_rx_setup(lpc_enetdata);
+
+		/* Re-enable RX */
+		LPC_EMAC->MAC1 |= EMAC_MAC1_REC_EN;
+
+		return NULL;
+	}
+
+	/* Determine if a frame has been received */
+	idx = LPC_EMAC->RxConsumeIndex;
+	if (LPC_EMAC->RxProduceIndex != idx) {
+		/* Handle errors */
+		if (lpc_enetdata->prxs[idx].statusinfo & (EMAC_RINFO_NO_DESCR |
+			EMAC_RINFO_ALIGN_ERR | EMAC_RINFO_LEN_ERR | EMAC_RINFO_SYM_ERR |
+			EMAC_RINFO_CRC_ERR)) {
+#if LINK_STATS
+			if (lpc_enetdata->prxs[idx].statusinfo & (EMAC_RINFO_CRC_ERR |
+				EMAC_RINFO_SYM_ERR | EMAC_RINFO_ALIGN_ERR))
+				LINK_STATS_INC(link.chkerr);
+			if (lpc_enetdata->prxs[idx].statusinfo & EMAC_RINFO_LEN_ERR)
+				LINK_STATS_INC(link.lenerr);
+#endif
+
+			/* Drop the frame */
+			LINK_STATS_INC(link.drop);
+
+			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
+				("lpc_low_level_input: Packet dropped with errors\n"));
+		}
+		else {
+			/* A packet is waiting, get length */
+			length = (lpc_enetdata->prxs[idx].statusinfo & 0x7FF) + 1;
+
 			/* Allocate a pbuf chain of pbufs from the pool. */
 			p = pbuf_alloc(PBUF_RAW, (u16_t) length, PBUF_POOL);
-			if (p == NULL)
-				return p; /* Buffer in hardware is not lost */
+			if (p == NULL) {
+				/* Buffer in hardware is not lost, but cannot get packet now */
+				LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
+					("lpc_low_level_input: Could not allocate input pbuf\n"));
+				return NULL;
+			}
 
 			/* Copy buffer */
 			src = (u8_t *) lpc_enetdata->prxd[idx].packet;
@@ -397,24 +489,25 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 				MEMCPY((u8_t *) q->payload, src, q->len);
 				src += q->len;
 			}
-#endif
+
+			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
+				("lpc_low_level_input: Packet received: %p, size %d (index=%d)\n",
+				p, length, idx));
 
 			/* Save size */
 			p->tot_len = (u16_t) length;
 			LINK_STATS_INC(link.recv);
 		}
 
-#if LPC_PBUF_RX_ZEROCOPY==0
-			/* Return DMA buffer */
 			idx++;
 			if (idx >= LPC_NUM_BUFF_RXDESCS)
 				idx = 0;
 			LPC_EMAC->RxConsumeIndex = idx;
-#endif
 	}
 
 	return p;  
 }
+#endif /* End of RX copied or zero-copy driver section */
 
 /** \brief  Attempt to read a packet from the EMAC interface.
 
@@ -456,6 +549,22 @@ void lpc_enetif_input(struct netif *netif)
 	}
 }
 
+/** \brief  Determine if the passed address is usable for the ethernet
+            DMA controller.
+
+    \param [in] addr Address of packet to check for DMA safe operation
+    \return          1 if the packet address is not safe, otherwise 0
+ */
+static s32_t lpc_packet_addr_notsafe(void *addr) {
+	/* Check for legal address ranges */
+	if ((((u32_t) addr >= 0x20000000) && ((u32_t) addr < 0x20008000)) ||
+		(((u32_t) addr >= 0x80000000) && ((u32_t) addr < 0xF0000000)))
+		return 0;
+
+	return 1;
+}
+
+#if LPC_PBUF_TX_ZEROCOPY
 /** \brief  Sets up the TX descriptor ring buffers.
 
     This function sets up the descriptor list used for transmit packets.
@@ -471,15 +580,10 @@ static err_t lpc_tx_setup(struct lpc_enetdata *lpc_enetdata)
 	LPC_EMAC->TxStatus = (u32_t) &lpc_enetdata->ptxs[0];
 	LPC_EMAC->TxDescriptorNumber = LPC_NUM_BUFF_TXDESCS - 1;
 
-#if LPC_PBUF_TX_ZEROCOPY
-		lpc_enetdata->lpc_last_tx_idx = 0;
-#endif
+	lpc_enetdata->lpc_last_tx_idx = 0;
 
 	/* Build TX descriptors for local buffers */
 	for (idx = 0; idx < LPC_NUM_BUFF_TXDESCS; idx++) {
-#if LPC_PBUF_TX_ZEROCOPY==0
-		lpc_enetdata->ptxd[idx].packet = (u32_t) &lpc_enetdata->lpc_tx_buffs[idx][0];
-#endif
 		lpc_enetdata->ptxd[idx].control = 0;
 		lpc_enetdata->ptxs[idx].statusinfo = 0xFFFFFFFF;
 	}
@@ -487,18 +591,17 @@ static err_t lpc_tx_setup(struct lpc_enetdata *lpc_enetdata)
 	return ERR_OK;
 }
 
-#if LPC_PBUF_TX_ZEROCOPY
-/** \brief  Attempt to free TX buffers that are complete
+/** \brief  Free TX buffers that are complete
 
     \param [in] lpc_enetdata  Pointer to driver data structure
     \param [in] cidx  EMAC current descriptor comsumer index
  */
-void lpc_tx_reclaim(struct lpc_enetdata *lpc_enetdata, u32_t cidx)
+static void lpc_tx_reclaim_st(struct lpc_enetdata *lpc_enetdata, u32_t cidx)
 {
 	while (cidx != lpc_enetdata->lpc_last_tx_idx) {
 		if (lpc_enetdata->txb[lpc_enetdata->lpc_last_tx_idx] != NULL) {
 			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
-				("lpc_tx_reclaim: Freeing packet %p (index %d)\n",
+				("lpc_tx_reclaim_st: Freeing packet %p (index %d)\n",
 				lpc_enetdata->txb[lpc_enetdata->lpc_last_tx_idx],
 				lpc_enetdata->lpc_last_tx_idx));
 			pbuf_free(lpc_enetdata->txb[lpc_enetdata->lpc_last_tx_idx]);
@@ -510,12 +613,21 @@ void lpc_tx_reclaim(struct lpc_enetdata *lpc_enetdata, u32_t cidx)
 			lpc_enetdata->lpc_last_tx_idx = 0;
 	}
 }
-#endif
+
+/** \brief  User call for freeingTX buffers that are complete
+
+    \param [in] netif the lwip network interface structure for this lpc_enetif
+ */
+void lpc_tx_reclaim(struct netif *netif)
+{
+	lpc_tx_reclaim_st((struct lpc_enetdata *) netif->state,
+		LPC_EMAC->TxConsumeIndex);
+}
 
  /** \brief  Polls if an available TX descriptor is ready. Can be used to
              determine if the low level transmit function will block.
 
-    \param netif the lwip network interface structure for this lpc_enetif
+    \param [in] netif the lwip network interface structure for this lpc_enetif
     \return 0 if no descriptors are read, or >0
  */
 s32_t lpc_tx_ready(struct netif *netif)
@@ -524,14 +636,11 @@ s32_t lpc_tx_ready(struct netif *netif)
 	u32_t idx, cidx;
 
 	cidx = LPC_EMAC->TxConsumeIndex;
+	lpc_tx_reclaim_st((struct lpc_enetdata *) netif->state, cidx);
 
-#if LPC_PBUF_TX_ZEROCOPY
-	lpc_tx_reclaim((struct lpc_enetdata *) netif->state, cidx);
-#endif
-
-	/* Determine number of free buffers */
 	idx = LPC_EMAC->TxProduceIndex;
 
+	/* Determine number of free buffers */
 	if (idx == cidx)
 		fb = LPC_NUM_BUFF_TXDESCS;
 	else if (cidx > idx)
@@ -541,21 +650,6 @@ s32_t lpc_tx_ready(struct netif *netif)
 		fb = (LPC_NUM_BUFF_TXDESCS - 1) - (cidx - idx);
 
 	return fb;
-}
-
-/** \brief  Determine if the passed address is usable for the ethernet
-            DMA controller.
-
-    \param [in] addr Address of packet to check for DMA safe operation
-    \return          1 if the packet address is not safe, otherwise 0
- */
-static s32_t lpc_packet_addr_notsafe(void *addr) {
-	/* Check for legal address ranges */
-	if ((((u32_t) addr >= 0x20000000) && ((u32_t) addr < 0x20008000)) ||
-		(((u32_t) addr >= 0x80000000) && ((u32_t) addr < 0xF0000000)))
-		return 0;
-
-	return 1;
 }
 
 /** \brief  Low level output of a packet. Never call this from an
@@ -574,10 +668,8 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 	u8_t *dst;
 	u32_t idx, sz = 0;
 	err_t err = ERR_OK;
-#if LPC_PBUF_TX_ZEROCOPY
 	struct pbuf *np;
 	u32_t dn, notdmasafe = 0;
-#endif
 
 	/* Error handling for TX underruns. This should never happen unless
 	   something is holding the bus or the clocks are going too slow. It
@@ -590,7 +682,6 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 		LPC_EMAC->MAC1 |= EMAC_MAC1_RES_TX;
 		LPC_EMAC->IntClear = EMAC_INT_TX_UNDERRUN;
 
-#if LPC_PBUF_TX_ZEROCOPY
 		/* De-allocate all queued TX pbufs */
 		for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++) {
 			if (lpc_enetdata->txb[idx] != NULL) {
@@ -598,13 +689,11 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 				lpc_enetdata->txb[idx] = NULL;
 			}
 		}
-#endif
 
 		/* Start TX side again */
 		lpc_tx_setup(lpc_enetdata);
 	}
 
-#if LPC_PBUF_TX_ZEROCOPY
 	/* Zero-copy TX buffers may be fragmented across mutliple payload
 	   chains. Determine the number of descriptors needed for the
 	   transfer. The pbuf chaining can be a mess! */
@@ -680,8 +769,8 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 		}
 
 		LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
-			("lpc_low_level_output: pbuf packet(%p) sent, chain# = %d,"
-			" size = %d\n", q->payload, dn, q->len));
+			("lpc_low_level_output: pbuf packet(%p) sent, chain#=%d,"
+			" size = %d (index=%d)\n", q, dn, q->len, idx));
 
 		lpc_enetdata->ptxd[idx].packet = (u32_t) q->payload;
 
@@ -699,7 +788,95 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 
 	LPC_EMAC->TxProduceIndex = idx;
 
-#else
+	LINK_STATS_INC(link.xmit);
+
+	return ERR_OK;
+}
+
+#else /* Start of copied pbuf transmit driver */
+/** \brief  Sets up the TX descriptor ring buffers.
+
+    This function sets up the descriptor list used for transmit packets.
+
+    \param [in]      lpc_enetdata  Pointer to driver data structure
+ */
+static err_t lpc_tx_setup(struct lpc_enetdata *lpc_enetdata)
+{
+	s32_t idx;
+
+	/* Setup pointers to TX structures */
+	LPC_EMAC->TxDescriptor = (u32_t) &lpc_enetdata->ptxd[0];
+	LPC_EMAC->TxStatus = (u32_t) &lpc_enetdata->ptxs[0];
+	LPC_EMAC->TxDescriptorNumber = LPC_NUM_BUFF_TXDESCS - 1;
+
+	/* Build TX descriptors for local buffers */
+	for (idx = 0; idx < LPC_NUM_BUFF_TXDESCS; idx++) {
+		lpc_enetdata->ptxd[idx].packet = (u32_t) &lpc_enetdata->lpc_tx_buffs[idx][0];
+		lpc_enetdata->ptxd[idx].control = 0;
+		lpc_enetdata->ptxs[idx].statusinfo = 0xFFFFFFFF;
+	}
+
+	return ERR_OK;
+}
+
+ /** \brief  Polls if an available TX descriptor is ready. Can be used to
+             determine if the low level transmit function will block.
+
+    \param netif the lwip network interface structure for this lpc_enetif
+    \return 0 if no descriptors are read, or >0
+ */
+s32_t lpc_tx_ready(struct netif *netif)
+{
+	s32_t fb;
+	u32_t idx, cidx;
+
+	cidx = LPC_EMAC->TxConsumeIndex;
+	idx = LPC_EMAC->TxProduceIndex;
+
+	/* Determine number of free buffers */
+	if (idx == cidx)
+		fb = LPC_NUM_BUFF_TXDESCS;
+	else if (cidx > idx)
+		fb = (LPC_NUM_BUFF_TXDESCS - 1) -
+			((idx + LPC_NUM_BUFF_TXDESCS) - cidx);
+	else
+		fb = (LPC_NUM_BUFF_TXDESCS - 1) - (cidx - idx);
+
+	return fb;
+}
+
+/** \brief  Low level output of a packet. Never call this from an
+            interrupt context, as it may block until TX descriptors
+			become available.
+
+    \param netif the lwip network interface structure for this lpc_enetif
+    \param p the MAC packet to send (e.g. IP packet including MAC addresses and type)
+    \return ERR_OK if the packet could be sent
+           an err_t value if the packet couldn't be sent
+ */
+static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
+{
+	struct lpc_enetdata *lpc_enetdata = netif->state;
+	struct pbuf *q;
+	u8_t *dst;
+	u32_t idx, sz = 0;
+	err_t err = ERR_OK;
+
+	/* Error handling for TX underruns. This should never happen unless
+	   something is holding the bus or the clocks are going too slow. It
+	   can probably be safely removed. */
+ 	if (LPC_EMAC->IntStatus & EMAC_INT_TX_UNDERRUN) {
+		LINK_STATS_INC(link.err);
+		LINK_STATS_INC(link.drop);
+
+		/* Reset the TX side */
+		LPC_EMAC->MAC1 |= EMAC_MAC1_RES_TX;
+		LPC_EMAC->IntClear = EMAC_INT_TX_UNDERRUN;
+
+		/* Start TX side again */
+		lpc_tx_setup(lpc_enetdata);
+	}
+
 	/* Wait for a single buffer to become available */
 	while (lpc_tx_ready(netif) == 0);
 
@@ -728,12 +905,12 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 	LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
 		("lpc_low_level_output: pbuf packet(%p) sent, chains = %d,"
 		" size = %d\n", p, (u32_t) pbuf_clen(p), p->tot_len));
-#endif
 
 	LINK_STATS_INC(link.xmit);
 
 	return ERR_OK;
 }
+#endif  /* End of TX copied or zero-copy driver section */
 
 /** \brief  LPC EMAC interrupt handler.
 
