@@ -150,6 +150,11 @@ int main (void)
 		while (lpc_rx_queue(&lpc_netif));
 #endif
 
+#if LPC_PBUF_TX_ZEROCOPY
+		/* Free TX buffers that are done sending */
+		lpc_tx_reclaim(&lpc_netif);
+#endif
+
 		/* LWIP timers - ARP, DHCP, TCP, etc. */
 		sys_check_timeouts();
 
