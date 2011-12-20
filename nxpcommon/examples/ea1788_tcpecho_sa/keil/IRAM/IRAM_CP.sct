@@ -1,13 +1,5 @@
 ;-------------------------------------------------------------------------------------
-; Copyright (c) 2009-2011 Razer Ltd.
-; All rights reserved. This program contains proprietary and confidential information.
-;
-; Compiler:
-;   Keil Software µVision v4.03q, with NXP Semiconductor LPC313x proccessor support.
-;
-; Abstract:
-;   This file is the Scatter-Loading Description File and places the Device code as 
-;   well as the corresponding data into the proper arenas.
+;   Keil scatter loading file
 ;-------------------------------------------------------------------------------------
 
 ; Load region is in internal IRAM, 64KBytes

@@ -109,7 +109,7 @@ extern "C"
  *          but uses more memory. 1 buffer is allocated per descriptor. This
  *          must be a minimum value of 2.
  */
-#define LPC_NUM_BUFF_RXDESCS 4
+#define LPC_NUM_BUFF_RXDESCS 128
 
 /** \brief  Set this define to '1' to enable zero-copy pbufs for transmit.
  *          If this is used, the EMAC driver will not create or use any local
@@ -124,7 +124,7 @@ extern "C"
  *          value is set high. Use a low count when LPC_PBUF_TX_ZEROCOPY=0. Must
  *          be a minimum value of 2.
  */
-#define LPC_NUM_BUFF_TXDESCS 4
+#define LPC_NUM_BUFF_TXDESCS 128
 
 /** \brief  Set this define to 1 to enable bounce buffers for transmit pbufs
  *          that cannot be sent via the zero-copy method. Some chained pbufs
