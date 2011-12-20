@@ -41,6 +41,15 @@
  *   LPC177x_8x
  */
 
+ /** @mainpage lwip_lpc	NXP LPC LWIP library port
+ *
+ * Welcome to the NXP LPC LWIP port for NXP devices. This NXP supported
+ * port of LWIP provides support for various NXP devices with built-in
+ * MAC controllers. The port is maintained by NXP and will be updated
+ * and improved over time. The port is based on LWIP v1.4.0.
+ * @{
+ */
+ 
 /** @defgroup lwip_lpc	NXP LPC LWIP library port.
  *
  * This package provides a LWIP port to NXP LPC devices. The port
