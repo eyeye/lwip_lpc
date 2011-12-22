@@ -205,10 +205,6 @@ static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_enetdata, struct pbuf *p)
 	/* Save pbuf pointer for push to network layer later */
 	lpc_enetdata->rxb[idx] = p;
 
-	LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
-		("lpc_rxqueue_pbuf: pbuf packet queued: %p (free desc=%d)\n", p,
-			lpc_enetdata->rx_free_descs));
-
 	/* Wrap at end of descriptor list */
 	idx++;
 	if (idx >= LPC_NUM_BUFF_RXDESCS)
@@ -218,6 +214,10 @@ static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_enetdata, struct pbuf *p)
 	lpc_enetdata->rx_free_descs -= 1;
 	lpc_enetdata->rx_fill_desc_index = idx;
 	LPC_EMAC->RxConsumeIndex = idx;
+
+	LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
+		("lpc_rxqueue_pbuf: pbuf packet queued: %p (free desc=%d)\n", p,
+			lpc_enetdata->rx_free_descs));
 }
 
 /** \brief  Attempt to allocate and requeue a new pbuf for RX
@@ -770,7 +770,7 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 
 		LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
 			("lpc_low_level_output: pbuf packet(%p) sent, chain#=%d,"
-			" size = %d (index=%d)\n", q, dn, q->len, idx));
+			" size = %d (index=%d)\n", q->payload, dn, q->len, idx));
 
 		lpc_enetdata->ptxd[idx].packet = (u32_t) q->payload;
 
@@ -1033,8 +1033,8 @@ err_t lpc_enetif_init(struct netif *netif)
 	netif->hwaddr_len = ETHARP_HWADDR_LEN;
 
  	/* maximum transfer unit */
-	netif->mtu = EMAC_ETH_MAX_FLEN;
-  
+	netif->mtu = 1500;
+
 	/* device capabilities */
 	netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_UP |
 		NETIF_FLAG_ETHERNET;
