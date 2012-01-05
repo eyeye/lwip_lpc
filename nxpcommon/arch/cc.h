@@ -66,12 +66,11 @@ typedef uintptr_t          mem_ptr_t;
     #define PACK_STRUCT_FIELD(fld) fld
 #elif defined (__IAR_SYSTEMS_ICC__) 
 	/* IAR Embedded Workbench tools */
-#error
-    #define PACK_STRUCT_BEGIN
+    #define PACK_STRUCT_BEGIN __packed
     #define PACK_STRUCT_STRUCT
     #define PACK_STRUCT_END
     #define PACK_STRUCT_FIELD(fld) fld
-    #define PACK_STRUCT_USE_INCLUDES
+//    #define PACK_STRUCT_USE_INCLUDES
 #else 
 	/* GCC tools (CodeSourcery) */
 #error
