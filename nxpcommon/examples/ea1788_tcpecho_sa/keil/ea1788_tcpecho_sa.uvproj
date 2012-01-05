@@ -536,11 +536,6 @@
               <FilePath>..\..\..\arch\lpc177x_8x\keil\Retarget.c</FilePath>
             </File>
             <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\arch\lpc177x_8x\keil\Serial.c</FilePath>
-            </File>
-            <File>
               <FileName>ea1788_board.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\board\ea1788\ea1788_board.c</FilePath>
@@ -559,6 +554,11 @@
               <FileName>tcpecho_sa_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\tcpecho_sa_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1224,11 +1224,6 @@
               <FilePath>..\..\..\arch\lpc177x_8x\keil\Retarget.c</FilePath>
             </File>
             <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\arch\lpc177x_8x\keil\Serial.c</FilePath>
-            </File>
-            <File>
               <FileName>ea1788_board.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\board\ea1788\ea1788_board.c</FilePath>
@@ -1247,6 +1242,11 @@
               <FileName>tcpecho_sa_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\tcpecho_sa_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1912,11 +1912,6 @@
               <FilePath>..\..\..\arch\lpc177x_8x\keil\Retarget.c</FilePath>
             </File>
             <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\arch\lpc177x_8x\keil\Serial.c</FilePath>
-            </File>
-            <File>
               <FileName>ea1788_board.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\board\ea1788\ea1788_board.c</FilePath>
@@ -1935,6 +1930,11 @@
               <FileName>tcpecho_sa_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\tcpecho_sa_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2546,11 +2546,6 @@
               <FilePath>..\..\..\arch\lpc177x_8x\keil\Retarget.c</FilePath>
             </File>
             <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\arch\lpc177x_8x\keil\Serial.c</FilePath>
-            </File>
-            <File>
               <FileName>ea1788_board.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\board\ea1788\ea1788_board.c</FilePath>
@@ -2569,6 +2564,11 @@
               <FileName>tcpecho_sa_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\tcpecho_sa_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3180,11 +3180,6 @@
               <FilePath>..\..\..\arch\lpc177x_8x\keil\Retarget.c</FilePath>
             </File>
             <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\arch\lpc177x_8x\keil\Serial.c</FilePath>
-            </File>
-            <File>
               <FileName>ea1788_board.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\board\ea1788\ea1788_board.c</FilePath>
@@ -3203,6 +3198,11 @@
               <FileName>tcpecho_sa_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\tcpecho_sa_app.c</FilePath>
+            </File>
+            <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
             </File>
           </Files>
         </Group>
