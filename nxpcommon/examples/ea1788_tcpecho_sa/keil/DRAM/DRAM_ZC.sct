@@ -18,7 +18,7 @@ FLASH 0x00000000 0x40000 {
 
   ; DMA buffers need to be located in peripheral RAM, but not pbufs
   PIRAM 0xA0000000 0x10000000 {
-    lpc_emac_zcbuffs.o (+RW, +ZI)
+    lpc17_emac_zcbuffs.o (+RW, +ZI)
 	mem.o (+RW, +ZI)
 	memp.o (+RW, +ZI)
   }

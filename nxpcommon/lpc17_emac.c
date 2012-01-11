@@ -1,8 +1,8 @@
 /**********************************************************************
-* $Id$		lpc_emac.c			2011-11-20
+* $Id$		lpc17_emac.c			2011-11-20
 *//**
-* @file		lpc_emac.c
-* @brief	LPC ethernet driver for LWIP
+* @file		lpc17_emac.c
+* @brief	LPC17 ethernet driver for LWIP
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
@@ -34,10 +34,10 @@
 
 #include "lpc177x_8x_emac.h"
 #include "lpc177x_8x_clkpwr.h"
-#include "lpc_emac.h"
+#include "lpc17_emac.h"
 #include "lpc_emac_config.h"
 
-/** @defgroup lwip_emac_DRIVER	lpc EMAC driver for LWIP
+/** @defgroup lwip_emac_DRIVER	lpc17 EMAC driver for LWIP
  * @ingroup lwip_emac
  *
  * This driver is currently for the LPC177x_8x devices only, although

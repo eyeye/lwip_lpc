@@ -37,7 +37,7 @@
 #endif
 
 #include "lpc177x_8x.h"
-#include "lpc_emac.h"
+#include "lpc17_emac.h"
 #include "lpc_arch.h"
 #include "lpc_board.h"
 #include "lpc_lwip_debug.h"

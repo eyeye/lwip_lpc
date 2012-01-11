@@ -1,8 +1,8 @@
 /**********************************************************************
-* $Id$		lpc_emac.h			2011-11-20
+* $Id$		lpc17_emac.h			2011-11-20
 *//**
-* @file		lpc_emac.h
-* @brief	LPC ethernet driver header file for LWIP
+* @file		lpc17_emac.h
+* @brief	LPC17 ethernet driver header file for LWIP
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team

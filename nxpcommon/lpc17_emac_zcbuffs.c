@@ -1,8 +1,8 @@
 /**********************************************************************
-* $Id$		lpc_emac_zcbuffs.c			2011-11-20
+* $Id$		lpc17_emac_zcbuffs.c			2011-11-20
 *//**
-* @file		lpc_emac_zcbuffs.c
-* @brief	LPC ethernet driver buffer allocation for LWIP
+* @file		lpc17_emac_zcbuffs.c
+* @brief	LPC17 ethernet driver buffer allocation for LWIP
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
@@ -23,7 +23,7 @@
 * use without further testing or modification.
 **********************************************************************/
 
-#include "lpc_emac.h"
+#include "lpc17_emac.h"
 
 struct lpc_enetdata lpc_enetdata;
 

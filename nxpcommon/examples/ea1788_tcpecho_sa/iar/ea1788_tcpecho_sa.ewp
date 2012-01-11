@@ -2762,13 +2762,13 @@
       <name>$PROJ_DIR$\..\..\..\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\..\lpc17_emac.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\lpc17_emac_zcbuffs.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\arch\lpc_debug.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\lpc_emac.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\lpc_emac_zcbuffs.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\lpc_phy.c</name>

@@ -506,11 +506,6 @@
           <GroupName>Application</GroupName>
           <Files>
             <File>
-              <FileName>lpc_emac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\lpc_emac.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc_phy.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\lpc_phy.c</FilePath>
@@ -546,11 +541,6 @@
               <FilePath>..\..\..\..\contrib-1.4.0\apps\tcpecho_raw\echo.c</FilePath>
             </File>
             <File>
-              <FileName>lpc_emac_zcbuffs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\lpc_emac_zcbuffs.c</FilePath>
-            </File>
-            <File>
               <FileName>tcpecho_sa_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\tcpecho_sa_app.c</FilePath>
@@ -559,6 +549,16 @@
               <FileName>Serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc17_emac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc17_emac_zcbuffs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1194,11 +1194,6 @@
           <GroupName>Application</GroupName>
           <Files>
             <File>
-              <FileName>lpc_emac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\lpc_emac.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc_phy.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\lpc_phy.c</FilePath>
@@ -1234,11 +1229,6 @@
               <FilePath>..\..\..\..\contrib-1.4.0\apps\tcpecho_raw\echo.c</FilePath>
             </File>
             <File>
-              <FileName>lpc_emac_zcbuffs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\lpc_emac_zcbuffs.c</FilePath>
-            </File>
-            <File>
               <FileName>tcpecho_sa_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\tcpecho_sa_app.c</FilePath>
@@ -1247,6 +1237,16 @@
               <FileName>Serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc17_emac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc17_emac_zcbuffs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1882,11 +1882,6 @@
           <GroupName>Application</GroupName>
           <Files>
             <File>
-              <FileName>lpc_emac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\lpc_emac.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc_phy.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\lpc_phy.c</FilePath>
@@ -1922,11 +1917,6 @@
               <FilePath>..\..\..\..\contrib-1.4.0\apps\tcpecho_raw\echo.c</FilePath>
             </File>
             <File>
-              <FileName>lpc_emac_zcbuffs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\lpc_emac_zcbuffs.c</FilePath>
-            </File>
-            <File>
               <FileName>tcpecho_sa_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\tcpecho_sa_app.c</FilePath>
@@ -1935,6 +1925,16 @@
               <FileName>Serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc17_emac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc17_emac_zcbuffs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2516,11 +2516,6 @@
           <GroupName>Application</GroupName>
           <Files>
             <File>
-              <FileName>lpc_emac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\lpc_emac.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc_phy.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\lpc_phy.c</FilePath>
@@ -2556,11 +2551,6 @@
               <FilePath>..\..\..\..\contrib-1.4.0\apps\tcpecho_raw\echo.c</FilePath>
             </File>
             <File>
-              <FileName>lpc_emac_zcbuffs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\lpc_emac_zcbuffs.c</FilePath>
-            </File>
-            <File>
               <FileName>tcpecho_sa_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\tcpecho_sa_app.c</FilePath>
@@ -2569,6 +2559,16 @@
               <FileName>Serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc17_emac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc17_emac_zcbuffs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3150,11 +3150,6 @@
           <GroupName>Application</GroupName>
           <Files>
             <File>
-              <FileName>lpc_emac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\lpc_emac.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc_phy.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\lpc_phy.c</FilePath>
@@ -3190,11 +3185,6 @@
               <FilePath>..\..\..\..\contrib-1.4.0\apps\tcpecho_raw\echo.c</FilePath>
             </File>
             <File>
-              <FileName>lpc_emac_zcbuffs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\lpc_emac_zcbuffs.c</FilePath>
-            </File>
-            <File>
               <FileName>tcpecho_sa_app.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\source\tcpecho_sa_app.c</FilePath>
@@ -3203,6 +3193,16 @@
               <FileName>Serial.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc17_emac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc17_emac_zcbuffs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
