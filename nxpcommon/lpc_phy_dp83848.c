@@ -26,7 +26,6 @@
 #include "lwip/opt.h"
 #include "lwip/err.h"
 #include "lwip/snmp.h"
-#include "lpc177x_8x_emac.h"
 #include "lpc_emac_config.h"
 #include "lpc_phy.h"
 
@@ -139,13 +138,13 @@ static s32_t lpc_update_phy_sts(struct netif *netif, u32_t linksts)
 		changed = 1;
 		if (physts.phy_speed_100mbs) {
 			/* 100MBit mode. */
-			LPC_EMAC->SUPP = EMAC_SUPP_SPEED;
+			lpc_emac_set_speed(1);
 
 			NETIF_INIT_SNMP(netif, snmp_ifType_ethernet_csmacd, 100000000);
 		}
 		else {
 			/* 10MBit mode. */
-			LPC_EMAC->SUPP = 0;
+			lpc_emac_set_speed(0);
 
 			NETIF_INIT_SNMP(netif, snmp_ifType_ethernet_csmacd, 10000000);
 		}
@@ -155,18 +154,10 @@ static s32_t lpc_update_phy_sts(struct netif *netif, u32_t linksts)
 
 	if (physts.phy_full_duplex != olddphysts.phy_full_duplex) {
 		changed = 1;
-		if (physts.phy_full_duplex) {
-			/* Full duplex */
-			LPC_EMAC->MAC2    |= EMAC_MAC2_FULL_DUP;
-			LPC_EMAC->Command |= EMAC_CR_FULL_DUP;
-			LPC_EMAC->IPGT     = EMAC_IPGT_FULL_DUP;
-		}
-		else {
-			/* Half duplex mode. */
-			LPC_EMAC->MAC2    &= ~EMAC_MAC2_FULL_DUP;
-			LPC_EMAC->Command &= ~EMAC_CR_FULL_DUP;
-			LPC_EMAC->IPGT = EMAC_IPGT_HALF_DUP;
-		}
+		if (physts.phy_full_duplex)
+			lpc_emac_set_duplex(1);
+		else
+			lpc_emac_set_duplex(0);
 
 		olddphysts.phy_full_duplex = physts.phy_full_duplex;
 	}
@@ -268,7 +259,7 @@ s32_t lpc_phy_sts_sm(struct netif *netif)
 
 		case 1:
 			/* Wait for read status state */
-			if ((lpc_mii_read_status() & EMAC_MIND_BUSY) == 0) {
+			if (!lpc_mii_is_busy()) {
 				/* Update PHY status */
 				changed = lpc_update_phy_sts(netif, lpc_mii_read_data());
 				phyustate = 0;

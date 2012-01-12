@@ -84,12 +84,6 @@ struct lpc_enetdata {
  */
 extern struct lpc_enetdata lpc_enetdata;
 
-void lpc_mii_write_noblock(u32_t PhyReg, u32_t Value);
-err_t lpc_mii_write(u32_t PhyReg, u32_t Value);
-u32_t lpc_mii_read_status(void);
-u32_t lpc_mii_read_data(void);
-err_t lpc_mii_read(u32_t PhyReg, u32_t *data);
-void lpc_mii_read_noblock(u32_t PhyReg);
 void lpc_enetif_input(struct netif *netif);
 s32_t lpc_tx_ready(struct netif *netif);
 err_t lpc_enetif_init(struct netif *netif);

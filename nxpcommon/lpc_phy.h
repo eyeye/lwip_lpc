@@ -38,6 +38,16 @@ extern "C"
 s32_t lpc_phy_sts_sm(struct netif *netif);
 err_t lpc_phy_init(struct netif *netif);
 
+/* These PHY functions are usually part of the EMAC driver */
+void lpc_mii_write_noblock(u32_t PhyReg, u32_t Value);
+err_t lpc_mii_write(u32_t PhyReg, u32_t Value);
+u32_t lpc_mii_is_busy(void);
+u32_t lpc_mii_read_data(void);
+err_t lpc_mii_read(u32_t PhyReg, u32_t *data);
+void lpc_mii_read_noblock(u32_t PhyReg);
+void lpc_emac_set_duplex(int full_duplex);
+void lpc_emac_set_speed(int mbs_100);
+
 #ifdef __cplusplus
 }
 #endif

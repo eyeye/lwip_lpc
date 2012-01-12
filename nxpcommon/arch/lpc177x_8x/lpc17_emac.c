@@ -98,19 +98,17 @@ err_t lpc_mii_write(u32_t PhyReg, u32_t Value)
 	return sts;
 }
 
-/** \brief  Reads current MII link status
+/** \brief  Reads current MII link busy status
 
-    This function will return the current MII link status and is meant to be
-	used with non-blocking functions for monitor PHY status such as connection
-	state.
+    This function will return the current MII link busy status and is meant to
+	be used with non-blocking functions for monitor PHY status such as
+	connection state.
 
-	\returns         Current MII link status, an OR'ed value of EMAC_MIND_BUSY,
-	                 EMAC_MIND_SCAN, EMAC_MIND_NOT_VAL, and
-					 EMAC_MIND_MII_LINK_FAIL
+	\returns         !0 if the MII link is busy, otherwise 0
  */
-u32_t lpc_mii_read_status(void)
+u32_t lpc_mii_is_busy(void)
 {
-	return (u32_t) LPC_EMAC->MIND;
+	return (u32_t) (LPC_EMAC->MIND & EMAC_MIND_BUSY);
 }
 
 /** \brief  Starts a read operation via the MII link (non-blocking)
@@ -1007,6 +1005,39 @@ static err_t low_level_init(struct netif *netif)
 	LPC_EMAC->MAC1 |= EMAC_MAC1_REC_EN;
 
 	return err;
+}
+
+/**
+ * This function provides a method for the PHY to setup the EMAC
+ * for the PHY negotiated duplex mode.
+ *
+ * @param[in] full_duplex 0 = half duplex, 1 = full duplex
+ */
+void lpc_emac_set_duplex(int full_duplex)
+{
+	if (full_duplex) {
+		LPC_EMAC->MAC2    |= EMAC_MAC2_FULL_DUP;
+		LPC_EMAC->Command |= EMAC_CR_FULL_DUP;
+		LPC_EMAC->IPGT     = EMAC_IPGT_FULL_DUP;
+	} else {
+		LPC_EMAC->MAC2    &= ~EMAC_MAC2_FULL_DUP;
+		LPC_EMAC->Command &= ~EMAC_CR_FULL_DUP;
+		LPC_EMAC->IPGT = EMAC_IPGT_HALF_DUP;
+	}
+}
+
+/**
+ * This function provides a method for the PHY to setup the EMAC
+ * for the PHY negotiated bit rate.
+ *
+ * @param[in] mbs_100     0 = 10mbs mode, 1 = 100mbs mode
+ */
+void lpc_emac_set_speed(int mbs_100)
+{
+	if (mbs_100)
+		LPC_EMAC->SUPP = EMAC_SUPP_SPEED;
+	else
+		LPC_EMAC->SUPP = 0;
 }
 
 /**
