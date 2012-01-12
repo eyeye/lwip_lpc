@@ -346,7 +346,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\flash_zc</IncludePath>
+              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\flash_zc;..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -389,7 +389,12 @@
             <File>
               <FileName>startup_LPC177x_8x.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\ARM\startup_LPC177x_8x.s</FilePath>
+              <FilePath>..\..\ea1788_common\keil\startup_LPC177x_8x.s</FilePath>
+            </File>
+            <File>
+              <FileName>sdram_is42s32800d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -485,6 +490,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</FilePath>
             </File>
+            <File>
+              <FileName>lpc177x_8x_emc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_emc.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc177x_8x_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -536,19 +551,19 @@
               <FilePath>..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
             </File>
             <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+            </File>
+            <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1024,7 +1039,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\flash_cp</IncludePath>
+              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\flash_cp;..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1067,7 +1082,12 @@
             <File>
               <FileName>startup_LPC177x_8x.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\ARM\startup_LPC177x_8x.s</FilePath>
+              <FilePath>..\..\ea1788_common\keil\startup_LPC177x_8x.s</FilePath>
+            </File>
+            <File>
+              <FileName>sdram_is42s32800d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1163,6 +1183,16 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</FilePath>
             </File>
+            <File>
+              <FileName>lpc177x_8x_emc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_emc.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc177x_8x_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1214,19 +1244,19 @@
               <FilePath>..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
             </File>
             <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+            </File>
+            <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1702,7 +1732,7 @@
               <MiscControls></MiscControls>
               <Define>__RAM_MODE__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\iram_cp</IncludePath>
+              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\iram_cp;..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1745,7 +1775,12 @@
             <File>
               <FileName>startup_LPC177x_8x.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\ARM\startup_LPC177x_8x.s</FilePath>
+              <FilePath>..\..\ea1788_common\keil\startup_LPC177x_8x.s</FilePath>
+            </File>
+            <File>
+              <FileName>sdram_is42s32800d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1786,6 +1821,16 @@
               <FileName>lpc177x_8x_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc177x_8x_emc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_emc.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc177x_8x_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_timer.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1838,19 +1883,19 @@
               <FilePath>..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
             </File>
             <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+            </File>
+            <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2326,7 +2371,7 @@
               <MiscControls></MiscControls>
               <Define>__RAM_MODE__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\iram_zc</IncludePath>
+              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\iram_zc;..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2369,7 +2414,12 @@
             <File>
               <FileName>startup_LPC177x_8x.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\ARM\startup_LPC177x_8x.s</FilePath>
+              <FilePath>..\..\ea1788_common\keil\startup_LPC177x_8x.s</FilePath>
+            </File>
+            <File>
+              <FileName>sdram_is42s32800d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2410,6 +2460,16 @@
               <FileName>lpc177x_8x_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc177x_8x_emc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_emc.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc177x_8x_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\Drivers\source\lpc177x_8x_timer.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2462,19 +2522,19 @@
               <FilePath>..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
             </File>
             <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+            </File>
+            <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>

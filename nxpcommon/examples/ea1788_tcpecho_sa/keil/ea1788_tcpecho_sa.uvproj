@@ -346,7 +346,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\tcpecho_raw;..\source\configs\dram_zc</IncludePath>
+              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\tcpecho_raw;..\source\configs\dram_zc;..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -389,7 +389,7 @@
             <File>
               <FileName>startup_LPC177x_8x.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\ea1788_common\ARM\startup_LPC177x_8x.s</FilePath>
+              <FilePath>C:\dev\git\lwip_work\updated\lpc177x_8x\lwip_lpc\nxpcommon\examples\ea1788_common\keil\startup_LPC177x_8x.s</FilePath>
             </File>
             <File>
               <FileName>sdram_is42s32800d.c</FileName>
@@ -553,12 +553,12 @@
             <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1034,7 +1034,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\tcpecho_raw;..\source\configs\flash_zc</IncludePath>
+              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\tcpecho_raw;..\source\configs\flash_zc;..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1077,7 +1077,7 @@
             <File>
               <FileName>startup_LPC177x_8x.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\ea1788_common\ARM\startup_LPC177x_8x.s</FilePath>
+              <FilePath>C:\dev\git\lwip_work\updated\lpc177x_8x\lwip_lpc\nxpcommon\examples\ea1788_common\keil\startup_LPC177x_8x.s</FilePath>
             </File>
             <File>
               <FileName>sdram_is42s32800d.c</FileName>
@@ -1241,12 +1241,12 @@
             <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1722,7 +1722,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\tcpecho_raw;..\source\configs\flash_cp</IncludePath>
+              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\tcpecho_raw;..\source\configs\flash_cp;..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1765,7 +1765,7 @@
             <File>
               <FileName>startup_LPC177x_8x.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\ea1788_common\ARM\startup_LPC177x_8x.s</FilePath>
+              <FilePath>C:\dev\git\lwip_work\updated\lpc177x_8x\lwip_lpc\nxpcommon\examples\ea1788_common\keil\startup_LPC177x_8x.s</FilePath>
             </File>
             <File>
               <FileName>sdram_is42s32800d.c</FileName>
@@ -1929,12 +1929,12 @@
             <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2410,7 +2410,7 @@
               <MiscControls></MiscControls>
               <Define>__RAM_MODE__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\tcpecho_raw;..\source\configs\iram_cp</IncludePath>
+              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\tcpecho_raw;..\source\configs\iram_cp;..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2453,7 +2453,7 @@
             <File>
               <FileName>startup_LPC177x_8x.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\ea1788_common\ARM\startup_LPC177x_8x.s</FilePath>
+              <FilePath>C:\dev\git\lwip_work\updated\lpc177x_8x\lwip_lpc\nxpcommon\examples\ea1788_common\keil\startup_LPC177x_8x.s</FilePath>
             </File>
             <File>
               <FileName>sdram_is42s32800d.c</FileName>
@@ -2563,12 +2563,12 @@
             <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3044,7 +3044,7 @@
               <MiscControls></MiscControls>
               <Define>__RAM_MODE__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\tcpecho_raw;..\source\configs\iram_zc</IncludePath>
+              <IncludePath>..\source;..\..\..\arch;..\..\..\board;..\..\..\..\..\Drivers\include;..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\nxpcommon;..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\BoardSupport;..\..\..\..\contrib-1.4.0\apps\tcpecho_raw;..\source\configs\iram_zc;..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3087,7 +3087,7 @@
             <File>
               <FileName>startup_LPC177x_8x.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\..\ea1788_common\ARM\startup_LPC177x_8x.s</FilePath>
+              <FilePath>C:\dev\git\lwip_work\updated\lpc177x_8x\lwip_lpc\nxpcommon\examples\ea1788_common\keil\startup_LPC177x_8x.s</FilePath>
             </File>
             <File>
               <FileName>sdram_is42s32800d.c</FileName>
@@ -3197,12 +3197,12 @@
             <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\lpc17_emac_zcbuffs.c</FilePath>
+              <FilePath>..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
           </Files>
         </Group>

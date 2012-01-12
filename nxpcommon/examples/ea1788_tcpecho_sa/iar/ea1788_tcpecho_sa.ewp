@@ -304,6 +304,7 @@
           <state>$PROJ_DIR$\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\BoardSupport</state>
           <state>$PROJ_DIR$\..\..\..\..\contrib-1.4.0\apps\tcpecho_raw</state>
           <state>$PROJ_DIR$\..\source\configs\flash_zc</state>
+          <state>$PROJ_DIR$\..\..\..\..\nxpcommon\arch\lpc177x_8x</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1220,6 +1221,7 @@
           <state>$PROJ_DIR$\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\BoardSupport</state>
           <state>$PROJ_DIR$\..\..\..\..\contrib-1.4.0\apps\tcpecho_raw</state>
           <state>$PROJ_DIR$\..\source\configs\flash_cp</state>
+          <state>$PROJ_DIR$\..\..\..\..\nxpcommon\arch\lpc177x_8x</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -2136,6 +2138,7 @@
           <state>$PROJ_DIR$\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\BoardSupport</state>
           <state>$PROJ_DIR$\..\..\..\..\contrib-1.4.0\apps\tcpecho_raw</state>
           <state>$PROJ_DIR$\..\source\configs\dram_zc</state>
+          <state>$PROJ_DIR$\..\..\..\..\nxpcommon\arch\lpc177x_8x</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -2762,10 +2765,10 @@
       <name>$PROJ_DIR$\..\..\..\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\lpc17_emac.c</name>
+      <name>$PROJ_DIR$\..\..\..\arch\lpc177x_8x\lpc17_emac.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\lpc17_emac_zcbuffs.c</name>
+      <name>$PROJ_DIR$\..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\arch\lpc_debug.c</name>
