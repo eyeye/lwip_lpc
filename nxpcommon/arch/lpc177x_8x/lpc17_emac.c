@@ -329,9 +329,7 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 	idx = LPC_EMAC->RxConsumeIndex;
 	if (LPC_EMAC->RxProduceIndex != idx) {
 		/* Handle errors */
-		if (lpc_enetdata->prxs[idx].statusinfo & (EMAC_RINFO_NO_DESCR |
-			EMAC_RINFO_ALIGN_ERR | EMAC_RINFO_LEN_ERR | EMAC_RINFO_SYM_ERR |
-			EMAC_RINFO_CRC_ERR)) {
+		if (lpc_enetdata->prxs[idx].statusinfo & EMAC_RINFO_ERR) {
 #if LINK_STATS
 			if (lpc_enetdata->prxs[idx].statusinfo & (EMAC_RINFO_CRC_ERR |
 				EMAC_RINFO_SYM_ERR | EMAC_RINFO_ALIGN_ERR))
