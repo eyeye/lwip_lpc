@@ -73,7 +73,6 @@ typedef uintptr_t          mem_ptr_t;
 //    #define PACK_STRUCT_USE_INCLUDES
 #else 
 	/* GCC tools (CodeSourcery) */
-#error
     #define PACK_STRUCT_BEGIN
     #define PACK_STRUCT_STRUCT __attribute__ ((__packed__))
     #define PACK_STRUCT_END

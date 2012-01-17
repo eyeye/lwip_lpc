@@ -329,7 +329,8 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 	idx = LPC_EMAC->RxConsumeIndex;
 	if (LPC_EMAC->RxProduceIndex != idx) {
 		/* Handle errors */
-		if (lpc_enetdata->prxs[idx].statusinfo & EMAC_RINFO_ERR) {
+		if (lpc_enetdata->prxs[idx].statusinfo & (EMAC_RINFO_CRC_ERR |
+			EMAC_RINFO_SYM_ERR | EMAC_RINFO_ALIGN_ERR | EMAC_RINFO_LEN_ERR)) {
 #if LINK_STATS
 			if (lpc_enetdata->prxs[idx].statusinfo & (EMAC_RINFO_CRC_ERR |
 				EMAC_RINFO_SYM_ERR | EMAC_RINFO_ALIGN_ERR))
@@ -350,7 +351,8 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 			}
 
 			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
-				("lpc_low_level_input: Packet dropped with errors\n"));
+				("lpc_low_level_input: Packet dropped with errors (0x%x)\n",
+				lpc_enetdata->prxs[idx].statusinfo));
 		}
 		else {
 			/* A packet is waiting, get length */
