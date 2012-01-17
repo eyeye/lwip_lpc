@@ -179,7 +179,7 @@ SECTIONS
     __data_start__ = .;
 	PROVIDE(__data_placement = .);
 	PROVIDE(__data_load = LOADADDR(.data));
-	lpc17_emac_zcbuffs.o mem.o(.data .data.* .ram)
+	lpc17_emac_zcbuffs.o mem.o memp.o (.data .data.* .ram)
     . = ALIGN (8);
     __data_end__ = .;
     _edata = .;
@@ -187,8 +187,8 @@ SECTIONS
   .bss :
   {
     __bss_start__ = .;
-    lpc17_emac_zcbuffs.o mem.o (.bss .bss.*)
-    lpc17_emac_zcbuffs.o mem.o (.shbss COMMON .ram.b)
+    lpc17_emac_zcbuffs.o mem.o memp.o (.bss .bss.*)
+    lpc17_emac_zcbuffs.o mem.o memp.o (.shbss COMMON .ram.b)
     . = ALIGN (8);
     __bss_end__ = .;
     _end = .;

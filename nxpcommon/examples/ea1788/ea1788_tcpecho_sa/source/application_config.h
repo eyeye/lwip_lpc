@@ -33,7 +33,14 @@
 /** \brief  This application uses UART0 for output with printf and
             LWIP debug statements.
  */
-#define UART_REDIRECT -1 /**< Set to UART number for UART re-direction, or -1 for NULL output */
+#ifdef LWIP_DEBUG
+/* Use UART 0 for printf redirection and LWIP debug output */
+#define UART_REDIRECT 0
+
+#else
+/* Disable UART/debug output, will redirect to a NULL device */
+#define UART_REDIRECT -1
+#endif
 
 /**
  * @}

@@ -24,7 +24,7 @@
 # use without further testing or modification. 
 ########################################################################
 PROJ_ROOT			= $(CURDIR)/../../../../../..
-EXECNAME    =ea1788_tcpecho_sa
+EXECNAME    =ea1788_httpraw_sa
 EXDIR		=./
 LWIP_ROOT           = $(PROJ_ROOT)/lwip_lpc
 
@@ -80,15 +80,15 @@ VPATH   += $(LWIP_ROOT)/nxpcommon/arch
 VPATH   += $(LWIP_ROOT)/nxpcommon/arch/lpc177x_8x
 VPATH   += $(LWIP_ROOT)/nxpcommon/arch/lpc177x_8x/gnu
 VPATH   += $(LWIP_ROOT)/nxpcommon/board/ea1788
-VPATH   += $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_tcpecho_sa/source
+VPATH   += $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_httpraw_sa/source
 IPATH    = -I$(LWIP_ROOT)/nxpcommon
 IPATH   += -I$(LWIP_ROOT)/nxpcommon/arch
 IPATH   += -I$(LWIP_ROOT)/nxpcommon/arch/lpc177x_8x
 IPATH   += -I$(LWIP_ROOT)/nxpcommon/board
-IPATH   += -I$(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_tcpecho_sa/source
+IPATH   += -I$(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_httpraw_sa/source
 APPOBJS  = lpc17_emac.o lpc17_emac_zcbuffs.o lpc_phy.o
 APPOBJS += lpc_debug.o sys_arch.o Serial.o lpc177x_8x_systick_arch.o
-APPOBJS += retarget.o ea1788_board.o tcpecho_sa_app.o
+APPOBJS += retarget.o ea1788_board.o httpraw_sa_app.o
 
 # LWIP core
 VPATH   += $(LWIP_ROOT)/lwip-1.4.0/src/core
@@ -103,9 +103,9 @@ APPOBJS += udp.o autoip.o icmp.o igmp.o inet.o inet_chksum.o ip.o
 APPOBJS += ip_addr.o ip_frag.o etharp.o
 
 # LWIP contrib
-VPATH   += $(LWIP_ROOT)/contrib-1.4.0/apps/tcpecho_raw
-IPATH   += -I$(LWIP_ROOT)/contrib-1.4.0/apps/tcpecho_raw
-APPOBJS += echo.o
+VPATH   += $(LWIP_ROOT)/contrib-1.4.0/apps/httpserver_raw
+IPATH   += -I$(LWIP_ROOT)/contrib-1.4.0/apps/httpserver_raw
+APPOBJS += fs.o httpd.o
 
 ########################################################################
 #
@@ -123,7 +123,7 @@ LDSCRIPTDRAMZC  = linker/ldscript_dram_zc_gnu.ld
 LDSCRIPTFLASHCP = linker/ldscript_flash_cp_gnu.ld
 LDSCRIPTFLASHZC = linker/ldscript_flash_zc_gnu.ld
 
-#CFLAGS += -DLWIP_DEBUG
+CFLAGS += -DLWIP_DEBUG
 LDFLAGS += -Xlinker --gc-sections
 
 ########################################################################
@@ -136,7 +136,7 @@ default: dram_zc
 
 dram_zc: LDSCRIPT=$(LDSCRIPTDRAMZC)
 dram_zc: AFLAGS += --defsym RAM_MODE=0
-dram_zc: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_tcpecho_sa/source/configs/dram_zc
+dram_zc: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_httpraw_sa/source/configs/dram_zc
 dram_zc: CFLAGS += $(IPATH)
 dram_zc:  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS)
 	$(LD) $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS) $(LDFLAGS) $(LK) $(SCAN) $(MAP) \
@@ -153,7 +153,7 @@ dram_zc:  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS)
 
 flash_cp: LDSCRIPT=$(LDSCRIPTFLASHCP)
 flash_cp: AFLAGS += --defsym RAM_MODE=0 
-flash_cp: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_tcpecho_sa/source/configs/flash_cp
+flash_cp: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_httpraw_sa/source/configs/flash_cp
 flash_cp: CFLAGS += $(IPATH)
 flash_cp:  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS)
 	$(LD) $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS) $(LDFLAGS) $(LK) $(SCAN) $(MAP) \
@@ -170,7 +170,7 @@ flash_cp:  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS)
 
 flash_zc: LDSCRIPT=$(LDSCRIPTFLASHZC)
 flash_zc: AFLAGS += --defsym RAM_MODE=0 
-flash_zc: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_tcpecho_sa/source/configs/flash_zc
+flash_zc: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_httpraw_sa/source/configs/flash_zc
 flash_zc: CFLAGS += $(IPATH)
 flash_zc:  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS)
 	$(LD) $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS) $(LDFLAGS) $(LK) $(SCAN) $(MAP) \

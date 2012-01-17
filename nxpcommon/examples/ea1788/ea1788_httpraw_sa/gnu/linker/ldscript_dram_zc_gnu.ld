@@ -24,7 +24,6 @@ MEMORY
 {
   rom (rx)   : ORIGIN = 0x00000000, LENGTH = 256K
   iram (rwx) : ORIGIN = 0x10000000, LENGTH =  64K
-  pram (rwx) : ORIGIN = 0x20000000, LENGTH =  32K
   ram (iarwx): ORIGIN = 0xA0000000, LENGTH =  16M
   
   ram1(rwx)  : ORIGIN = 0x20000000, LENGTH = 16k
@@ -172,29 +171,6 @@ SECTIONS
   __cs3_region_size_rom = LENGTH(rom);
   __cs3_region_num = 1;
 
-/* Data and buffers in PRAM */
-  .data :
-  {
-    __cs3_region_start_ram = .;
-    __data_start__ = .;
-	PROVIDE(__data_placement = .);
-	PROVIDE(__data_load = LOADADDR(.data));
-	lpc17_emac_zcbuffs.o mem.o(.data .data.* .ram)
-    . = ALIGN (8);
-    __data_end__ = .;
-    _edata = .;
-  } >pram AT>rom
-  .bss :
-  {
-    __bss_start__ = .;
-    lpc17_emac_zcbuffs.o mem.o (.bss .bss.*)
-    lpc17_emac_zcbuffs.o mem.o (.shbss COMMON .ram.b)
-    . = ALIGN (8);
-    __bss_end__ = .;
-    _end = .;
-    __end = .;
-  } >pram AT>rom
-
 /* Scratch data and early init data in IRAM */
   .data_early :
   {
@@ -202,12 +178,9 @@ SECTIONS
     __data_early_start = .;
 	PROVIDE(__data_early_placement = .);
 	PROVIDE(__data_early_load = LOADADDR(.data_early));
-    KEEP(*(.jcr))
-    *(.cs3.region-head.ram)
-    *(.got.plt) *(.got)
-    *(.shdata)
-    *(.gnu.linkonce.d.*)
-    *( .data .data.* .ram)
+    lpc177x_8x_clkpwr.o lpc177x_8x_emc.o lpc177x_8x_gpio.o ( .data .data.* common .ram.b)
+    lpc177x_8x_pinsel.o lpc177x_8x_systick.o lpc177x_8x_timer.o (.data .data.* common .ram.b)
+    system_LPC177x_8x.o sdram_is42s32800d.o (.data .data.* common .ram.b)
     . = ALIGN (4);
     __data_early_end = .;
   } >iram AT>rom
@@ -215,10 +188,9 @@ SECTIONS
   {
     . = ALIGN(4);
     __bss_early_start = .;
-    *(.shbss)
-    *(.bss .bss.* .gnu.linkonce.b.*)
-    *(COMMON)
-    *(.ram.b)
+    lpc177x_8x_clkpwr.o lpc177x_8x_emc.o lpc177x_8x_gpio.o (.bss .bss.*)
+    lpc177x_8x_pinsel.o lpc177x_8x_systick.o lpc177x_8x_timer.o (.bss .bss.*)
+    system_LPC177x_8x.o sdram_is42s32800d.o (.bss .bss.*)
     . = ALIGN (4);
     __bss_early_end = .;
   } >iram AT>rom
@@ -230,14 +202,45 @@ SECTIONS
     _estack = .;
     PROVIDE(__cs3_stack = .);
   } >iram AT>rom
+
+/* Data, buffers, and heap in DRAM */
+  .data :
+  {
+    __cs3_region_start_ram = .;
+    __data_start__ = .;
+	PROVIDE(__data_placement = .);
+	PROVIDE(__data_load = LOADADDR(.data));
+    *(.cs3.region-head.ram)
+    KEEP(*(.jcr))
+    *(.got.plt) *(.got)
+    *(.shdata)
+    *(.data .data.* .gnu.linkonce.d.*)
+    *(.ram)
+    . = ALIGN (8);
+    __data_end__ = .;
+    _edata = .;
+  } >ram AT>rom
+  .bss :
+  {
+    __bss_start__ = .;
+    *(.shbss)
+    *(.bss .bss.* .gnu.linkonce.b.*)
+    *(COMMON)
+    *(.ram.b)
+    . = ALIGN (8);
+    __bss_end__ = .;
+    _end = .;
+    __end = .;
+  } >ram AT>rom
   .heap (NOLOAD) :
   {
+    . = __end;
 	. = ALIGN(4);
     __cs3_heap_start = .;
     . = . + __cs3_heap_size;
     . = ALIGN(4);
     __cs3_heap_end = .;
-  } >iram AT>rom
+  } >ram AT>rom
 
   /* This used for USB RAM section */
   .usb_ram (NOLOAD):
