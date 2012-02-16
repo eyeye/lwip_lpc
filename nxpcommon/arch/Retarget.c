@@ -1,3 +1,51 @@
+#if   defined ( __CC_ARM )
+/******************************************************************************/
+/* RETARGET.C: 'Retarget' layer for target-dependent low level functions      */
+/******************************************************************************/
+/* This file is part of the uVision/ARM development tools.                    */
+/* Copyright (c) 2005-2006 Keil Software. All rights reserved.                */
+/* This software may only be used under the terms of a valid, current,        */
+/* end user licence from KEIL for a compatible version of KEIL software       */
+/* development tools. Nothing else gives you the right to use this software.  */
+/******************************************************************************/
+
+#include <stdio.h>
+#include <rt_misc.h>
+
+#pragma import(__use_no_semihosting_swi)
+
+
+extern int  sendchar(int ch);  /* in serial.c */
+
+
+struct __FILE { int handle; /* Add whatever you need here */ };
+FILE __stdout;
+
+
+int fputc(int ch, FILE *f) {
+  return (sendchar(ch));
+}
+
+int fgetc(FILE *f) {
+  return (getkey());
+}
+
+int ferror(FILE *f) {
+  /* Your implementation of ferror */
+  return EOF;
+}
+
+
+void _ttywrch(int ch) {
+  sendchar(ch);
+}
+
+
+void _sys_exit(int return_code) {
+label:  goto label;  /* endless loop */
+}
+
+#elif defined ( __ICCARM__ )
 /*******************
  *
  * Copyright 1998-2003 IAR Systems.  All rights reserved.
@@ -38,9 +86,6 @@ int sendchar (int ch);
 
 size_t __write(int handle, const unsigned char * buffer, size_t size)
 {
-  /* Remove the #if #endif pair to enable the implementation */
-#if 1    
-
   size_t nChars = 0;
 
   if (buffer == 0)
@@ -68,14 +113,30 @@ size_t __write(int handle, const unsigned char * buffer, size_t size)
   }
 
   return nChars;
-
-#else
-
-  /* Always return error code when implementation is disabled. */
-  return _LLIO_ERROR;
-
-#endif
-
 }
 
 _STD_END
+
+#elif defined ( __GNUC__ )
+#include <stdio.h>
+
+int _read (int file, char *ptr, int len)
+{
+	/* Can be implemented to getc(), but not used */
+	return 1;
+}
+	
+int _write (int file, char *ptr, int len)
+{
+	int i;
+
+	/* Send characters on the serial port */
+	for (i = 0; i < len; i++)
+	{
+		sendchar((int) *ptr);
+		ptr++;
+	}
+
+	return len;
+}
+#endif
