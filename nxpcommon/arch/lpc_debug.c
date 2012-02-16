@@ -24,7 +24,6 @@
 **********************************************************************/
 
 #include "lwip/opt.h"
-#include "lpc_lwip_debug.h"
 #include "lpc_board.h"
 
 /** @ingroup lwip_lpc_debug
@@ -45,7 +44,7 @@
 void assert_printf(char *msg, int line, char *file)
 {
 	if (msg) {
-		APP_DEBUG("%s:%d in file %s\n", msg, line, file);
+		LWIP_DEBUGF(1, ("%s:%d in file %s\n", msg, line, file));
 		while (1) {
 			/* Fast LED flash */
 			led_set(0);

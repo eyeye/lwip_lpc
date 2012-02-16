@@ -1,3 +1,5 @@
+#include "debug_frmwrk.h"
+
 #if   defined ( __CC_ARM )
 /******************************************************************************/
 /* RETARGET.C: 'Retarget' layer for target-dependent low level functions      */
@@ -14,32 +16,25 @@
 
 #pragma import(__use_no_semihosting_swi)
 
-
-extern int  sendchar(int ch);  /* in serial.c */
-
-
 struct __FILE { int handle; /* Add whatever you need here */ };
 FILE __stdout;
 
-
 int fputc(int ch, FILE *f) {
-  return (sendchar(ch));
+	UARTPutChar(DEBUG_UART_PORT, (uint8_t) ch);
+	return ch;
 }
 
 int fgetc(FILE *f) {
-  return (getkey());
+	return (int) UARTGetChar (DEBUG_UART_PORT);
 }
 
 int ferror(FILE *f) {
-  /* Your implementation of ferror */
   return EOF;
 }
 
-
 void _ttywrch(int ch) {
-  sendchar(ch);
+	UARTPutChar(DEBUG_UART_PORT, (uint8_t) ch);
 }
-
 
 void _sys_exit(int return_code) {
 label:  goto label;  /* endless loop */
@@ -107,7 +102,7 @@ size_t __write(int handle, const unsigned char * buffer, size_t size)
 
   for (/* Empty */; size != 0; --size)
   {
-    sendchar((int) *buffer++);
+	UARTPutChar(DEBUG_UART_PORT, (uint8_t) *buffer++);
 
     ++nChars;
   }
@@ -133,7 +128,7 @@ int _write (int file, char *ptr, int len)
 	/* Send characters on the serial port */
 	for (i = 0; i < len; i++)
 	{
-		sendchar((int) *ptr);
+		UARTPutChar(DEBUG_UART_PORT, (uint8_t) *ptr);
 		ptr++;
 	}
 

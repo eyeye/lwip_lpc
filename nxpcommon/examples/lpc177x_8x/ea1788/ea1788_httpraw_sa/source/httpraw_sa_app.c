@@ -38,11 +38,9 @@
 
 #include "lpc177x_8x.h"
 #include "lpc17_emac.h"
+#include "debug_frmwrk.h"
 #include "lpc_arch.h"
 #include "lpc_board.h"
-#include "lpc_lwip_debug.h"
-#include "application_config.h"
-#include "lpc_phy.h" /* For the PHY monitor support */
 #include "httpd.h"
 
 /** @defgroup httpraw_sa_app	httpd raw server
@@ -88,27 +86,21 @@ int main (void)
 	/* Setup a 1mS sysTick for the primary time base */
 	SysTick_Enable(1);
 
-#ifdef UART_REDIRECT
-	/* Re-direct ouput to selected UART */
-	init_redirect();
-#endif
-#ifdef NULL_REDIRECT
-	/* Re-direct ouput to NULL device (nowhere) */
-	init_redirect();
-#endif
+	/* Initialize debug output via serial port */
+	debug_frmwrk_init();
 
 	/* Initialize LWIP */
 	err = lwip_init();
 	if (err != ERR_OK) {
 		if (err = ERR_CONN)
-			APP_DEBUG("Ethernet link not yet detected, will continue\n");
+			LWIP_DEBUGF(1, ("Ethernet link not yet detected, will continue\n"));
 		else {
-			APP_DEBUG("Error %d initializing LWIP, stopping.\n", err);
+			LWIP_DEBUGF(1, ("Error %d initializing LWIP, stopping.\n", err));
 			while (1);
 		}
 	}
 
-	APP_DEBUG("Starting httpd...\n");
+	LWIP_DEBUGF(1, ("Starting httpd...\n"));
 
 	/* Static IP assignment */
 #if LWIP_DHCP

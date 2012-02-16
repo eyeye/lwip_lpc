@@ -73,7 +73,7 @@
       <OPTFL>
         <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>1</IsCurrentTarget>
+        <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
       <CpuCode>0</CpuCode>
       <DllOpt>
@@ -178,7 +178,7 @@
     <TargetOption>
       <CLKADS>12000000</CLKADS>
       <OPTTT>
-        <gFlags>0</gFlags>
+        <gFlags>1</gFlags>
         <BeepAtEnd>1</BeepAtEnd>
         <RunSim>1</RunSim>
         <RunTarget>0</RunTarget>
@@ -222,7 +222,7 @@
         <LExpSel>0</LExpSel>
       </OPTXL>
       <OPTFL>
-        <tvExp>0</tvExp>
+        <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
         <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
@@ -269,15 +269,37 @@
         <tIfile></tIfile>
         <pMon>BIN\UL2CM3.DLL</pMon>
       </DebugOpt>
+      <TargetDriverDllRegistry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>DLGTARM</Key>
+          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(350=-1,-1,-1,-1,0)(250=-1,-1,-1,-1,0)(270=-1,-1,-1,-1,0)(314=-1,-1,-1,-1,0)(292=-1,-1,-1,-1,0)(303=-1,-1,-1,-1,0)(111=-1,-1,-1,-1,0)(114=-1,-1,-1,-1,0)(410=-1,-1,-1,-1,0)(320=-1,-1,-1,-1,0)(210=-1,-1,-1,-1,0)(362=-1,-1,-1,-1,0)(363=-1,-1,-1,-1,0)(364=-1,-1,-1,-1,0)(365=-1,-1,-1,-1,0)(366=-1,-1,-1,-1,0)(367=-1,-1,-1,-1,0)(332=-1,-1,-1,-1,0)(333=-1,-1,-1,-1,0)(334=-1,-1,-1,-1,0)(335=-1,-1,-1,-1,0)(336=-1,-1,-1,-1,0)(337=-1,-1,-1,-1,0)(345=-1,-1,-1,-1,0)(346=-1,-1,-1,-1,0)(390=-1,-1,-1,-1,0)(381=-1,-1,-1,-1,0)(382=-1,-1,-1,-1,0)(383=-1,-1,-1,-1,0)(384=-1,-1,-1,-1,0)(385=-1,-1,-1,-1,0)(197=-1,-1,-1,-1,0)(198=-1,-1,-1,-1,0)(191=-1,-1,-1,-1,0)(192=-1,-1,-1,-1,0)(261=-1,-1,-1,-1,0)(262=-1,-1,-1,-1,0)(263=-1,-1,-1,-1,0)(231=-1,-1,-1,-1,0)(232=-1,-1,-1,-1,0)(233=-1,-1,-1,-1,0)(130=-1,-1,-1,-1,0)(131=-1,-1,-1,-1,0)(132=-1,-1,-1,-1,0)(133=-1,-1,-1,-1,0)(141=-1,-1,-1,-1,0)(142=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(400=-1,-1,-1,-1,0)(370=-1,-1,-1,-1,0)(280=-1,-1,-1,-1,0)(240=-1,-1,-1,-1,0)</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>ARMDBGFLAGS</Key>
+          <Name></Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>DLGUARM</Key>
+          <Name>(105=-1,-1,-1,-1,0)(106=-1,-1,-1,-1,0)(107=-1,-1,-1,-1,0)</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>UL2CM3</Key>
+          <Name>-UV0589N8E -O142 -S0 -C0 -N00("ARM CoreSight JTAG-DP") -D00(4BA00477) -L00(4) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD10000000 -FC800 -FN1 -FF0LPC_IAP_256 -FS00 -FL040000</Name>
+        </SetRegEntry>
+      </TargetDriverDllRegistry>
       <DebugFlag>
         <trace>0</trace>
         <periodic>0</periodic>
-        <aLwin>0</aLwin>
+        <aLwin>1</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
         <aSer2>0</aSer2>
         <aPa>0</aPa>
-        <viewmode>0</viewmode>
+        <viewmode>1</viewmode>
         <vrSel>0</vrSel>
         <aSym>0</aSym>
         <aTbox>0</aTbox>
@@ -307,7 +329,7 @@
     <TargetOption>
       <CLKADS>12000000</CLKADS>
       <OPTTT>
-        <gFlags>0</gFlags>
+        <gFlags>1</gFlags>
         <BeepAtEnd>1</BeepAtEnd>
         <RunSim>1</RunSim>
         <RunTarget>0</RunTarget>
@@ -351,7 +373,7 @@
         <LExpSel>0</LExpSel>
       </OPTXL>
       <OPTFL>
-        <tvExp>0</tvExp>
+        <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
         <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
@@ -398,15 +420,37 @@
         <tIfile></tIfile>
         <pMon>BIN\UL2CM3.DLL</pMon>
       </DebugOpt>
+      <TargetDriverDllRegistry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>DLGTARM</Key>
+          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(350=-1,-1,-1,-1,0)(250=-1,-1,-1,-1,0)(270=-1,-1,-1,-1,0)(314=-1,-1,-1,-1,0)(292=-1,-1,-1,-1,0)(303=-1,-1,-1,-1,0)(111=-1,-1,-1,-1,0)(114=-1,-1,-1,-1,0)(410=-1,-1,-1,-1,0)(320=-1,-1,-1,-1,0)(210=-1,-1,-1,-1,0)(362=-1,-1,-1,-1,0)(363=-1,-1,-1,-1,0)(364=-1,-1,-1,-1,0)(365=-1,-1,-1,-1,0)(366=-1,-1,-1,-1,0)(367=-1,-1,-1,-1,0)(332=-1,-1,-1,-1,0)(333=-1,-1,-1,-1,0)(334=-1,-1,-1,-1,0)(335=-1,-1,-1,-1,0)(336=-1,-1,-1,-1,0)(337=-1,-1,-1,-1,0)(345=-1,-1,-1,-1,0)(346=-1,-1,-1,-1,0)(390=-1,-1,-1,-1,0)(381=-1,-1,-1,-1,0)(382=-1,-1,-1,-1,0)(383=-1,-1,-1,-1,0)(384=-1,-1,-1,-1,0)(385=-1,-1,-1,-1,0)(197=-1,-1,-1,-1,0)(198=-1,-1,-1,-1,0)(191=-1,-1,-1,-1,0)(192=-1,-1,-1,-1,0)(261=-1,-1,-1,-1,0)(262=-1,-1,-1,-1,0)(263=-1,-1,-1,-1,0)(231=-1,-1,-1,-1,0)(232=-1,-1,-1,-1,0)(233=-1,-1,-1,-1,0)(130=-1,-1,-1,-1,0)(131=-1,-1,-1,-1,0)(132=-1,-1,-1,-1,0)(133=-1,-1,-1,-1,0)(141=-1,-1,-1,-1,0)(142=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(400=-1,-1,-1,-1,0)(370=-1,-1,-1,-1,0)(280=-1,-1,-1,-1,0)(240=-1,-1,-1,-1,0)</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>ARMDBGFLAGS</Key>
+          <Name></Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>DLGUARM</Key>
+          <Name>(105=-1,-1,-1,-1,0)(106=-1,-1,-1,-1,0)(107=-1,-1,-1,-1,0)</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>UL2CM3</Key>
+          <Name>-UV0589N8E -O142 -S0 -C0 -N00("ARM CoreSight JTAG-DP") -D00(4BA00477) -L00(4) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD10000000 -FC800 -FN1 -FF0LPC_IAP_256 -FS00 -FL040000</Name>
+        </SetRegEntry>
+      </TargetDriverDllRegistry>
       <DebugFlag>
         <trace>0</trace>
         <periodic>0</periodic>
-        <aLwin>0</aLwin>
+        <aLwin>1</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
         <aSer2>0</aSer2>
         <aPa>0</aPa>
-        <viewmode>0</viewmode>
+        <viewmode>1</viewmode>
         <vrSel>0</vrSel>
         <aSym>0</aSym>
         <aTbox>0</aTbox>
@@ -436,7 +480,7 @@
     <TargetOption>
       <CLKADS>12000000</CLKADS>
       <OPTTT>
-        <gFlags>0</gFlags>
+        <gFlags>1</gFlags>
         <BeepAtEnd>1</BeepAtEnd>
         <RunSim>1</RunSim>
         <RunTarget>0</RunTarget>
@@ -480,7 +524,7 @@
         <LExpSel>0</LExpSel>
       </OPTXL>
       <OPTFL>
-        <tvExp>0</tvExp>
+        <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
         <IsCurrentTarget>0</IsCurrentTarget>
       </OPTFL>
@@ -527,15 +571,37 @@
         <tIfile>.\IRAM\IRAM_CP.ini</tIfile>
         <pMon>BIN\UL2CM3.DLL</pMon>
       </DebugOpt>
+      <TargetDriverDllRegistry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>DLGTARM</Key>
+          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(350=-1,-1,-1,-1,0)(250=-1,-1,-1,-1,0)(270=-1,-1,-1,-1,0)(314=-1,-1,-1,-1,0)(292=-1,-1,-1,-1,0)(303=-1,-1,-1,-1,0)(111=-1,-1,-1,-1,0)(114=-1,-1,-1,-1,0)(410=-1,-1,-1,-1,0)(320=-1,-1,-1,-1,0)(210=-1,-1,-1,-1,0)(362=-1,-1,-1,-1,0)(363=-1,-1,-1,-1,0)(364=-1,-1,-1,-1,0)(365=-1,-1,-1,-1,0)(366=-1,-1,-1,-1,0)(367=-1,-1,-1,-1,0)(332=-1,-1,-1,-1,0)(333=-1,-1,-1,-1,0)(334=-1,-1,-1,-1,0)(335=-1,-1,-1,-1,0)(336=-1,-1,-1,-1,0)(337=-1,-1,-1,-1,0)(345=-1,-1,-1,-1,0)(346=-1,-1,-1,-1,0)(390=-1,-1,-1,-1,0)(381=-1,-1,-1,-1,0)(382=-1,-1,-1,-1,0)(383=-1,-1,-1,-1,0)(384=-1,-1,-1,-1,0)(385=-1,-1,-1,-1,0)(197=-1,-1,-1,-1,0)(198=-1,-1,-1,-1,0)(191=-1,-1,-1,-1,0)(192=-1,-1,-1,-1,0)(261=-1,-1,-1,-1,0)(262=-1,-1,-1,-1,0)(263=-1,-1,-1,-1,0)(231=-1,-1,-1,-1,0)(232=-1,-1,-1,-1,0)(233=-1,-1,-1,-1,0)(130=-1,-1,-1,-1,0)(131=-1,-1,-1,-1,0)(132=-1,-1,-1,-1,0)(133=-1,-1,-1,-1,0)(141=-1,-1,-1,-1,0)(142=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(400=-1,-1,-1,-1,0)(370=-1,-1,-1,-1,0)(280=-1,-1,-1,-1,0)(240=-1,-1,-1,-1,0)</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>ARMDBGFLAGS</Key>
+          <Name></Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>UL2CM3</Key>
+          <Name>-UV0589N8E -O142 -S0 -C0 -N00("ARM CoreSight JTAG-DP") -D00(4BA00477) -L00(4) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD10000000 -FC800 -FN0</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>DLGUARM</Key>
+          <Name>(105=-1,-1,-1,-1,0)(106=-1,-1,-1,-1,0)(107=-1,-1,-1,-1,0)</Name>
+        </SetRegEntry>
+      </TargetDriverDllRegistry>
       <DebugFlag>
         <trace>0</trace>
         <periodic>0</periodic>
-        <aLwin>0</aLwin>
+        <aLwin>1</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
         <aSer2>0</aSer2>
         <aPa>0</aPa>
-        <viewmode>0</viewmode>
+        <viewmode>1</viewmode>
         <vrSel>0</vrSel>
         <aSym>0</aSym>
         <aTbox>0</aTbox>
@@ -565,7 +631,7 @@
     <TargetOption>
       <CLKADS>12000000</CLKADS>
       <OPTTT>
-        <gFlags>0</gFlags>
+        <gFlags>1</gFlags>
         <BeepAtEnd>1</BeepAtEnd>
         <RunSim>1</RunSim>
         <RunTarget>0</RunTarget>
@@ -609,9 +675,9 @@
         <LExpSel>0</LExpSel>
       </OPTXL>
       <OPTFL>
-        <tvExp>0</tvExp>
+        <tvExp>1</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
-        <IsCurrentTarget>0</IsCurrentTarget>
+        <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
       <CpuCode>0</CpuCode>
       <DllOpt>
@@ -656,15 +722,37 @@
         <tIfile>.\IRAM\IRAM_ZC.ini</tIfile>
         <pMon>BIN\UL2CM3.DLL</pMon>
       </DebugOpt>
+      <TargetDriverDllRegistry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>DLGTARM</Key>
+          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(350=-1,-1,-1,-1,0)(250=-1,-1,-1,-1,0)(270=-1,-1,-1,-1,0)(314=-1,-1,-1,-1,0)(292=-1,-1,-1,-1,0)(303=-1,-1,-1,-1,0)(111=-1,-1,-1,-1,0)(114=-1,-1,-1,-1,0)(410=-1,-1,-1,-1,0)(320=-1,-1,-1,-1,0)(210=-1,-1,-1,-1,0)(362=-1,-1,-1,-1,0)(363=-1,-1,-1,-1,0)(364=-1,-1,-1,-1,0)(365=-1,-1,-1,-1,0)(366=-1,-1,-1,-1,0)(367=-1,-1,-1,-1,0)(332=-1,-1,-1,-1,0)(333=-1,-1,-1,-1,0)(334=-1,-1,-1,-1,0)(335=-1,-1,-1,-1,0)(336=-1,-1,-1,-1,0)(337=-1,-1,-1,-1,0)(345=-1,-1,-1,-1,0)(346=-1,-1,-1,-1,0)(390=-1,-1,-1,-1,0)(381=-1,-1,-1,-1,0)(382=-1,-1,-1,-1,0)(383=-1,-1,-1,-1,0)(384=-1,-1,-1,-1,0)(385=-1,-1,-1,-1,0)(197=-1,-1,-1,-1,0)(198=-1,-1,-1,-1,0)(191=-1,-1,-1,-1,0)(192=-1,-1,-1,-1,0)(261=-1,-1,-1,-1,0)(262=-1,-1,-1,-1,0)(263=-1,-1,-1,-1,0)(231=-1,-1,-1,-1,0)(232=-1,-1,-1,-1,0)(233=-1,-1,-1,-1,0)(130=-1,-1,-1,-1,0)(131=-1,-1,-1,-1,0)(132=-1,-1,-1,-1,0)(133=-1,-1,-1,-1,0)(141=-1,-1,-1,-1,0)(142=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(400=-1,-1,-1,-1,0)(370=-1,-1,-1,-1,0)(280=-1,-1,-1,-1,0)(240=-1,-1,-1,-1,0)</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>ARMDBGFLAGS</Key>
+          <Name></Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>UL2CM3</Key>
+          <Name>-UV0589N8E -O142 -S0 -C0 -N00("ARM CoreSight JTAG-DP") -D00(4BA00477) -L00(4) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD10000000 -FC800 -FN0</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>DLGUARM</Key>
+          <Name>(105=-1,-1,-1,-1,0)(106=-1,-1,-1,-1,0)(107=-1,-1,-1,-1,0)</Name>
+        </SetRegEntry>
+      </TargetDriverDllRegistry>
       <DebugFlag>
         <trace>0</trace>
         <periodic>0</periodic>
-        <aLwin>0</aLwin>
+        <aLwin>1</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
         <aSer2>0</aSer2>
         <aPa>0</aPa>
-        <viewmode>0</viewmode>
+        <viewmode>1</viewmode>
         <vrSel>0</vrSel>
         <aSym>0</aSym>
         <aTbox>0</aTbox>
@@ -717,7 +805,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</PathWithFileName>
       <FilenameWithoutPath>sdram_is42s32800d.c</FilenameWithoutPath>
     </File>
   </Group>
@@ -738,7 +826,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</PathWithFileName>
       <FilenameWithoutPath>system_LPC177x_8x.c</FilenameWithoutPath>
     </File>
   </Group>
@@ -759,8 +847,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</PathWithFileName>
-      <FilenameWithoutPath>lpc177x_8x_clkpwr.c</FilenameWithoutPath>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_emc.c</PathWithFileName>
+      <FilenameWithoutPath>lpc177x_8x_emc.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
@@ -773,8 +861,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\Drivers\source\lpc177x_8x_emc.c</PathWithFileName>
-      <FilenameWithoutPath>lpc177x_8x_emc.c</FilenameWithoutPath>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_gpio.c</PathWithFileName>
+      <FilenameWithoutPath>lpc177x_8x_gpio.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
@@ -787,8 +875,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\Drivers\source\lpc177x_8x_gpio.c</PathWithFileName>
-      <FilenameWithoutPath>lpc177x_8x_gpio.c</FilenameWithoutPath>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_pinsel.c</PathWithFileName>
+      <FilenameWithoutPath>lpc177x_8x_pinsel.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
@@ -801,8 +889,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\Drivers\source\lpc177x_8x_pinsel.c</PathWithFileName>
-      <FilenameWithoutPath>lpc177x_8x_pinsel.c</FilenameWithoutPath>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_systick.c</PathWithFileName>
+      <FilenameWithoutPath>lpc177x_8x_systick.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
@@ -815,8 +903,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\Drivers\source\lpc177x_8x_systick.c</PathWithFileName>
-      <FilenameWithoutPath>lpc177x_8x_systick.c</FilenameWithoutPath>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_timer.c</PathWithFileName>
+      <FilenameWithoutPath>lpc177x_8x_timer.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
@@ -829,8 +917,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\Drivers\source\lpc177x_8x_timer.c</PathWithFileName>
-      <FilenameWithoutPath>lpc177x_8x_timer.c</FilenameWithoutPath>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_uart.c</PathWithFileName>
+      <FilenameWithoutPath>lpc177x_8x_uart.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
@@ -843,8 +931,22 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</PathWithFileName>
-      <FilenameWithoutPath>lpc177x_8x_uart.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</PathWithFileName>
+      <FilenameWithoutPath>lpc177x_8x_clkpwr.c</FilenameWithoutPath>
+    </File>
+    <File>
+      <GroupNumber>3</GroupNumber>
+      <FileNumber>11</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\..\..\..\..\Drivers\source\debug_frmwrk.c</PathWithFileName>
+      <FilenameWithoutPath>debug_frmwrk.c</FilenameWithoutPath>
     </File>
   </Group>
 
@@ -855,31 +957,17 @@
     <cbSel>0</cbSel>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>11</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>78</TopLine>
-      <CurrentLine>78</CurrentLine>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\source\httpraw_sa_app.c</PathWithFileName>
-      <FilenameWithoutPath>httpraw_sa_app.c</FilenameWithoutPath>
-    </File>
-    <File>
-      <GroupNumber>4</GroupNumber>
       <FileNumber>12</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>65</TopLine>
+      <CurrentLine>76</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\lpc_phy.c</PathWithFileName>
-      <FilenameWithoutPath>lpc_phy.c</FilenameWithoutPath>
+      <PathWithFileName>..\source\httpraw_sa_app.c</PathWithFileName>
+      <FilenameWithoutPath>httpraw_sa_app.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
@@ -892,7 +980,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\arch\lpc_debug.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc_debug.c</PathWithFileName>
       <FilenameWithoutPath>lpc_debug.c</FilenameWithoutPath>
     </File>
     <File>
@@ -906,7 +994,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\arch\sys_arch.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\sys_arch.c</PathWithFileName>
       <FilenameWithoutPath>sys_arch.c</FilenameWithoutPath>
     </File>
     <File>
@@ -920,7 +1008,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\arch\lpc177x_8x\lpc17_emac.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</PathWithFileName>
       <FilenameWithoutPath>lpc17_emac.c</FilenameWithoutPath>
     </File>
     <File>
@@ -934,7 +1022,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</PathWithFileName>
       <FilenameWithoutPath>lpc17_emac_zcbuffs.c</FilenameWithoutPath>
     </File>
     <File>
@@ -948,7 +1036,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</PathWithFileName>
       <FilenameWithoutPath>lpc177x_8x_systick_arch.c</FilenameWithoutPath>
     </File>
     <File>
@@ -962,8 +1050,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\arch\lpc177x_8x\Serial.c</PathWithFileName>
-      <FilenameWithoutPath>Serial.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\ea1788_common\ea1788_board.c</PathWithFileName>
+      <FilenameWithoutPath>ea1788_board.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
@@ -976,7 +1064,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\arch\lpc177x_8x\keil\Retarget.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\arch\Retarget.c</PathWithFileName>
       <FilenameWithoutPath>Retarget.c</FilenameWithoutPath>
     </File>
     <File>
@@ -990,8 +1078,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\board\ea1788\ea1788_board.c</PathWithFileName>
-      <FilenameWithoutPath>ea1788_board.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</PathWithFileName>
+      <FilenameWithoutPath>httpd.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
@@ -1004,7 +1092,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</PathWithFileName>
       <FilenameWithoutPath>fs.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1018,8 +1106,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</PathWithFileName>
-      <FilenameWithoutPath>httpd.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\..\lpc_phy_lan8720.c</PathWithFileName>
+      <FilenameWithoutPath>lpc_phy_lan8720.c</FilenameWithoutPath>
     </File>
   </Group>
 
@@ -1032,14 +1120,14 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>23</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\def.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\def.c</PathWithFileName>
       <FilenameWithoutPath>def.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1053,7 +1141,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\dhcp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dhcp.c</PathWithFileName>
       <FilenameWithoutPath>dhcp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1067,7 +1155,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\dns.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dns.c</PathWithFileName>
       <FilenameWithoutPath>dns.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1081,7 +1169,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\init.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\init.c</PathWithFileName>
       <FilenameWithoutPath>init.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1095,7 +1183,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\mem.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\mem.c</PathWithFileName>
       <FilenameWithoutPath>mem.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1109,7 +1197,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\memp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\memp.c</PathWithFileName>
       <FilenameWithoutPath>memp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1123,7 +1211,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\netif.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\netif.c</PathWithFileName>
       <FilenameWithoutPath>netif.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1137,7 +1225,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\pbuf.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\pbuf.c</PathWithFileName>
       <FilenameWithoutPath>pbuf.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1151,7 +1239,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\raw.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\raw.c</PathWithFileName>
       <FilenameWithoutPath>raw.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1165,7 +1253,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\stats.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\stats.c</PathWithFileName>
       <FilenameWithoutPath>stats.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1179,7 +1267,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\sys.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\sys.c</PathWithFileName>
       <FilenameWithoutPath>sys.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1193,7 +1281,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\tcp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp.c</PathWithFileName>
       <FilenameWithoutPath>tcp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1207,7 +1295,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\tcp_in.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_in.c</PathWithFileName>
       <FilenameWithoutPath>tcp_in.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1221,7 +1309,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\tcp_out.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_out.c</PathWithFileName>
       <FilenameWithoutPath>tcp_out.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1235,7 +1323,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\timers.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\timers.c</PathWithFileName>
       <FilenameWithoutPath>timers.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1249,7 +1337,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\udp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\udp.c</PathWithFileName>
       <FilenameWithoutPath>udp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1263,7 +1351,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\autoip.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\autoip.c</PathWithFileName>
       <FilenameWithoutPath>autoip.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1277,7 +1365,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\icmp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\icmp.c</PathWithFileName>
       <FilenameWithoutPath>icmp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1291,7 +1379,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\igmp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\igmp.c</PathWithFileName>
       <FilenameWithoutPath>igmp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1305,7 +1393,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet.c</PathWithFileName>
       <FilenameWithoutPath>inet.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1319,7 +1407,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet_chksum.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet_chksum.c</PathWithFileName>
       <FilenameWithoutPath>inet_chksum.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1333,7 +1421,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip.c</PathWithFileName>
       <FilenameWithoutPath>ip.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1347,7 +1435,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_addr.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_addr.c</PathWithFileName>
       <FilenameWithoutPath>ip_addr.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1361,7 +1449,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_frag.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_frag.c</PathWithFileName>
       <FilenameWithoutPath>ip_frag.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1375,7 +1463,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\lwip-1.4.0\src\netif\etharp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\netif\etharp.c</PathWithFileName>
       <FilenameWithoutPath>etharp.c</FilenameWithoutPath>
     </File>
   </Group>
@@ -1390,8 +1478,8 @@
         <Doc>
           <Name>..\source\httpraw_sa_app.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>78</TopLine>
-          <CurrentLine>78</CurrentLine>
+          <TopLine>65</TopLine>
+          <CurrentLine>76</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

@@ -40,20 +40,6 @@ extern "C"
  * @{
  */
 
-/** \brief  Enable the DP83848 PHY.
- *          Only 1 PHY type can be selected in a system. Comment out
- *          the define to remove the PHY. Uncomment to enable it.
- */
-#if 0
-#define LPC_PHY_DP83848	/**< Enable this define to use the DP83849 PHY driver. */
-#endif
-
-/** \brief  Enable the LAN8720 PHY.
- *          Only 1 PHY type can be selected in a system. Comment out
- *          the define to remove the PHY. Uncomment to enable it.
- */
-#define LPC_PHY_LAN8720	/**< Enable this define to use the LAN8720 PHY driver. */
-
 /** \brief  The PHY address connected the to MII/RMII
  */
 #define LPC_PHYDEF_PHYADDR 1    /**< The PHY address on the PHY device. */

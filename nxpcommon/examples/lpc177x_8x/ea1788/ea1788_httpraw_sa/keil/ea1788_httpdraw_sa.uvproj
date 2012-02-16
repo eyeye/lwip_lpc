@@ -346,7 +346,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\..\arch;..\..\..\..\board;..\..\..\..\..\..\Drivers\include;..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\..\nxpcommon;..\..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\..\BoardSupport;..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\dram_zc;..\..\..\..\arch\lpc177x_8x</IncludePath>
+              <IncludePath>..\source;..\..\..\..\..\arch;..\..\..\..\..\..\..\Drivers\include;..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\..\..\nxpcommon;..\..\..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\..\..\BoardSupport;..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\dram_zc;..\..\..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -394,7 +394,7 @@
             <File>
               <FileName>sdram_is42s32800d.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -404,7 +404,7 @@
             <File>
               <FileName>system_LPC177x_8x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -466,39 +466,44 @@
           </GroupOption>
           <Files>
             <File>
-              <FileName>lpc177x_8x_clkpwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc177x_8x_emc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_emc.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_emc.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_gpio.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_gpio.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_pinsel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_pinsel.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_pinsel.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_systick.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_systick.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_systick.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_timer.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_timer.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc177x_8x_clkpwr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</FilePath>
+            </File>
+            <File>
+              <FileName>debug_frmwrk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\Drivers\source\debug_frmwrk.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -511,59 +516,54 @@
               <FilePath>..\source\httpraw_sa_app.c</FilePath>
             </File>
             <File>
-              <FileName>lpc_phy.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\lpc_phy.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc_debug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc_debug.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc_debug.c</FilePath>
             </File>
             <File>
               <FileName>sys_arch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\sys_arch.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\sys_arch.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_systick_arch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
-            </File>
-            <File>
-              <FileName>Retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\keil\Retarget.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</FilePath>
             </File>
             <File>
               <FileName>ea1788_board.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\board\ea1788\ea1788_board.c</FilePath>
+              <FilePath>..\..\ea1788_common\ea1788_board.c</FilePath>
             </File>
             <File>
-              <FileName>fs.c</FileName>
+              <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
+              <FilePath>..\..\..\..\..\arch\Retarget.c</FilePath>
             </File>
             <File>
               <FileName>httpd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</FilePath>
+              <FilePath>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc_phy_lan8720.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\lpc_phy_lan8720.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -573,127 +573,127 @@
             <File>
               <FileName>def.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\def.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\def.c</FilePath>
             </File>
             <File>
               <FileName>dhcp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\dhcp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dhcp.c</FilePath>
             </File>
             <File>
               <FileName>dns.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\dns.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dns.c</FilePath>
             </File>
             <File>
               <FileName>init.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\init.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\init.c</FilePath>
             </File>
             <File>
               <FileName>mem.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\mem.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\mem.c</FilePath>
             </File>
             <File>
               <FileName>memp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\memp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\memp.c</FilePath>
             </File>
             <File>
               <FileName>netif.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\netif.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\netif.c</FilePath>
             </File>
             <File>
               <FileName>pbuf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\pbuf.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\pbuf.c</FilePath>
             </File>
             <File>
               <FileName>raw.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\raw.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\raw.c</FilePath>
             </File>
             <File>
               <FileName>stats.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\stats.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\stats.c</FilePath>
             </File>
             <File>
               <FileName>sys.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\sys.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\sys.c</FilePath>
             </File>
             <File>
               <FileName>tcp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp.c</FilePath>
             </File>
             <File>
               <FileName>tcp_in.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp_in.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_in.c</FilePath>
             </File>
             <File>
               <FileName>tcp_out.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp_out.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_out.c</FilePath>
             </File>
             <File>
               <FileName>timers.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\timers.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\timers.c</FilePath>
             </File>
             <File>
               <FileName>udp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\udp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\udp.c</FilePath>
             </File>
             <File>
               <FileName>autoip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\autoip.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\autoip.c</FilePath>
             </File>
             <File>
               <FileName>icmp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\icmp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\icmp.c</FilePath>
             </File>
             <File>
               <FileName>igmp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\igmp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\igmp.c</FilePath>
             </File>
             <File>
               <FileName>inet.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet.c</FilePath>
             </File>
             <File>
               <FileName>inet_chksum.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet_chksum.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet_chksum.c</FilePath>
             </File>
             <File>
               <FileName>ip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip.c</FilePath>
             </File>
             <File>
               <FileName>ip_addr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_addr.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_addr.c</FilePath>
             </File>
             <File>
               <FileName>ip_frag.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_frag.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_frag.c</FilePath>
             </File>
             <File>
               <FileName>etharp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\netif\etharp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\netif\etharp.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1039,7 +1039,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\..\arch;..\..\..\..\board;..\..\..\..\..\..\Drivers\include;..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\..\nxpcommon;..\..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\..\BoardSupport;..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\flash_zc;..\..\..\..\arch\lpc177x_8x</IncludePath>
+              <IncludePath>..\source;..\..\..\..\..\arch;..\..\..\..\..\..\..\Drivers\include;..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\..\..\nxpcommon;..\..\..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\..\..\BoardSupport;..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\flash_zc;..\..\..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1087,7 +1087,7 @@
             <File>
               <FileName>sdram_is42s32800d.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1097,7 +1097,7 @@
             <File>
               <FileName>system_LPC177x_8x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1159,39 +1159,44 @@
           </GroupOption>
           <Files>
             <File>
-              <FileName>lpc177x_8x_clkpwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc177x_8x_emc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_emc.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_emc.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_gpio.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_gpio.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_pinsel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_pinsel.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_pinsel.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_systick.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_systick.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_systick.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_timer.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_timer.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc177x_8x_clkpwr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</FilePath>
+            </File>
+            <File>
+              <FileName>debug_frmwrk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\Drivers\source\debug_frmwrk.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1204,59 +1209,54 @@
               <FilePath>..\source\httpraw_sa_app.c</FilePath>
             </File>
             <File>
-              <FileName>lpc_phy.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\lpc_phy.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc_debug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc_debug.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc_debug.c</FilePath>
             </File>
             <File>
               <FileName>sys_arch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\sys_arch.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\sys_arch.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_systick_arch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
-            </File>
-            <File>
-              <FileName>Retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\keil\Retarget.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</FilePath>
             </File>
             <File>
               <FileName>ea1788_board.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\board\ea1788\ea1788_board.c</FilePath>
+              <FilePath>..\..\ea1788_common\ea1788_board.c</FilePath>
             </File>
             <File>
-              <FileName>fs.c</FileName>
+              <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
+              <FilePath>..\..\..\..\..\arch\Retarget.c</FilePath>
             </File>
             <File>
               <FileName>httpd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</FilePath>
+              <FilePath>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc_phy_lan8720.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\lpc_phy_lan8720.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1266,127 +1266,127 @@
             <File>
               <FileName>def.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\def.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\def.c</FilePath>
             </File>
             <File>
               <FileName>dhcp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\dhcp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dhcp.c</FilePath>
             </File>
             <File>
               <FileName>dns.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\dns.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dns.c</FilePath>
             </File>
             <File>
               <FileName>init.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\init.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\init.c</FilePath>
             </File>
             <File>
               <FileName>mem.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\mem.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\mem.c</FilePath>
             </File>
             <File>
               <FileName>memp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\memp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\memp.c</FilePath>
             </File>
             <File>
               <FileName>netif.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\netif.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\netif.c</FilePath>
             </File>
             <File>
               <FileName>pbuf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\pbuf.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\pbuf.c</FilePath>
             </File>
             <File>
               <FileName>raw.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\raw.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\raw.c</FilePath>
             </File>
             <File>
               <FileName>stats.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\stats.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\stats.c</FilePath>
             </File>
             <File>
               <FileName>sys.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\sys.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\sys.c</FilePath>
             </File>
             <File>
               <FileName>tcp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp.c</FilePath>
             </File>
             <File>
               <FileName>tcp_in.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp_in.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_in.c</FilePath>
             </File>
             <File>
               <FileName>tcp_out.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp_out.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_out.c</FilePath>
             </File>
             <File>
               <FileName>timers.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\timers.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\timers.c</FilePath>
             </File>
             <File>
               <FileName>udp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\udp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\udp.c</FilePath>
             </File>
             <File>
               <FileName>autoip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\autoip.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\autoip.c</FilePath>
             </File>
             <File>
               <FileName>icmp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\icmp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\icmp.c</FilePath>
             </File>
             <File>
               <FileName>igmp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\igmp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\igmp.c</FilePath>
             </File>
             <File>
               <FileName>inet.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet.c</FilePath>
             </File>
             <File>
               <FileName>inet_chksum.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet_chksum.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet_chksum.c</FilePath>
             </File>
             <File>
               <FileName>ip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip.c</FilePath>
             </File>
             <File>
               <FileName>ip_addr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_addr.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_addr.c</FilePath>
             </File>
             <File>
               <FileName>ip_frag.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_frag.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_frag.c</FilePath>
             </File>
             <File>
               <FileName>etharp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\netif\etharp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\netif\etharp.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1732,7 +1732,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\..\arch;..\..\..\..\board;..\..\..\..\..\..\Drivers\include;..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\..\nxpcommon;..\..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\..\BoardSupport;..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\flash_cp;..\..\..\..\arch\lpc177x_8x</IncludePath>
+              <IncludePath>..\source;..\..\..\..\..\arch;..\..\..\..\..\..\..\Drivers\include;..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\..\..\nxpcommon;..\..\..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\..\..\BoardSupport;..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\flash_cp;..\..\..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1780,7 +1780,7 @@
             <File>
               <FileName>sdram_is42s32800d.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1790,7 +1790,7 @@
             <File>
               <FileName>system_LPC177x_8x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1852,39 +1852,44 @@
           </GroupOption>
           <Files>
             <File>
-              <FileName>lpc177x_8x_clkpwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc177x_8x_emc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_emc.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_emc.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_gpio.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_gpio.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_pinsel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_pinsel.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_pinsel.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_systick.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_systick.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_systick.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_timer.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_timer.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc177x_8x_clkpwr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</FilePath>
+            </File>
+            <File>
+              <FileName>debug_frmwrk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\Drivers\source\debug_frmwrk.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1897,59 +1902,54 @@
               <FilePath>..\source\httpraw_sa_app.c</FilePath>
             </File>
             <File>
-              <FileName>lpc_phy.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\lpc_phy.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc_debug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc_debug.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc_debug.c</FilePath>
             </File>
             <File>
               <FileName>sys_arch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\sys_arch.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\sys_arch.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_systick_arch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
-            </File>
-            <File>
-              <FileName>Retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\keil\Retarget.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</FilePath>
             </File>
             <File>
               <FileName>ea1788_board.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\board\ea1788\ea1788_board.c</FilePath>
+              <FilePath>..\..\ea1788_common\ea1788_board.c</FilePath>
             </File>
             <File>
-              <FileName>fs.c</FileName>
+              <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
+              <FilePath>..\..\..\..\..\arch\Retarget.c</FilePath>
             </File>
             <File>
               <FileName>httpd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</FilePath>
+              <FilePath>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc_phy_lan8720.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\lpc_phy_lan8720.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1959,127 +1959,127 @@
             <File>
               <FileName>def.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\def.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\def.c</FilePath>
             </File>
             <File>
               <FileName>dhcp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\dhcp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dhcp.c</FilePath>
             </File>
             <File>
               <FileName>dns.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\dns.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dns.c</FilePath>
             </File>
             <File>
               <FileName>init.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\init.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\init.c</FilePath>
             </File>
             <File>
               <FileName>mem.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\mem.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\mem.c</FilePath>
             </File>
             <File>
               <FileName>memp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\memp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\memp.c</FilePath>
             </File>
             <File>
               <FileName>netif.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\netif.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\netif.c</FilePath>
             </File>
             <File>
               <FileName>pbuf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\pbuf.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\pbuf.c</FilePath>
             </File>
             <File>
               <FileName>raw.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\raw.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\raw.c</FilePath>
             </File>
             <File>
               <FileName>stats.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\stats.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\stats.c</FilePath>
             </File>
             <File>
               <FileName>sys.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\sys.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\sys.c</FilePath>
             </File>
             <File>
               <FileName>tcp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp.c</FilePath>
             </File>
             <File>
               <FileName>tcp_in.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp_in.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_in.c</FilePath>
             </File>
             <File>
               <FileName>tcp_out.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp_out.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_out.c</FilePath>
             </File>
             <File>
               <FileName>timers.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\timers.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\timers.c</FilePath>
             </File>
             <File>
               <FileName>udp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\udp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\udp.c</FilePath>
             </File>
             <File>
               <FileName>autoip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\autoip.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\autoip.c</FilePath>
             </File>
             <File>
               <FileName>icmp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\icmp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\icmp.c</FilePath>
             </File>
             <File>
               <FileName>igmp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\igmp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\igmp.c</FilePath>
             </File>
             <File>
               <FileName>inet.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet.c</FilePath>
             </File>
             <File>
               <FileName>inet_chksum.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet_chksum.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet_chksum.c</FilePath>
             </File>
             <File>
               <FileName>ip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip.c</FilePath>
             </File>
             <File>
               <FileName>ip_addr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_addr.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_addr.c</FilePath>
             </File>
             <File>
               <FileName>ip_frag.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_frag.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_frag.c</FilePath>
             </File>
             <File>
               <FileName>etharp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\netif\etharp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\netif\etharp.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2425,7 +2425,7 @@
               <MiscControls></MiscControls>
               <Define>__RAM_MODE__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\..\arch;..\..\..\..\board;..\..\..\..\..\..\Drivers\include;..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\..\nxpcommon;..\..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\..\BoardSupport;..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\iram_cp;..\..\..\..\arch\lpc177x_8x</IncludePath>
+              <IncludePath>..\source;..\..\..\..\..\arch;..\..\..\..\..\..\..\Drivers\include;..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\..\..\nxpcommon;..\..\..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\..\..\BoardSupport;..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\iram_cp;..\..\..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2473,7 +2473,7 @@
             <File>
               <FileName>sdram_is42s32800d.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2483,7 +2483,7 @@
             <File>
               <FileName>system_LPC177x_8x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2491,39 +2491,44 @@
           <GroupName>Drivers</GroupName>
           <Files>
             <File>
-              <FileName>lpc177x_8x_clkpwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc177x_8x_emc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_emc.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_emc.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_gpio.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_gpio.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_pinsel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_pinsel.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_pinsel.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_systick.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_systick.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_systick.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_timer.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_timer.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc177x_8x_clkpwr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</FilePath>
+            </File>
+            <File>
+              <FileName>debug_frmwrk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\Drivers\source\debug_frmwrk.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2536,59 +2541,54 @@
               <FilePath>..\source\httpraw_sa_app.c</FilePath>
             </File>
             <File>
-              <FileName>lpc_phy.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\lpc_phy.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc_debug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc_debug.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc_debug.c</FilePath>
             </File>
             <File>
               <FileName>sys_arch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\sys_arch.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\sys_arch.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_systick_arch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
-            </File>
-            <File>
-              <FileName>Retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\keil\Retarget.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</FilePath>
             </File>
             <File>
               <FileName>ea1788_board.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\board\ea1788\ea1788_board.c</FilePath>
+              <FilePath>..\..\ea1788_common\ea1788_board.c</FilePath>
             </File>
             <File>
-              <FileName>fs.c</FileName>
+              <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
+              <FilePath>..\..\..\..\..\arch\Retarget.c</FilePath>
             </File>
             <File>
               <FileName>httpd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</FilePath>
+              <FilePath>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc_phy_lan8720.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\lpc_phy_lan8720.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2598,127 +2598,127 @@
             <File>
               <FileName>def.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\def.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\def.c</FilePath>
             </File>
             <File>
               <FileName>dhcp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\dhcp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dhcp.c</FilePath>
             </File>
             <File>
               <FileName>dns.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\dns.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dns.c</FilePath>
             </File>
             <File>
               <FileName>init.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\init.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\init.c</FilePath>
             </File>
             <File>
               <FileName>mem.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\mem.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\mem.c</FilePath>
             </File>
             <File>
               <FileName>memp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\memp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\memp.c</FilePath>
             </File>
             <File>
               <FileName>netif.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\netif.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\netif.c</FilePath>
             </File>
             <File>
               <FileName>pbuf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\pbuf.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\pbuf.c</FilePath>
             </File>
             <File>
               <FileName>raw.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\raw.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\raw.c</FilePath>
             </File>
             <File>
               <FileName>stats.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\stats.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\stats.c</FilePath>
             </File>
             <File>
               <FileName>sys.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\sys.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\sys.c</FilePath>
             </File>
             <File>
               <FileName>tcp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp.c</FilePath>
             </File>
             <File>
               <FileName>tcp_in.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp_in.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_in.c</FilePath>
             </File>
             <File>
               <FileName>tcp_out.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp_out.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_out.c</FilePath>
             </File>
             <File>
               <FileName>timers.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\timers.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\timers.c</FilePath>
             </File>
             <File>
               <FileName>udp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\udp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\udp.c</FilePath>
             </File>
             <File>
               <FileName>autoip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\autoip.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\autoip.c</FilePath>
             </File>
             <File>
               <FileName>icmp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\icmp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\icmp.c</FilePath>
             </File>
             <File>
               <FileName>igmp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\igmp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\igmp.c</FilePath>
             </File>
             <File>
               <FileName>inet.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet.c</FilePath>
             </File>
             <File>
               <FileName>inet_chksum.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet_chksum.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet_chksum.c</FilePath>
             </File>
             <File>
               <FileName>ip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip.c</FilePath>
             </File>
             <File>
               <FileName>ip_addr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_addr.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_addr.c</FilePath>
             </File>
             <File>
               <FileName>ip_frag.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_frag.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_frag.c</FilePath>
             </File>
             <File>
               <FileName>etharp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\netif\etharp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\netif\etharp.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3064,7 +3064,7 @@
               <MiscControls></MiscControls>
               <Define>__RAM_MODE__</Define>
               <Undefine></Undefine>
-              <IncludePath>..\source;..\..\..\..\arch;..\..\..\..\board;..\..\..\..\..\..\Drivers\include;..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\..\nxpcommon;..\..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\..\BoardSupport;..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\iram_zc;..\..\..\..\arch\lpc177x_8x</IncludePath>
+              <IncludePath>..\source;..\..\..\..\..\arch;..\..\..\..\..\..\..\Drivers\include;..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include;..\..\..\..\..\..\lwip-1.4.0\src\include;..\..\..\..\..\..\nxpcommon;..\..\..\..\..\..\lwip-1.4.0\src\include\ipv4;..\..\..\..\..\..\..\BoardSupport;..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw;..\source\configs\iram_zc;..\..\..\..\..\arch\lpc177x_8x</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -3112,7 +3112,7 @@
             <File>
               <FileName>sdram_is42s32800d.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3122,7 +3122,7 @@
             <File>
               <FileName>system_LPC177x_8x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3130,39 +3130,44 @@
           <GroupName>Drivers</GroupName>
           <Files>
             <File>
-              <FileName>lpc177x_8x_clkpwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc177x_8x_emc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_emc.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_emc.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_gpio.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_gpio.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_pinsel.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_pinsel.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_pinsel.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_systick.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_systick.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_systick.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_timer.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_timer.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc177x_8x_clkpwr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</FilePath>
+            </File>
+            <File>
+              <FileName>debug_frmwrk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\..\Drivers\source\debug_frmwrk.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3175,59 +3180,54 @@
               <FilePath>..\source\httpraw_sa_app.c</FilePath>
             </File>
             <File>
-              <FileName>lpc_phy.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\lpc_phy.c</FilePath>
-            </File>
-            <File>
               <FileName>lpc_debug.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc_debug.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc_debug.c</FilePath>
             </File>
             <File>
               <FileName>sys_arch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\sys_arch.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\sys_arch.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc17_emac.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</FilePath>
             </File>
             <File>
               <FileName>lpc17_emac_zcbuffs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</FilePath>
             </File>
             <File>
               <FileName>lpc177x_8x_systick_arch.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\Serial.c</FilePath>
-            </File>
-            <File>
-              <FileName>Retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\arch\lpc177x_8x\keil\Retarget.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</FilePath>
             </File>
             <File>
               <FileName>ea1788_board.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\board\ea1788\ea1788_board.c</FilePath>
+              <FilePath>..\..\ea1788_common\ea1788_board.c</FilePath>
             </File>
             <File>
-              <FileName>fs.c</FileName>
+              <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
+              <FilePath>..\..\..\..\..\arch\Retarget.c</FilePath>
             </File>
             <File>
               <FileName>httpd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</FilePath>
+              <FilePath>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\httpd.c</FilePath>
+            </File>
+            <File>
+              <FileName>fs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\..\contrib-1.4.0\apps\httpserver_raw\fs.c</FilePath>
+            </File>
+            <File>
+              <FileName>lpc_phy_lan8720.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\..\..\lpc_phy_lan8720.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3237,127 +3237,127 @@
             <File>
               <FileName>def.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\def.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\def.c</FilePath>
             </File>
             <File>
               <FileName>dhcp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\dhcp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dhcp.c</FilePath>
             </File>
             <File>
               <FileName>dns.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\dns.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dns.c</FilePath>
             </File>
             <File>
               <FileName>init.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\init.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\init.c</FilePath>
             </File>
             <File>
               <FileName>mem.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\mem.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\mem.c</FilePath>
             </File>
             <File>
               <FileName>memp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\memp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\memp.c</FilePath>
             </File>
             <File>
               <FileName>netif.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\netif.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\netif.c</FilePath>
             </File>
             <File>
               <FileName>pbuf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\pbuf.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\pbuf.c</FilePath>
             </File>
             <File>
               <FileName>raw.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\raw.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\raw.c</FilePath>
             </File>
             <File>
               <FileName>stats.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\stats.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\stats.c</FilePath>
             </File>
             <File>
               <FileName>sys.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\sys.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\sys.c</FilePath>
             </File>
             <File>
               <FileName>tcp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp.c</FilePath>
             </File>
             <File>
               <FileName>tcp_in.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp_in.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_in.c</FilePath>
             </File>
             <File>
               <FileName>tcp_out.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\tcp_out.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_out.c</FilePath>
             </File>
             <File>
               <FileName>timers.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\timers.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\timers.c</FilePath>
             </File>
             <File>
               <FileName>udp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\udp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\udp.c</FilePath>
             </File>
             <File>
               <FileName>autoip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\autoip.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\autoip.c</FilePath>
             </File>
             <File>
               <FileName>icmp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\icmp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\icmp.c</FilePath>
             </File>
             <File>
               <FileName>igmp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\igmp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\igmp.c</FilePath>
             </File>
             <File>
               <FileName>inet.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet.c</FilePath>
             </File>
             <File>
               <FileName>inet_chksum.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet_chksum.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet_chksum.c</FilePath>
             </File>
             <File>
               <FileName>ip.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip.c</FilePath>
             </File>
             <File>
               <FileName>ip_addr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_addr.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_addr.c</FilePath>
             </File>
             <File>
               <FileName>ip_frag.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_frag.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_frag.c</FilePath>
             </File>
             <File>
               <FileName>etharp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\..\lwip-1.4.0\src\netif\etharp.c</FilePath>
+              <FilePath>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\netif\etharp.c</FilePath>
             </File>
           </Files>
         </Group>
