@@ -23,7 +23,7 @@
 # warranty that such application will be suitable for the specified 
 # use without further testing or modification. 
 ########################################################################
-PROJ_ROOT			= $(CURDIR)/../../../../../..
+PROJ_ROOT			= $(CURDIR)/../../../../../../..
 EXECNAME    =ea1788_httpraw_sa
 EXDIR		=./
 LWIP_ROOT           = $(PROJ_ROOT)/lwip_lpc
@@ -70,7 +70,7 @@ VPATH   += $(PROJ_ROOT)/Core/Device/$(MANUFACTURE)/$(DEVICE)/Source/Templates
 VPATH   += $(PROJ_ROOT)/BoardSupport
 ADDOBJS  = lpc177x_8x_clkpwr.o lpc177x_8x_emc.o lpc177x_8x_gpio.o
 ADDOBJS += lpc177x_8x_pinsel.o lpc177x_8x_systick.o lpc177x_8x_timer.o
-ADDOBJS += lpc177x_8x_uart.o
+ADDOBJS += lpc177x_8x_uart.o debug_frmwrk.o
 ADDOBJS += system_$(DEVICE).o  
 ADDOBJS += sdram_is42s32800d.o
 
@@ -78,16 +78,14 @@ ADDOBJS += sdram_is42s32800d.o
 VPATH   += $(LWIP_ROOT)/nxpcommon
 VPATH   += $(LWIP_ROOT)/nxpcommon/arch
 VPATH   += $(LWIP_ROOT)/nxpcommon/arch/lpc177x_8x
-VPATH   += $(LWIP_ROOT)/nxpcommon/arch/lpc177x_8x/gnu
-VPATH   += $(LWIP_ROOT)/nxpcommon/board/ea1788
-VPATH   += $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_httpraw_sa/source
+VPATH   += $(LWIP_ROOT)/nxpcommon/examples/lpc177x_8x/ea1788/ea1788_common
+VPATH   += $(LWIP_ROOT)/nxpcommon/examples/lpc177x_8x/ea1788/ea1788_httpraw_sa/source
 IPATH    = -I$(LWIP_ROOT)/nxpcommon
 IPATH   += -I$(LWIP_ROOT)/nxpcommon/arch
 IPATH   += -I$(LWIP_ROOT)/nxpcommon/arch/lpc177x_8x
-IPATH   += -I$(LWIP_ROOT)/nxpcommon/board
-IPATH   += -I$(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_httpraw_sa/source
-APPOBJS  = lpc17_emac.o lpc17_emac_zcbuffs.o lpc_phy.o
-APPOBJS += lpc_debug.o sys_arch.o Serial.o lpc177x_8x_systick_arch.o
+IPATH   += -I$(LWIP_ROOT)/nxpcommon/examples/lpc177x_8x/ea1788/ea1788_httpraw_sa/source
+APPOBJS  = lpc17_emac.o lpc17_emac_zcbuffs.o lpc_phy_lan8720.o
+APPOBJS += lpc_debug.o sys_arch.o lpc177x_8x_systick_arch.o
 APPOBJS += retarget.o ea1788_board.o httpraw_sa_app.o
 
 # LWIP core
@@ -116,14 +114,14 @@ MEXT        =.map
 MAPFILE     =$(EXECNAME)
 #CFLAGS      +=-gdwarf-2
 AFLAGS 		+=-gdwarf-2
-ADDOBJSS    += $(PROJ_ROOT)/lwip_lpc/nxpcommon/examples/ea1788/ea1788_common/gnu/startup_$(DEVICE).o
+ADDOBJSS    += $(PROJ_ROOT)/lwip_lpc/nxpcommon/examples/lpc177x_8x/ea1788/ea1788_common/gnu/startup_$(DEVICE).o
 
 # Define Required Linker script file in each build mode
 LDSCRIPTDRAMZC  = linker/ldscript_dram_zc_gnu.ld
 LDSCRIPTFLASHCP = linker/ldscript_flash_cp_gnu.ld
 LDSCRIPTFLASHZC = linker/ldscript_flash_zc_gnu.ld
 
-CFLAGS += -DLWIP_DEBUG
+#CFLAGS += -DLWIP_DEBUG
 LDFLAGS += -Xlinker --gc-sections
 
 ########################################################################
@@ -136,7 +134,7 @@ default: dram_zc
 
 dram_zc: LDSCRIPT=$(LDSCRIPTDRAMZC)
 dram_zc: AFLAGS += --defsym RAM_MODE=0
-dram_zc: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_httpraw_sa/source/configs/dram_zc
+dram_zc: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/lpc177x_8x/ea1788/ea1788_httpraw_sa/source/configs/dram_zc
 dram_zc: CFLAGS += $(IPATH)
 dram_zc:  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS)
 	$(LD) $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS) $(LDFLAGS) $(LK) $(SCAN) $(MAP) \
@@ -153,7 +151,7 @@ dram_zc:  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS)
 
 flash_cp: LDSCRIPT=$(LDSCRIPTFLASHCP)
 flash_cp: AFLAGS += --defsym RAM_MODE=0 
-flash_cp: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_httpraw_sa/source/configs/flash_cp
+flash_cp: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/lpc177x_8x/ea1788/ea1788_httpraw_sa/source/configs/flash_cp
 flash_cp: CFLAGS += $(IPATH)
 flash_cp:  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS)
 	$(LD) $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS) $(LDFLAGS) $(LK) $(SCAN) $(MAP) \
@@ -170,7 +168,7 @@ flash_cp:  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS)
 
 flash_zc: LDSCRIPT=$(LDSCRIPTFLASHZC)
 flash_zc: AFLAGS += --defsym RAM_MODE=0 
-flash_zc: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/ea1788/ea1788_httpraw_sa/source/configs/flash_zc
+flash_zc: IPATH += -I $(LWIP_ROOT)/nxpcommon/examples/lpc177x_8x/ea1788/ea1788_httpraw_sa/source/configs/flash_zc
 flash_zc: CFLAGS += $(IPATH)
 flash_zc:  $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS)
 	$(LD) $(OBJS) $(ADDOBJS) $(ADDOBJSS) $(APPOBJS) $(LDFLAGS) $(LK) $(SCAN) $(MAP) \
