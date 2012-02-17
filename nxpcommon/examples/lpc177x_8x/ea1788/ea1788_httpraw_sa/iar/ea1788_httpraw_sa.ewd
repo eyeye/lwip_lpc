@@ -89,7 +89,7 @@
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
-          <state>6.30.3.53229</state>
+          <state>6.30.4.53294</state>
         </option>
         <option>
           <name>OCDownloadAttachToProgram</name>
@@ -704,7 +704,7 @@
         <debug>0</debug>
         <option>
           <name>CRDIDriverDll</name>
-          <state>###Uninitialized###</state>
+          <state>Browse to your RDI driver</state>
         </option>
         <option>
           <name>CRDILogFileCheck</name>
@@ -876,7 +876,7 @@
       <name>XDS100_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>0</version>
+        <version>1</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -886,6 +886,23 @@
         <option>
           <name>OCXDS100AttachSlave</name>
           <state>1</state>
+        </option>
+        <option>
+          <name>TIPackageOverride</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>TIPackage</name>
+          <state></state>
+        </option>
+        <option>
+          <name>CCXds100InterfaceList</name>
+          <version>0</version>
+          <state>0</state>
+        </option>
+        <option>
+          <name>BoardFile</name>
+          <state></state>
         </option>
       </data>
     </settings>
@@ -1826,7 +1843,7 @@
       <name>XDS100_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>0</version>
+        <version>1</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -1836,6 +1853,23 @@
         <option>
           <name>OCXDS100AttachSlave</name>
           <state>1</state>
+        </option>
+        <option>
+          <name>TIPackageOverride</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>TIPackage</name>
+          <state></state>
+        </option>
+        <option>
+          <name>CCXds100InterfaceList</name>
+          <version>0</version>
+          <state>0</state>
+        </option>
+        <option>
+          <name>BoardFile</name>
+          <state></state>
         </option>
       </data>
     </settings>
@@ -2776,7 +2810,7 @@
       <name>XDS100_ID</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>0</version>
+        <version>1</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>0</debug>
         <option>
@@ -2786,6 +2820,23 @@
         <option>
           <name>OCXDS100AttachSlave</name>
           <state>1</state>
+        </option>
+        <option>
+          <name>TIPackageOverride</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>TIPackage</name>
+          <state></state>
+        </option>
+        <option>
+          <name>CCXds100InterfaceList</name>
+          <version>0</version>
+          <state>0</state>
+        </option>
+        <option>
+          <name>BoardFile</name>
+          <state></state>
         </option>
       </data>
     </settings>
