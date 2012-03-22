@@ -696,7 +696,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_tcpecho_sa\iar\configs\flash_zc_ea1788.icf</state>
+          <state>.\configs\flash_zc_ea1788.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1612,7 +1612,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_tcpecho_sa\iar\configs\flash_cp_ea1788.icf</state>
+          <state>.\configs\flash_cp_ea1788.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -2528,7 +2528,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_tcpecho_sa\iar\configs\dram_zc_ea1788.icf</state>
+          <state>.\configs\dram_zc_ea1788.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
