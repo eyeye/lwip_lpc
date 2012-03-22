@@ -76,7 +76,6 @@ int main (void)
 {
 	struct netif lpc_netif;
 	ip_addr_t ipaddr, netmask, gw;
-	err_t err;
 	struct pbuf *p;
 
 	/* Setup board including GPIOs and pin muxing */
@@ -90,15 +89,7 @@ int main (void)
 	debug_frmwrk_init();
 
 	/* Initialize LWIP */
-	err = lwip_init();
-	if (err != ERR_OK) {
-		if (err = ERR_CONN)
-			LWIP_DEBUGF(1, ("Ethernet link not yet detected, will continue\n"));
-		else {
-			LWIP_DEBUGF(1, ("Error %d initializing LWIP, stopping.\n", err));
-			while (1);
-		}
-	}
+	lwip_init();
 
 	LWIP_DEBUGF(1, ("Starting httpd...\n"));
 

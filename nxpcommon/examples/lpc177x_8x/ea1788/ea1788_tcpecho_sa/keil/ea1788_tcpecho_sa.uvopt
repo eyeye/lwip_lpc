@@ -812,7 +812,7 @@
 
   <Group>
     <GroupName>Startup</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -826,7 +826,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\updated\lpc177x_8x\lwip_lpc\nxpcommon\examples\ea1788\ea1788_common\keil\startup_LPC177x_8x.s</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_common\keil\startup_LPC177x_8x.s</PathWithFileName>
       <FilenameWithoutPath>startup_LPC177x_8x.s</FilenameWithoutPath>
     </File>
     <File>
@@ -868,7 +868,7 @@
 
   <Group>
     <GroupName>Drivers</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -882,7 +882,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_gpio.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\drivers\source\lpc177x_8x_gpio.c</PathWithFileName>
       <FilenameWithoutPath>lpc177x_8x_gpio.c</FilenameWithoutPath>
     </File>
     <File>
@@ -896,7 +896,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_pinsel.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\drivers\source\lpc177x_8x_pinsel.c</PathWithFileName>
       <FilenameWithoutPath>lpc177x_8x_pinsel.c</FilenameWithoutPath>
     </File>
     <File>
@@ -910,7 +910,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_systick.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\drivers\source\lpc177x_8x_systick.c</PathWithFileName>
       <FilenameWithoutPath>lpc177x_8x_systick.c</FilenameWithoutPath>
     </File>
     <File>
@@ -924,7 +924,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_clkpwr.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\drivers\source\lpc177x_8x_clkpwr.c</PathWithFileName>
       <FilenameWithoutPath>lpc177x_8x_clkpwr.c</FilenameWithoutPath>
     </File>
     <File>
@@ -938,7 +938,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_emc.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\drivers\source\lpc177x_8x_emc.c</PathWithFileName>
       <FilenameWithoutPath>lpc177x_8x_emc.c</FilenameWithoutPath>
     </File>
     <File>
@@ -952,7 +952,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\Drivers\source\lpc177x_8x_timer.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\drivers\source\lpc177x_8x_timer.c</PathWithFileName>
       <FilenameWithoutPath>lpc177x_8x_timer.c</FilenameWithoutPath>
     </File>
     <File>
@@ -977,8 +977,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</PathWithFileName>
       <FilenameWithoutPath>lpc177x_8x_uart.c</FilenameWithoutPath>
@@ -996,12 +996,12 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>58</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc_debug.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc_debug.c</PathWithFileName>
       <FilenameWithoutPath>lpc_debug.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1015,7 +1015,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\sys_arch.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\nxpcommon\arch\sys_arch.c</PathWithFileName>
       <FilenameWithoutPath>sys_arch.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1029,7 +1029,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\Retarget.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\nxpcommon\arch\Retarget.c</PathWithFileName>
       <FilenameWithoutPath>Retarget.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1040,10 +1040,10 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>293</TopLine>
+      <CurrentLine>304</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</PathWithFileName>
       <FilenameWithoutPath>lpc17_emac.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1057,7 +1057,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</PathWithFileName>
       <FilenameWithoutPath>lpc17_emac_zcbuffs.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1071,7 +1071,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc177x_8x_systick_arch.c</PathWithFileName>
       <FilenameWithoutPath>lpc177x_8x_systick_arch.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1082,8 +1082,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>77</TopLine>
+      <CurrentLine>77</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\source\tcpecho_sa_app.c</PathWithFileName>
       <FilenameWithoutPath>tcpecho_sa_app.c</FilenameWithoutPath>
@@ -1148,7 +1148,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\def.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\def.c</PathWithFileName>
       <FilenameWithoutPath>def.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1162,7 +1162,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dhcp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dhcp.c</PathWithFileName>
       <FilenameWithoutPath>dhcp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1176,7 +1176,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dns.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\dns.c</PathWithFileName>
       <FilenameWithoutPath>dns.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1190,7 +1190,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\init.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\init.c</PathWithFileName>
       <FilenameWithoutPath>init.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1204,7 +1204,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\mem.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\mem.c</PathWithFileName>
       <FilenameWithoutPath>mem.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1218,7 +1218,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\memp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\memp.c</PathWithFileName>
       <FilenameWithoutPath>memp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1227,12 +1227,12 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>12</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\netif.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\netif.c</PathWithFileName>
       <FilenameWithoutPath>netif.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1246,7 +1246,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\pbuf.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\pbuf.c</PathWithFileName>
       <FilenameWithoutPath>pbuf.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1260,7 +1260,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\raw.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\raw.c</PathWithFileName>
       <FilenameWithoutPath>raw.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1274,7 +1274,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\stats.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\stats.c</PathWithFileName>
       <FilenameWithoutPath>stats.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1288,7 +1288,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\sys.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\sys.c</PathWithFileName>
       <FilenameWithoutPath>sys.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1302,7 +1302,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp.c</PathWithFileName>
       <FilenameWithoutPath>tcp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1311,12 +1311,12 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>58</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_in.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_in.c</PathWithFileName>
       <FilenameWithoutPath>tcp_in.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1330,7 +1330,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_out.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\tcp_out.c</PathWithFileName>
       <FilenameWithoutPath>tcp_out.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1344,7 +1344,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\timers.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\timers.c</PathWithFileName>
       <FilenameWithoutPath>timers.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1353,12 +1353,12 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>23</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\udp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\udp.c</PathWithFileName>
       <FilenameWithoutPath>udp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1372,7 +1372,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\autoip.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\autoip.c</PathWithFileName>
       <FilenameWithoutPath>autoip.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1386,7 +1386,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\icmp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\icmp.c</PathWithFileName>
       <FilenameWithoutPath>icmp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1400,7 +1400,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\igmp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\igmp.c</PathWithFileName>
       <FilenameWithoutPath>igmp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1409,12 +1409,12 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>60</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet.c</PathWithFileName>
       <FilenameWithoutPath>inet.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1428,7 +1428,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet_chksum.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet_chksum.c</PathWithFileName>
       <FilenameWithoutPath>inet_chksum.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1442,7 +1442,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip.c</PathWithFileName>
       <FilenameWithoutPath>ip.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1456,7 +1456,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_addr.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_addr.c</PathWithFileName>
       <FilenameWithoutPath>ip_addr.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1470,7 +1470,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_frag.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_frag.c</PathWithFileName>
       <FilenameWithoutPath>ip_frag.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1484,9 +1484,32 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git2\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\netif\etharp.c</PathWithFileName>
+      <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\lwip-1.4.0\src\netif\etharp.c</PathWithFileName>
       <FilenameWithoutPath>etharp.c</FilenameWithoutPath>
     </File>
   </Group>
+
+  <MDIGroups>
+    <Orientation>1</Orientation>
+    <ActiveMDIGroup>0</ActiveMDIGroup>
+    <MDIGroup>
+      <Size>100</Size>
+      <ActiveTab>1</ActiveTab>
+      <Documents>
+        <Doc>
+          <Name>..\source\tcpecho_sa_app.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>77</TopLine>
+          <CurrentLine>77</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>293</TopLine>
+          <CurrentLine>304</CurrentLine>
+        </Doc>
+      </Documents>
+    </MDIGroup>
+  </MDIGroups>
 
 </ProjectOpt>
