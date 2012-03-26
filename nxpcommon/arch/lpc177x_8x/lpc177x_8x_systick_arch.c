@@ -23,6 +23,10 @@
 * use without further testing or modification.
 **********************************************************************/
 
+#include "lwip/opt.h"
+
+#if NO_SYS == 1
+
 #include "lpc177x_8x_systick.h"
 #include "lpc_arch.h"
 
@@ -112,6 +116,7 @@ void msDelay(uint32_t ms)
 
 	while (to > systick_timems);
 }
+#endif
 
 /**
  * @}

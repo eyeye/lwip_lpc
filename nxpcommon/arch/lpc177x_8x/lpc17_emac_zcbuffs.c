@@ -25,6 +25,6 @@
 
 #include "lpc17_emac.h"
 
-struct lpc_enetdata lpc_enetdata;
+ALIGNED(8) struct lpc_enetdata lpc_enetdata;
 
 /* --------------------------------- End Of File ------------------------------ */

@@ -32,11 +32,11 @@
 
 /** \brief  GPIO port used for LED control on the EA1788 board
  */
-#define LED_GPIO_PORT_USED		(2)
+#define LED_GPIO_PORT_USED		(1)
 
 /** \brief  GPIO bit used for LED control on the EA1788 board
  */
-#define LED_GPIO_PIN_BIT		(1 << 26)
+#define LED_GPIO_PIN_BIT		(1 << 18)
 
 /** \brief  Set the EA1788 module red LED to an on or off state
 

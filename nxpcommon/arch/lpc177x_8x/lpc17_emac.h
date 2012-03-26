@@ -57,13 +57,16 @@ typedef struct
 } LPC_TXRX_STATUS_T;
 
 /** \brief  LPC EMAC driver data structure
+ *
+ * This structure must be 8 byte aligned. Specifically, the prxs field must
+ * be 8 byte aligned.
  */
 struct lpc_enetdata {
+	LPC_TXRX_STATUS_T prxs[LPC_NUM_BUFF_RXDESCS]; /**< Pointer to RX statuses */
 	struct netif *netif;        /**< Reference back to LWIP parent netif */
 	LPC_TXRX_DESC_T ptxd[LPC_NUM_BUFF_TXDESCS];   /**< Pointer to TX descriptor list */
 	LPC_TXRX_STATUS_T ptxs[LPC_NUM_BUFF_TXDESCS]; /**< Pointer to TX statuses */
 	LPC_TXRX_DESC_T prxd[LPC_NUM_BUFF_RXDESCS];   /**< Pointer to RX descriptor list */
-	LPC_TXRX_STATUS_T prxs[LPC_NUM_BUFF_RXDESCS]; /**< Pointer to RX statuses */
 #if LPC_PBUF_RX_ZEROCOPY
 	struct pbuf *rxb[LPC_NUM_BUFF_RXDESCS]; /**< RX pbuf pointer list, zero-copy mode */
 	u32_t rx_fill_desc_index; /**< RX descriptor next available index */

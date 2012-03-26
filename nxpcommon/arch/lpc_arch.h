@@ -33,15 +33,15 @@ extern "C"
 {
 #endif
 
+#if NO_SYS == 1
+/* These are used in standalone mode only */
 void SysTick_Enable(uint32_t period);
 void SysTick_Disable(void);
 uint32_t SysTick_GetMS(void);
-void msDelay(uint32_t ms);
 void SysTick_User(u32_t ms);
+#endif
 
-/** \brief  Initialize output redirection for output functions
- */
-void init_redirect(void);
+void msDelay(uint32_t ms);
 
 #ifdef __cplusplus
 }

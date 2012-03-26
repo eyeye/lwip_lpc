@@ -64,6 +64,7 @@ typedef uintptr_t          mem_ptr_t;
     #define PACK_STRUCT_STRUCT
     #define PACK_STRUCT_END
     #define PACK_STRUCT_FIELD(fld) fld
+	#define ALIGNED(n)  __align(n)
 #elif defined (__IAR_SYSTEMS_ICC__) 
 	/* IAR Embedded Workbench tools */
     #define PACK_STRUCT_BEGIN __packed
@@ -71,12 +72,15 @@ typedef uintptr_t          mem_ptr_t;
     #define PACK_STRUCT_END
     #define PACK_STRUCT_FIELD(fld) fld
 //    #define PACK_STRUCT_USE_INCLUDES
+	#error NEEDS ALIGNED // FIXME TBD
 #else 
 	/* GCC tools (CodeSourcery) */
     #define PACK_STRUCT_BEGIN
     #define PACK_STRUCT_STRUCT __attribute__ ((__packed__))
     #define PACK_STRUCT_END
     #define PACK_STRUCT_FIELD(fld) fld
+	#define ALIGNED(n)  __attribute__((aligned (n)))
+	#define ALIGNED(n)  __align(n)
 #endif 
 
 /* Used with IP headers only */

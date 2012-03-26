@@ -24,6 +24,7 @@
 **********************************************************************/
 
 #include "lwip/opt.h"
+#include "lwip/sys.h"
 #include "lwip/def.h"
 #include "lwip/mem.h"
 #include "lwip/pbuf.h"
@@ -46,6 +47,35 @@
  *
  * @{
  */
+
+// FIXME TBD
+// *
+// RX descriptors for zero-copy do not need to be cleaned, the RX buffer
+// can be passed off to the recevie function and a new pbuf can be requeued
+// right away
+// *
+// Lockup after so many sends
+// *
+// Zero-copy TX seems to work
+// *
+// Zero-copy RX doesn't work
+// *
+// System appears to crash under heavy load
+// *
+// System appears to crash under heavy load
+
+#if NO_SYS == 0
+/* Use abstracted LWIP task functions as much as possible, but some
+   FreeRTOS functions must be used ni the driver */
+#define tskRECPKT_PRIORITY   (DEFAULT_THREAD_PRIO + 4)
+#define tskTXCLEAN_PRIORITY  (DEFAULT_THREAD_PRIO + 5)
+#define tskRECCLEAN_PRIORITY (DEFAULT_THREAD_PRIO + 6)
+#define tskRECCLEAN_RATE (3) /* Cleanup rate in mS */
+sys_sem_t RxSem, TxCleanSem;
+#endif
+
+#define RXINTGROUP (EMAC_INT_RX_OVERRUN | EMAC_INT_RX_ERR | EMAC_INT_RX_DONE)
+#define TXINTGROUP (EMAC_INT_TX_UNDERRUN | EMAC_INT_TX_ERR | EMAC_INT_TX_DONE)
 
 /** \brief  Write a value via the MII link (non-blocking)
 
@@ -379,7 +409,7 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 	return p;  
 }
 
-#else /* Copied RX obuf driver starts here */
+#else /* Copied RX pbuf driver starts here */
 /** \brief  Sets up the RX descriptor ring buffers.
 
     This function sets up the descriptor list used for receive packets.
@@ -913,13 +943,109 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 /** \brief  LPC EMAC interrupt handler.
 
     This function handles the transmit, receive, and error interrupt of
-	the LPC177x_8x. This is meant to be used when NO_SYS=0. It is not
-	implemented here and is just a spotholder for RTOS support.
+	the LPC177x_8x. This is meant to be used when NO_SYS=0.
  */
 void ENET_IRQHandler(void)
 {
-	;
+#if NO_SYS == 1
+	/* Interrupts are not used without an RTOS */
+    NVIC_DisableIRQ(ENET_IRQn);
+#else
+	signed portBASE_TYPE xRecTaskWoken = pdFALSE, XTXTaskWoken = pdFALSE;
+	uint32_t ints;
+
+	/* Interrupts are of 2 groups - transmit or receive. Based on the
+	   interrupt, kick off the receive or transmit (cleanup) task */
+
+	/* Get pending interrupts */
+	ints = LPC_EMAC->IntStatus;
+
+	if (ints & RXINTGROUP) {
+		/* RX group interrupt(s) */
+		/* Give semaphore to wakeup RX receive task. Note the FreeRTOS
+		   method is used instead of the LWIP arch method. */
+        xSemaphoreGiveFromISR(RxSem, &xRecTaskWoken);
+	}
+
+#if LPC_PBUF_TX_ZEROCOPY
+	if (ints & TXINTGROUP) {
+		/* TX group interrupt(s) */
+		/* Give semaphore to wakeup TX cleanup task. Note the FreeRTOS
+		   method is used instead of the LWIP arch method. */
+        xSemaphoreGiveFromISR(TxCleanSem, &XTXTaskWoken);
+	}
+#endif
+
+	/* Clear pending interrupts */
+	LPC_EMAC->IntClear = ints;
+
+	/* Context switch needed? */
+	if (xRecTaskWoken || XTXTaskWoken)
+		vPortYieldFromISR();
+#endif
 }
+
+#if NO_SYS == 0
+/** \brief  Packet reception task
+ *
+ * This task is called when a packet is received. It will
+ * pass the packet to the LWIP core.
+ */
+static portTASK_FUNCTION( vPacketReceiveTask, pvParameters )
+{
+	while (1) {
+		/* Wait for receive task to wakeup */
+		sys_arch_sem_wait(&RxSem, 0);
+
+		/* Process packets until all empty */
+		while (LPC_EMAC->RxConsumeIndex != LPC_EMAC->RxProduceIndex)
+			lpc_enetif_input(lpc_enetdata.netif);
+	}
+}
+
+#if LPC_PBUF_TX_ZEROCOPY
+/** \brief  Transmit cleanup task
+ *
+ * This task is called when a transmit interrupt occurs and
+ * reclaims the pbuf and descriptor used for the packet once
+ * the packet has been transferred.
+ */
+static portTASK_FUNCTION( vTransmitCleanupTask, pvParameters )
+{
+	while (1) {
+		/* Wait for transmit cleanup task to wakeup */
+		sys_arch_sem_wait(&TxCleanSem, 0);
+
+		/* Free TX buffers that are done sending */
+		lpc_tx_reclaim(lpc_enetdata.netif);
+	}
+}
+#endif
+
+#if LPC_PBUF_RX_ZEROCOPY
+/** \brief  Receive packet reclaimation cleanup task
+ *
+ * This task is only used when zero copy receive buffers are used.
+ * This task is periodically called to reclaim pbufs and descriptors
+ * used for receive packets. The packet is only reclaimed after
+ * the LWIP core is done with them.
+ */
+static portTASK_FUNCTION( vReceiveCleanupTask, pvParameters )
+{
+	portTickType xLastExecutionTime;
+
+	while (1) {
+		/* Task will occasionally wakeup and reclaim pbufs and
+		   descriptors used for zero-copy. */
+		xLastExecutionTime = xTaskGetTickCount();
+		vTaskDelayUntil(&xLastExecutionTime, tskRECCLEAN_RATE);
+
+		/* Re-queue RX buffers as needed */
+		while (lpc_rx_queue(lpc_enetdata.netif));
+	}
+}
+#endif
+#endif
 
 /** \brief  Low level init of the MAC and PHY.
 
@@ -935,9 +1061,10 @@ static err_t low_level_init(struct netif *netif)
 
 	/* Reset all MAC logic */
 	LPC_EMAC->MAC1 = EMAC_MAC1_RES_TX | EMAC_MAC1_RES_MCS_TX |
-		EMAC_MAC1_RES_RX | EMAC_MAC1_RES_MCS_RX |
-		EMAC_MAC1_SIM_RES | EMAC_MAC1_SOFT_RES;
-	LPC_EMAC->Command = EMAC_CR_REG_RES | EMAC_CR_TX_RES | EMAC_CR_RX_RES;
+		EMAC_MAC1_RES_RX | EMAC_MAC1_RES_MCS_RX | EMAC_MAC1_SIM_RES |
+		EMAC_MAC1_SOFT_RES;
+	LPC_EMAC->Command = EMAC_CR_REG_RES | EMAC_CR_TX_RES | EMAC_CR_RX_RES |
+		EMAC_CR_PASS_RUNT_FRM;
 	msDelay(10);
 
 	/* Initial MAC initialization */
@@ -947,7 +1074,7 @@ static err_t low_level_init(struct netif *netif)
 	LPC_EMAC->MAXF = EMAC_ETH_MAX_FLEN;
 
 	/* Set RMII management clock rate to lowest speed */
-	LPC_EMAC->MCFG = EMAC_MCFG_CLK_SEL(7) | EMAC_MCFG_RES_MII;
+	LPC_EMAC->MCFG = EMAC_MCFG_CLK_SEL(11) | EMAC_MCFG_RES_MII;
 	LPC_EMAC->MCFG &= ~EMAC_MCFG_RES_MII;
 
 	/* Maximum number of retries, 0x37 collision window, gap */
@@ -991,16 +1118,17 @@ static err_t low_level_init(struct netif *netif)
 	/* Clear and enable rx/tx interrupts */
 	LPC_EMAC->IntClear = 0xFFFF;
 	LPC_EMAC->IntEnable =
-#if NO_SYS
+#if NO_SYS == 1
 		0;
 #else
-		EMAC_INT_TX_DONE | EMAC_INT_RX_DONE |
-		EMAC_INT_RX_OVERRUN | EMAC_INT_TX_UNDERRUN;
+#if LPC_PBUF_TX_ZEROCOPY
+		RXINTGROUP | TXINTGROUP;
+#else
+		RXINTGROUP;
+#endif
 #endif
 
-	/* Not all interrupts are used, only descriptor completion
-	   and some error interrupts are needed. RX status errors
-	   are handled at packet reception time. */
+	/* Enable RX and TX */
 	LPC_EMAC->Command |= EMAC_CR_RX_EN | EMAC_CR_TX_EN;
 	LPC_EMAC->MAC1 |= EMAC_MAC1_REC_EN;
 
@@ -1086,6 +1214,29 @@ err_t lpc_enetif_init(struct netif *netif)
 
 	netif->output = etharp_output;
 	netif->linkoutput = lpc_low_level_output;
+
+	/* For FreeRTOS, start tasks */
+#if NO_SYS == 0
+	/* Packet receive task */
+	err = sys_sem_new(&RxSem, 0);
+	LWIP_ASSERT("RxSem creation error", (err == ERR_OK));
+	sys_thread_new("receive_thread", vPacketReceiveTask, NULL,
+		DEFAULT_THREAD_STACKSIZE, tskRECPKT_PRIORITY);
+
+#if LPC_PBUF_TX_ZEROCOPY
+	/* Transmit cleanup task */
+	err = sys_sem_new(&TxCleanSem, 0);
+	LWIP_ASSERT("TxCleanSem creation error", (err == ERR_OK));
+	sys_thread_new("txclean_thread", vTransmitCleanupTask, NULL,
+		DEFAULT_THREAD_STACKSIZE, tskTXCLEAN_PRIORITY);
+#endif
+
+#if LPC_PBUF_RX_ZEROCOPY
+	/* Receive cleanup task */
+	sys_thread_new("rxclean_thread", vReceiveCleanupTask, NULL,
+		DEFAULT_THREAD_STACKSIZE, tskRECCLEAN_PRIORITY);
+#endif
+#endif
 
 	return ERR_OK;
 }
