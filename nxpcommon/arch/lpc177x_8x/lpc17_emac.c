@@ -38,16 +38,6 @@
 #include "lpc17_emac.h"
 #include "lpc_emac_config.h"
 
-/** @defgroup lwip_emac_DRIVER	lpc17 EMAC driver for LWIP
- * @ingroup lwip_emac
- *
- * This driver is currently for the LPC177x_8x devices only, although
- * the LPC32x0 and LPC2000 series devices share the same ethernet
- * controller.
- *
- * @{
- */
-
 // FIXME TBD
 // *
 // RX descriptors for zero-copy do not need to be cleaned, the RX buffer
@@ -64,29 +54,77 @@
 // *
 // System appears to crash under heavy load
 
+/** @defgroup lwip17xx_emac_DRIVER	lpc17 EMAC driver for LWIP
+ * @ingroup lwip_emac
+ *
+ * This driver is currently for the LPC177x_8x devices only, although
+ * the LPC32x0 and LPC2000 series devices share the same ethernet
+ * controller.
+ *
+ * @{
+ */
+
 #if NO_SYS == 0
-/* Use abstracted LWIP task functions as much as possible, but some
-   FreeRTOS functions must be used ni the driver */
+/** \brief  Driver thread priorities
+ */
 #define tskRECPKT_PRIORITY   (DEFAULT_THREAD_PRIO + 4)
 #define tskTXCLEAN_PRIORITY  (DEFAULT_THREAD_PRIO + 5)
 #define tskRECCLEAN_PRIORITY (DEFAULT_THREAD_PRIO + 6)
 #define tskRECCLEAN_RATE (3) /* Cleanup rate in mS */
-sys_sem_t RxSem, TxCleanSem;
 #endif
 
-#define RXINTGROUP (EMAC_INT_RX_OVERRUN | EMAC_INT_RX_ERR | EMAC_INT_RX_DONE)
-#define TXINTGROUP (EMAC_INT_TX_UNDERRUN | EMAC_INT_TX_ERR | EMAC_INT_TX_DONE)
-
-/** \brief  Write a value via the MII link (non-blocking)
-
-    This function will write a value on the MII link interface to a PHY
-	or a connected device. The function will return immediately without
-	a status. Status needs to be polled later to determine if the write
-	was successful.
-
-    \param [in]      PhyReg  PHY register to write to
-    \param [in]      Value   Value to write
+#if NO_SYS == 1
+/** \brief  Receive group interrupts
  */
+#define RXINTGROUP (EMAC_INT_RX_OVERRUN | EMAC_INT_RX_ERR | EMAC_INT_RX_DONE)
+
+/** \brief  Transmit group interrupts
+ */
+#define TXINTGROUP (EMAC_INT_TX_UNDERRUN | EMAC_INT_TX_ERR | EMAC_INT_TX_DONE)
+#else
+#define RXINTGROUP 0
+#define TXINTGROUP 0
+#endif
+
+ /** \brief  Structure of a TX/RX descriptor
+ */
+typedef struct
+{
+	volatile u32_t packet;        /**< Pointer to buffer */
+	volatile u32_t control;       /**< Control word */
+} LPC_TXRX_DESC_T;
+
+/** \brief  Structure of a RX status entry
+ */
+typedef struct
+{
+	volatile u32_t statusinfo;   /**< RX status word */
+	volatile u32_t statushashcrc; /**< RX hash CRC */
+} LPC_TXRX_STATUS_T;
+
+/* LPC EMAC driver data structure */
+struct lpc_enetdata {
+    /* prxs must be 8 byte aligned! */
+	LPC_TXRX_STATUS_T prxs[LPC_NUM_BUFF_RXDESCS]; /**< Pointer to RX statuses */
+	struct netif *netif;        /**< Reference back to LWIP parent netif */
+	LPC_TXRX_DESC_T ptxd[LPC_NUM_BUFF_TXDESCS];   /**< Pointer to TX descriptor list */
+	LPC_TXRX_STATUS_T ptxs[LPC_NUM_BUFF_TXDESCS]; /**< Pointer to TX statuses */
+	LPC_TXRX_DESC_T prxd[LPC_NUM_BUFF_RXDESCS];   /**< Pointer to RX descriptor list */
+	struct pbuf *rxb[LPC_NUM_BUFF_RXDESCS]; /**< RX pbuf pointer list, zero-copy mode */
+	u32_t rx_fill_desc_index; /**< RX descriptor next available index */
+	u32_t rx_free_descs; /**< Count of free RX descriptors */
+	struct pbuf *txb[LPC_NUM_BUFF_TXDESCS]; /**< TX pbuf pointer list, zero-copy mode */
+	u32_t lpc_last_tx_idx; /**< TX last descriptor index, zero-copy mode */
+#if NO_SYS == 0
+    sys_sem_t RxSem, TxCleanSem;
+#endif
+    };
+
+/** \brief  LPC EMAC driver work data
+ */
+ALIGNED(8) struct lpc_enetdata lpc_enetdata;
+
+/* Write a value via the MII link (non-blocking) */
 void lpc_mii_write_noblock(u32_t PhyReg, u32_t Value)
 {
 	/* Write value at PHY address and register */
@@ -94,15 +132,7 @@ void lpc_mii_write_noblock(u32_t PhyReg, u32_t Value)
 	LPC_EMAC->MWTD = Value;
 }
 
-/** \brief  Write a value via the MII link (blocking)
-
-    This function will write a value on the MII link interface to a PHY
-	or a connected device. The function will block until complete.
-
-    \param [in]      PhyReg  PHY register to write to
-    \param [in]      Value   Value to write
-	\returns         0 if the write was successful, otherwise !0
- */
+/* Write a value via the MII link (blocking) */
 err_t lpc_mii_write(u32_t PhyReg, u32_t Value)
 {
 	u32_t mst = 250;
@@ -128,28 +158,13 @@ err_t lpc_mii_write(u32_t PhyReg, u32_t Value)
 	return sts;
 }
 
-/** \brief  Reads current MII link busy status
-
-    This function will return the current MII link busy status and is meant to
-	be used with non-blocking functions for monitor PHY status such as
-	connection state.
-
-	\returns         !0 if the MII link is busy, otherwise 0
- */
+/* Reads current MII link busy status */
 u32_t lpc_mii_is_busy(void)
 {
 	return (u32_t) (LPC_EMAC->MIND & EMAC_MIND_BUSY);
 }
 
-/** \brief  Starts a read operation via the MII link (non-blocking)
-
-    This function returns the current value in the MII data register. It is
-	meant to be used with the non-blocking oeprations. This value should
-	only be read after a non-block read command has been issued and the
-	MII status has been determined to be good.
-
-    \returns          The current value in the MII value register
- */
+/* Starts a read operation via the MII link (non-blocking) */
 u32_t lpc_mii_read_data(void)
 {
 	u32_t data = LPC_EMAC->MRDD;
@@ -158,15 +173,7 @@ u32_t lpc_mii_read_data(void)
 	return data;
 }
 
-/** \brief  Starts a read operation via the MII link (non-blocking)
-
-    This function will start a read operation on the MII link interface
-	from a PHY or a connected device. The function will not block and
-	the status mist be polled until complete. Once complete, the data
-	can be read.
-
-    \param [in]      PhyReg  PHY register to read from
- */
+/* Starts a read operation via the MII link (non-blocking) */
 void lpc_mii_read_noblock(u32_t PhyReg) 
 {
 	/* Read value at PHY address and register */
@@ -174,15 +181,7 @@ void lpc_mii_read_noblock(u32_t PhyReg)
 	LPC_EMAC->MCMD = EMAC_MCMD_READ;
 }
 
-/** \brief  Read a value via the MII link (blocking)
-
-    This function will read a value on the MII link interface from a PHY
-	or a connected device. The function will block until complete.
-
-    \param [in]      PhyReg  PHY register to read from
-    \param [in]      data    Pointer to where to save data read via MII
-	\returns         0 if the read was successful, otherwise !0
- */
+/* Read a value via the MII link (blocking) */
 err_t lpc_mii_read(u32_t PhyReg, u32_t *data) 
 {
 	u32_t mst = 250;
@@ -211,11 +210,10 @@ err_t lpc_mii_read(u32_t PhyReg, u32_t *data)
 	return sts;
 }
 
-#if LPC_PBUF_RX_ZEROCOPY
 /** \brief  Queues a pbuf into the RX descriptor list
-
-    \param lpc_enetdata Pointer to the drvier data structure
-    \param p            Pointer to pbuf to queue
+ *
+ *  \param[in] lpc_enetdata Pointer to the drvier data structure
+ *  \param[in] p            Pointer to pbuf to queue
  */
 static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_enetdata, struct pbuf *p)
 {
@@ -249,9 +247,9 @@ static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_enetdata, struct pbuf *p)
 }
 
 /** \brief  Attempt to allocate and requeue a new pbuf for RX
-
-    \param     netif Pointer to the netif structure
-    \returns         1 if a packet was allocated and requeued, otherwise 0
+ *
+ *  \param[in]     netif Pointer to the netif structure
+ *  \returns         1 if a packet was allocated and requeued, otherwise 0
  */
 s32_t lpc_rx_queue(struct netif *netif)
 {
@@ -283,11 +281,11 @@ s32_t lpc_rx_queue(struct netif *netif)
 }
 
 /** \brief  Sets up the RX descriptor ring buffers.
-
-    This function sets up the descriptor list used for receive packets.
-
-    \param [in]  lpc_enetdata  Pointer to driver data structure
-	\returns                   Always returns ERR_OK
+ * 
+ *  This function sets up the descriptor list used for receive packets.
+ *
+ *  \param[in]  lpc_enetdata  Pointer to driver data structure
+ *  \returns                   Always returns ERR_OK
  */
 static err_t lpc_rx_setup(struct lpc_enetdata *lpc_enetdata)
 {
@@ -309,9 +307,9 @@ static err_t lpc_rx_setup(struct lpc_enetdata *lpc_enetdata)
 }
 
 /** \brief  Allocates a pbuf and returns the data from the incoming packet.
-
-    \param netif the lwip network interface structure for this lpc_enetif
-    \return a pbuf filled with the received packet (including MAC header)
+ *
+ *  \param[in] netif the lwip network interface structure for this lpc_enetif
+ *  \return a pbuf filled with the received packet (including MAC header)
  *         NULL on memory error
  */
 static struct pbuf *lpc_low_level_input(struct netif *netif)
@@ -409,137 +407,9 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 	return p;  
 }
 
-#else /* Copied RX pbuf driver starts here */
-/** \brief  Sets up the RX descriptor ring buffers.
-
-    This function sets up the descriptor list used for receive packets.
-
-    \param [in]  lpc_enetdata  Pointer to driver data structure
-	\returns                   Always returns ERR_OK
- */
-static err_t lpc_rx_setup(struct lpc_enetdata *lpc_enetdata)
-{
-	s32_t idx;
-
-	/* Setup pointers to RX structures */
-	LPC_EMAC->RxDescriptor = (u32_t) &lpc_enetdata->prxd[0];
-	LPC_EMAC->RxStatus = (u32_t) &lpc_enetdata->prxs[0];
-	LPC_EMAC->RxDescriptorNumber = LPC_NUM_BUFF_RXDESCS - 1;
-
-	/* Build RX descriptors */
-	for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++) {
-		/* Setup DMA RX descriptor */
-		lpc_enetdata->prxd[idx].packet = (u32_t) &lpc_enetdata->lpc_rx_buffs[idx][0];
-		lpc_enetdata->prxd[idx].control = EMAC_RCTRL_INT |
-			(EMAC_ETH_MAX_FLEN - 1);
-		lpc_enetdata->prxs[idx].statusinfo = 0xFFFFFFFF;
-		lpc_enetdata->prxs[idx].statushashcrc = 0xFFFFFFFF;
-	}
-
-	return ERR_OK;
-}
-
-/** \brief  Allocates a pbuf and returns the data from the incoming packet.
-
-    \param netif the lwip network interface structure for this lpc_enetif
-    \return a pbuf filled with the received packet (including MAC header)
- *         NULL on memory error
- */
-static struct pbuf *lpc_low_level_input(struct netif *netif)
-{
-	struct lpc_enetdata *lpc_enetdata = netif->state;
-	struct pbuf *p = NULL, *q;
-	u32_t idx, length;
-	u8_t *src;
-
-	/* Monitor RX overrun status. This should never happen unless
-	   (possibly) the internal bus is behing held up by something.
-	   Unless your system is running at a very low clock speed or
-	   there are possibilities that the internal buses may be held
-	   up for a long time, this can probably safely be removed. */
-	if (LPC_EMAC->IntStatus & EMAC_INT_RX_OVERRUN) {
-		LINK_STATS_INC(link.err);
-		LINK_STATS_INC(link.drop);
-
-		/* Temporarily disable RX */
-		LPC_EMAC->MAC1 &= ~EMAC_MAC1_REC_EN;
-
-		/* Reset the RX side */
-		LPC_EMAC->MAC1 |= EMAC_MAC1_RES_RX;
-		LPC_EMAC->IntClear = EMAC_INT_RX_OVERRUN;
-
-		/* Start RX side again */
-		lpc_rx_setup(lpc_enetdata);
-
-		/* Re-enable RX */
-		LPC_EMAC->MAC1 |= EMAC_MAC1_REC_EN;
-
-		return NULL;
-	}
-
-	/* Determine if a frame has been received */
-	idx = LPC_EMAC->RxConsumeIndex;
-	if (LPC_EMAC->RxProduceIndex != idx) {
-		/* Handle errors */
-		if (lpc_enetdata->prxs[idx].statusinfo & (EMAC_RINFO_CRC_ERR |
-			EMAC_RINFO_SYM_ERR | EMAC_RINFO_ALIGN_ERR | EMAC_RINFO_LEN_ERR)) {
-#if LINK_STATS
-			if (lpc_enetdata->prxs[idx].statusinfo & (EMAC_RINFO_CRC_ERR |
-				EMAC_RINFO_SYM_ERR | EMAC_RINFO_ALIGN_ERR))
-				LINK_STATS_INC(link.chkerr);
-			if (lpc_enetdata->prxs[idx].statusinfo & EMAC_RINFO_LEN_ERR)
-				LINK_STATS_INC(link.lenerr);
-#endif
-
-			/* Drop the frame */
-			LINK_STATS_INC(link.drop);
-
-			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
-				("lpc_low_level_input: Packet dropped with errors (0x%x)\n",
-				lpc_enetdata->prxs[idx].statusinfo));
-		}
-		else {
-			/* A packet is waiting, get length */
-			length = (lpc_enetdata->prxs[idx].statusinfo & 0x7FF) + 1;
-
-			/* Allocate a pbuf chain of pbufs from the pool. */
-			p = pbuf_alloc(PBUF_RAW, (u16_t) length, PBUF_POOL);
-			if (p == NULL) {
-				/* Buffer in hardware is not lost, but cannot get packet now */
-				LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
-					("lpc_low_level_input: Could not allocate input pbuf\n"));
-				return NULL;
-			}
-
-			/* Copy buffer */
-			src = (u8_t *) lpc_enetdata->prxd[idx].packet;
-		    for(q = p; q != NULL; q = q->next) {
-				MEMCPY((u8_t *) q->payload, src, q->len);
-				src += q->len;
-			}
-
-			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
-				("lpc_low_level_input: Packet received: %p, size %d (index=%d)\n",
-				p, length, idx));
-
-			/* Save size */
-			p->tot_len = (u16_t) length;
-			LINK_STATS_INC(link.recv);
-		}
-
-			idx++;
-			if (idx >= LPC_NUM_BUFF_RXDESCS)
-				idx = 0;
-			LPC_EMAC->RxConsumeIndex = idx;
-	}
-
-	return p;  
-}
-#endif /* End of RX copied or zero-copy driver section */
-
 /** \brief  Attempt to read a packet from the EMAC interface.
-
-    \param[in] netif the lwip network interface structure for this lpc_enetif
+ *
+ *  \param[in] netif the lwip network interface structure for this lpc_enetif
  */
 void lpc_enetif_input(struct netif *netif)
 {
@@ -578,10 +448,10 @@ void lpc_enetif_input(struct netif *netif)
 }
 
 /** \brief  Determine if the passed address is usable for the ethernet
-            DMA controller.
-
-    \param [in] addr Address of packet to check for DMA safe operation
-    \return          1 if the packet address is not safe, otherwise 0
+ *          DMA controller.
+ *
+ *  \param[in] addr Address of packet to check for DMA safe operation
+ *  \return          1 if the packet address is not safe, otherwise 0
  */
 static s32_t lpc_packet_addr_notsafe(void *addr) {
 	/* Check for legal address ranges */
@@ -592,12 +462,11 @@ static s32_t lpc_packet_addr_notsafe(void *addr) {
 	return 1;
 }
 
-#if LPC_PBUF_TX_ZEROCOPY
 /** \brief  Sets up the TX descriptor ring buffers.
-
-    This function sets up the descriptor list used for transmit packets.
-
-    \param [in]      lpc_enetdata  Pointer to driver data structure
+ *
+ *  This function sets up the descriptor list used for transmit packets.
+ *
+ *  \param[in]      lpc_enetdata  Pointer to driver data structure
  */
 static err_t lpc_tx_setup(struct lpc_enetdata *lpc_enetdata)
 {
@@ -620,9 +489,9 @@ static err_t lpc_tx_setup(struct lpc_enetdata *lpc_enetdata)
 }
 
 /** \brief  Free TX buffers that are complete
-
-    \param [in] lpc_enetdata  Pointer to driver data structure
-    \param [in] cidx  EMAC current descriptor comsumer index
+ *
+ *  \param[in] lpc_enetdata  Pointer to driver data structure
+ *  \param[in] cidx  EMAC current descriptor comsumer index
  */
 static void lpc_tx_reclaim_st(struct lpc_enetdata *lpc_enetdata, u32_t cidx)
 {
@@ -643,8 +512,8 @@ static void lpc_tx_reclaim_st(struct lpc_enetdata *lpc_enetdata, u32_t cidx)
 }
 
 /** \brief  User call for freeingTX buffers that are complete
-
-    \param [in] netif the lwip network interface structure for this lpc_enetif
+ *
+ *  \param[in] netif the lwip network interface structure for this lpc_enetif
  */
 void lpc_tx_reclaim(struct netif *netif)
 {
@@ -653,10 +522,10 @@ void lpc_tx_reclaim(struct netif *netif)
 }
 
  /** \brief  Polls if an available TX descriptor is ready. Can be used to
-             determine if the low level transmit function will block.
-
-    \param [in] netif the lwip network interface structure for this lpc_enetif
-    \return 0 if no descriptors are read, or >0
+ *           determine if the low level transmit function will block.
+ *
+ *  \param[in] netif the lwip network interface structure for this lpc_enetif
+ *  \return 0 if no descriptors are read, or >0
  */
 s32_t lpc_tx_ready(struct netif *netif)
 {
@@ -681,13 +550,12 @@ s32_t lpc_tx_ready(struct netif *netif)
 }
 
 /** \brief  Low level output of a packet. Never call this from an
-            interrupt context, as it may block until TX descriptors
-			become available.
-
-    \param netif the lwip network interface structure for this lpc_enetif
-    \param p the MAC packet to send (e.g. IP packet including MAC addresses and type)
-    \return ERR_OK if the packet could be sent
-           an err_t value if the packet couldn't be sent
+ *          interrupt context, as it may block until TX descriptors
+ *          become available.
+ *
+ *  \param[in] netif the lwip network interface structure for this lpc_enetif
+ *  \param[in] p the MAC packet to send (e.g. IP packet including MAC addresses and type)
+ *  \return ERR_OK if the packet could be sent or an err_t value if the packet couldn't be sent
  */
 static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 {
@@ -821,129 +689,10 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 	return ERR_OK;
 }
 
-#else /* Start of copied pbuf transmit driver */
-/** \brief  Sets up the TX descriptor ring buffers.
-
-    This function sets up the descriptor list used for transmit packets.
-
-    \param [in]      lpc_enetdata  Pointer to driver data structure
- */
-static err_t lpc_tx_setup(struct lpc_enetdata *lpc_enetdata)
-{
-	s32_t idx;
-
-	/* Setup pointers to TX structures */
-	LPC_EMAC->TxDescriptor = (u32_t) &lpc_enetdata->ptxd[0];
-	LPC_EMAC->TxStatus = (u32_t) &lpc_enetdata->ptxs[0];
-	LPC_EMAC->TxDescriptorNumber = LPC_NUM_BUFF_TXDESCS - 1;
-
-	/* Build TX descriptors for local buffers */
-	for (idx = 0; idx < LPC_NUM_BUFF_TXDESCS; idx++) {
-		lpc_enetdata->ptxd[idx].packet = (u32_t) &lpc_enetdata->lpc_tx_buffs[idx][0];
-		lpc_enetdata->ptxd[idx].control = 0;
-		lpc_enetdata->ptxs[idx].statusinfo = 0xFFFFFFFF;
-	}
-
-	return ERR_OK;
-}
-
- /** \brief  Polls if an available TX descriptor is ready. Can be used to
-             determine if the low level transmit function will block.
-
-    \param netif the lwip network interface structure for this lpc_enetif
-    \return 0 if no descriptors are read, or >0
- */
-s32_t lpc_tx_ready(struct netif *netif)
-{
-	s32_t fb;
-	u32_t idx, cidx;
-
-	cidx = LPC_EMAC->TxConsumeIndex;
-	idx = LPC_EMAC->TxProduceIndex;
-
-	/* Determine number of free buffers */
-	if (idx == cidx)
-		fb = LPC_NUM_BUFF_TXDESCS;
-	else if (cidx > idx)
-		fb = (LPC_NUM_BUFF_TXDESCS - 1) -
-			((idx + LPC_NUM_BUFF_TXDESCS) - cidx);
-	else
-		fb = (LPC_NUM_BUFF_TXDESCS - 1) - (cidx - idx);
-
-	return fb;
-}
-
-/** \brief  Low level output of a packet. Never call this from an
-            interrupt context, as it may block until TX descriptors
-			become available.
-
-    \param netif the lwip network interface structure for this lpc_enetif
-    \param p the MAC packet to send (e.g. IP packet including MAC addresses and type)
-    \return ERR_OK if the packet could be sent
-           an err_t value if the packet couldn't be sent
- */
-static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
-{
-	struct lpc_enetdata *lpc_enetdata = netif->state;
-	struct pbuf *q;
-	u8_t *dst;
-	u32_t idx, sz = 0;
-	err_t err = ERR_OK;
-
-	/* Error handling for TX underruns. This should never happen unless
-	   something is holding the bus or the clocks are going too slow. It
-	   can probably be safely removed. */
- 	if (LPC_EMAC->IntStatus & EMAC_INT_TX_UNDERRUN) {
-		LINK_STATS_INC(link.err);
-		LINK_STATS_INC(link.drop);
-
-		/* Reset the TX side */
-		LPC_EMAC->MAC1 |= EMAC_MAC1_RES_TX;
-		LPC_EMAC->IntClear = EMAC_INT_TX_UNDERRUN;
-
-		/* Start TX side again */
-		lpc_tx_setup(lpc_enetdata);
-	}
-
-	/* Wait for a single buffer to become available */
-	while (lpc_tx_ready(netif) == 0);
-
-	/* Get free TX buffer index */
-	idx = LPC_EMAC->TxProduceIndex;
-
-	/* Copy pbuf to ethernet send buffer */
-	dst = (u8_t *) lpc_enetdata->ptxd[idx].packet;
- 	for(q = p; q != NULL; q = q->next) {
-		/* Copy the buffer to the descriptor's buffer */
-	  MEMCPY(dst, (u8_t *) q->payload, q->len);
-	  dst += q->len;
-	  sz += q->len;
-	}
-
-	/* Save size of packet and signal it's ready */
-	lpc_enetdata->ptxd[idx].control = (sz - 1) | EMAC_TCTRL_INT |
-		EMAC_TCTRL_LAST;
-
-	/*SGet next index for transmit descriptor */
-	idx++;
-	if (idx >= LPC_NUM_BUFF_TXDESCS)
-		idx = 0;
-	LPC_EMAC->TxProduceIndex = idx;
-
-	LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
-		("lpc_low_level_output: pbuf packet(%p) sent, chains = %d,"
-		" size = %d\n", p, (u32_t) pbuf_clen(p), p->tot_len));
-
-	LINK_STATS_INC(link.xmit);
-
-	return ERR_OK;
-}
-#endif  /* End of TX copied or zero-copy driver section */
-
 /** \brief  LPC EMAC interrupt handler.
-
-    This function handles the transmit, receive, and error interrupt of
-	the LPC177x_8x. This is meant to be used when NO_SYS=0.
+ *
+ *  This function handles the transmit, receive, and error interrupt of
+ *  the LPC177x_8x. This is meant to be used when NO_SYS=0.
  */
 void ENET_IRQHandler(void)
 {
@@ -967,14 +716,12 @@ void ENET_IRQHandler(void)
         xSemaphoreGiveFromISR(RxSem, &xRecTaskWoken);
 	}
 
-#if LPC_PBUF_TX_ZEROCOPY
 	if (ints & TXINTGROUP) {
 		/* TX group interrupt(s) */
 		/* Give semaphore to wakeup TX cleanup task. Note the FreeRTOS
 		   method is used instead of the LWIP arch method. */
         xSemaphoreGiveFromISR(TxCleanSem, &XTXTaskWoken);
 	}
-#endif
 
 	/* Clear pending interrupts */
 	LPC_EMAC->IntClear = ints;
@@ -990,6 +737,8 @@ void ENET_IRQHandler(void)
  *
  * This task is called when a packet is received. It will
  * pass the packet to the LWIP core.
+ *
+ *  \param[in] pvParameters Not used yet
  */
 static portTASK_FUNCTION( vPacketReceiveTask, pvParameters )
 {
@@ -1003,12 +752,13 @@ static portTASK_FUNCTION( vPacketReceiveTask, pvParameters )
 	}
 }
 
-#if LPC_PBUF_TX_ZEROCOPY
 /** \brief  Transmit cleanup task
  *
  * This task is called when a transmit interrupt occurs and
  * reclaims the pbuf and descriptor used for the packet once
  * the packet has been transferred.
+ *
+ *  \param[in] pvParameters Not used yet
  */
 static portTASK_FUNCTION( vTransmitCleanupTask, pvParameters )
 {
@@ -1020,9 +770,7 @@ static portTASK_FUNCTION( vTransmitCleanupTask, pvParameters )
 		lpc_tx_reclaim(lpc_enetdata.netif);
 	}
 }
-#endif
 
-#if LPC_PBUF_RX_ZEROCOPY
 /** \brief  Receive packet reclaimation cleanup task
  *
  * This task is only used when zero copy receive buffers are used.
@@ -1045,11 +793,10 @@ static portTASK_FUNCTION( vReceiveCleanupTask, pvParameters )
 	}
 }
 #endif
-#endif
 
 /** \brief  Low level init of the MAC and PHY.
-
-    \param [in]      netif  Pointer to LWIP netif structure
+ *
+ *  \param[in]      netif  Pointer to LWIP netif structure
  */
 static err_t low_level_init(struct netif *netif)
 {
@@ -1117,16 +864,7 @@ static err_t low_level_init(struct netif *netif)
 
 	/* Clear and enable rx/tx interrupts */
 	LPC_EMAC->IntClear = 0xFFFF;
-	LPC_EMAC->IntEnable =
-#if NO_SYS == 1
-		0;
-#else
-#if LPC_PBUF_TX_ZEROCOPY
-		RXINTGROUP | TXINTGROUP;
-#else
-		RXINTGROUP;
-#endif
-#endif
+	LPC_EMAC->IntEnable = RXINTGROUP | TXINTGROUP;
 
 	/* Enable RX and TX */
 	LPC_EMAC->Command |= EMAC_CR_RX_EN | EMAC_CR_TX_EN;
@@ -1135,12 +873,8 @@ static err_t low_level_init(struct netif *netif)
 	return err;
 }
 
-/**
- * This function provides a method for the PHY to setup the EMAC
- * for the PHY negotiated duplex mode.
- *
- * @param[in] full_duplex 0 = half duplex, 1 = full duplex
- */
+/* This function provides a method for the PHY to setup the EMAC
+   for the PHY negotiated duplex mode */
 void lpc_emac_set_duplex(int full_duplex)
 {
 	if (full_duplex) {
@@ -1154,12 +888,8 @@ void lpc_emac_set_duplex(int full_duplex)
 	}
 }
 
-/**
- * This function provides a method for the PHY to setup the EMAC
- * for the PHY negotiated bit rate.
- *
- * @param[in] mbs_100     0 = 10mbs mode, 1 = 100mbs mode
- */
+/* This function provides a method for the PHY to setup the EMAC
+   for the PHY negotiated bit rate */
 void lpc_emac_set_speed(int mbs_100)
 {
 	if (mbs_100)
@@ -1223,19 +953,15 @@ err_t lpc_enetif_init(struct netif *netif)
 	sys_thread_new("receive_thread", vPacketReceiveTask, NULL,
 		DEFAULT_THREAD_STACKSIZE, tskRECPKT_PRIORITY);
 
-#if LPC_PBUF_TX_ZEROCOPY
 	/* Transmit cleanup task */
 	err = sys_sem_new(&TxCleanSem, 0);
 	LWIP_ASSERT("TxCleanSem creation error", (err == ERR_OK));
 	sys_thread_new("txclean_thread", vTransmitCleanupTask, NULL,
 		DEFAULT_THREAD_STACKSIZE, tskTXCLEAN_PRIORITY);
-#endif
 
-#if LPC_PBUF_RX_ZEROCOPY
 	/* Receive cleanup task */
 	sys_thread_new("rxclean_thread", vReceiveCleanupTask, NULL,
 		DEFAULT_THREAD_STACKSIZE, tskRECCLEAN_PRIORITY);
-#endif
 #endif
 
 	return ERR_OK;

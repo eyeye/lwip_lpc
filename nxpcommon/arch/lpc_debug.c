@@ -33,13 +33,13 @@
 #ifdef LWIP_DEBUG 
 
 /** \brief  Displays an error message on assertion
-
-    This function will display an error message on an assertion
-	to the debug output.
-
-	\param[in]    msg   Error message to display
-	\param[in]    line  Line number in file with error
-	\param[in]    file  Filename with error
+ *
+ *  This function will display an error message on an assertion
+ *  to the debug output.
+ *
+ *  \param[in]    msg   Error message to display
+ *  \param[in]    line  Line number in file with error
+ *  \param[in]    file  Filename with error
  */
 void assert_printf(char *msg, int line, char *file)
 {

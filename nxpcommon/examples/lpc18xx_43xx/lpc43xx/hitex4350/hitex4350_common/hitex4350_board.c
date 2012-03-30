@@ -36,7 +36,6 @@
  * @{
  */
 
-
 /* Hitex1850 RMII/MII board setup
 RMII mode:
 Jumper state    PHY        Chip              CPIN     I/O      FUNC
@@ -125,11 +124,11 @@ Note: Repeated signals indicate multiple jumpers that need to be set
 #define DEFAULT_COLOR_PIN_BIT	RED_GPIO_PIN_BIT
 
 /** \brief  Set the HITEX1850 module red LED to an on or off state
-
-    This function sets the LED to an on or off state for the board.
-	See CTOUT2.
-
-    \param [in]      state  New LED state, 0 = off, !0 = on
+ *
+ *  This function sets the LED to an on or off state for the board.
+ *  See CTOUT2.
+ *
+ *  \param [in]      state  New LED state, 0 = off, !0 = on
  */
 void led_set(s32_t state)
 {
@@ -142,9 +141,9 @@ void led_set(s32_t state)
 }
 
 /** \brief  Setup HITEX1850 board for LWIP examples
-
-    This function sets up the LED and ethernet pin muxing for the LPC4350
-	as used on the HITEX1850 board.
+ *
+ *  This function sets up the LED and ethernet pin muxing for the LPC4350
+ *  as used on the HITEX1850 board.
  */
 void board_setup(void)
 {
@@ -214,16 +213,15 @@ void board_setup(void)
 	scu_pinmux(9,   6,  EMAC_INPUT,  FUNC5);
 	scu_pinmux(9,   3,  EMAC_INPUT,  FUNC5);
 	scu_pinmux(9,   2,  EMAC_INPUT,  FUNC5);
-// fixme - delete line below
-	scu_pinmux(0xC, 8,  EMAC_INPUT,  FUNC4);
+	scu_pinmux(0xC, 8,  EMAC_INPUT,  FUNC4); // fixme - this line can probably be safely deleted
 #endif
 }
 
 /** \brief  Populates the MAC address for the board.
-
-    This function sets the MAC address used for the HITEX1850 board.
-	Although this can be replaced with something more capable, it simply
-	uses a hard-coded MAC address for this example.
+ *
+ *  This function sets the MAC address used for the HITEX1850 board.
+ *  Although this can be replaced with something more capable, it simply
+ *  uses a hard-coded MAC address for this example.
  */
 void board_get_macaddr(u8_t *macaddr)
 {

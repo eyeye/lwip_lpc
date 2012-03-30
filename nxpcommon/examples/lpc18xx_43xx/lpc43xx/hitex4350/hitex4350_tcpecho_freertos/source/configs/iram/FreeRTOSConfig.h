@@ -114,16 +114,5 @@ to exclude the API function. */
 #define configKERNEL_INTERRUPT_PRIORITY 	( 31 << (8 - configPRIO_BITS) )
 /* Priority 5, or 160 as only the top three bits are implemented. */
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY 	( 5 << (8 - configPRIO_BITS) )
-													
-/*-----------------------------------------------------------
- * Macros required to setup the timer for the run time stats.
- *-----------------------------------------------------------*/
-#ifdef __ICCARM__
-	#include "LPC17xx.h"
-	extern void vConfigureTimerForRunTimeStats( void );
-	#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() vConfigureTimerForRunTimeStats()
-	#define portGET_RUN_TIME_COUNTER_VALUE() TIM0->TC
-#endif
-
 
 #endif /* FREERTOS_CONFIG_H */

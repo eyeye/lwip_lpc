@@ -33,20 +33,13 @@
 #include "lpc177x_8x.h"
 #include "lpc_arch.h"
 
-#if 0 // FIXME - cannot redirect to lwip mem
-// Via LWIP memory manager
-void vPortFree(void *mem)
-{
-	mem_free(mem);
-}
+/** @defgroup LPC17xx_freertos_support	lpc17xx common FreeRTOS functions
+ * @ingroup LPC177x_8x
+ *
+ * @{
+ */
 
-// Via LWIP memory manager
-void *pvPortMalloc(size_t bytes)
-{
-	return mem_malloc((mem_size_t) bytes);
-}
-#endif
-
+/* Delay for the specified number of milliSeconds */
 void msDelay(uint32_t ms)
 {
 	portTickType xDelayTime;
@@ -55,42 +48,54 @@ void msDelay(uint32_t ms)
 	vTaskDelayUntil( &xDelayTime, ms );
 }
 
-/*-----------------------------------------------------------*/
-
+/** \brief  FreeRTOS malloc fail hook
+ *
+ *  Called when malloc fails to allocate data.
+ */
 void vApplicationMallocFailedHook( void )
 {
 	LWIP_DEBUGF(LWIP_DBG_ON, ("MALLOC failed\n"));
 	taskDISABLE_INTERRUPTS();
 	for( ;; );
 }
-/*-----------------------------------------------------------*/
 
+/** \brief  FreeRTOS application idle hook
+ *
+ *  Calls ARM Wait for Interrupt function to idle core
+ */
 void vApplicationIdleHook( void )
 {
 	/* Best to sleep here until next systick */
 	__WFI;
 }
-/*-----------------------------------------------------------*/
 
+/** \brief  FreeRTOS stack overflow hook
+ *
+ *  Displats the task name that overflowed the stack.
+ *
+ *   \param[in] pxTask Task handle that overflowed stack
+ *   \param[in] pcTaskName Task name that overflowed stack
+ */
 void vApplicationStackOverflowHook( xTaskHandle pxTask, signed char *pcTaskName )
 {
-	( void ) pcTaskName;
 	( void ) pxTask;
 
 	/* Run time stack overflow checking is performed if
-	configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
-	function is called if a stack overflow is detected. */
-	LWIP_DEBUGF(LWIP_DBG_ON, ("App stack overflow\n"));
+       configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
+	   function is called if a stack overflow is detected. */
+	LWIP_DEBUGF(LWIP_DBG_ON, ("App stack overflow on task %s\n", pcTaskName));
 	taskDISABLE_INTERRUPTS();
 	for( ;; );
 }
-/*-----------------------------------------------------------*/
 
+/** \brief  FreeRTOS application tick hook
+ *
+ *  Called when a systick occurs
+ */
 void vApplicationTickHook( void )
 {
 	;
 }
-/*-----------------------------------------------------------*/
 
 /**
  * @}

@@ -33,15 +33,59 @@ extern "C"
 {
 #endif
 
+/** @ingroup lpc_arch
+ */
+
 #if NO_SYS == 1
-/* These are used in standalone mode only */
+/** \brief  Enable systick rate and interrupt
+ *
+ *  This enables the systick interrupt and sets up the systick rate. This
+ *  function is only used in standalone systems.
+ *
+ *  \param[in]   period   Period of the systick clock
+ */
 void SysTick_Enable(uint32_t period);
+
+/** \brief  Disable systick
+ *
+ *  This disables the systick interrupt. This function is only used in
+ *  standalone systems.
+ */
 void SysTick_Disable(void);
+
+/** \brief  Get the current systick time in milliSeconds
+ *
+ *  Returns the current systick time in milliSeconds. This function is only
+ *  used in standalone systems.
+ *
+ *  /returns current systick time in milliSeconds
+ */
 uint32_t SysTick_GetMS(void);
+
+/** \brief  Systick user callback function 
+ *
+ *  This function is called on each systick interrupt. It can be used for
+ *  user defined actions on systick. This function is only used in standalone
+ *  systems.
+ * 
+ *  /param[in]  ms The number of milliSeconds systick has been running
+ */
 void SysTick_User(u32_t ms);
 #endif
 
+/** \brief  Delay for the specified number of milliSeconds
+ *
+ *  For standalone systems. This function will block for the specified
+ *  number of milliSconds. For RTOS based systems, this function will delay
+ *  the task by the specified number of milliSeconds.
+ *
+ *  \param[in]  ms Time in milliSeconds to delay
+ */
 void msDelay(uint32_t ms);
+
+/**		  
+ * @}
+ */
 
 #ifdef __cplusplus
 }

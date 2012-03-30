@@ -26,20 +26,20 @@
 #ifndef __LWIP_USER_OPT_H__
 #define __LWIP_USER_OPT_H__
 
-/** @defgroup hitex1850_tcpecho_freertos_iram	LWIP configuration configuration
- * @ingroup hitex1850_tcpecho_freertos
+/** @defgroup hitex1850_tcpecho_sa_iram	LWIP configuration configuration
+ * @ingroup hitex1850_tcpecho_sa
  *
  * @{
  */
 
-/* RTOS build */
-#define NO_SYS                          0
+/* Standalone build */
+#define NO_SYS                          1
 
 /* Use LWIP timers */
 #define NO_SYS_NO_TIMERS				0
 
 /* Need for memory protection */
-#define SYS_LIGHTWEIGHT_PROT            1
+#define SYS_LIGHTWEIGHT_PROT            0
 
 /* 32-bit alignment */
 #define MEM_ALIGNMENT                   4
@@ -74,7 +74,7 @@
 #define MEM_SIZE						(64*1024)
 
 /* Raw interface not needed */
-#define LWIP_RAW                        0
+#define LWIP_RAW                        1
 
 /* DHCP is ok, UDP is required with DHCP */
 #define LWIP_DHCP                       1
@@ -90,7 +90,7 @@
 #define TCP_SND_BUF						(2 * TCP_MSS)
 
 #define LWIP_SOCKET                     0
-#define LWIP_NETCONN                    1
+#define LWIP_NETCONN                    0
 #define MEMP_NUM_SYS_TIMEOUT            300
 
 #define LWIP_STATS                      0
@@ -111,18 +111,6 @@
 /* This define is custom for the LPC EMAC driver. Enabled it to
    get debug messages for the driver. */
 #define UDP_LPC_EMAC                    LWIP_DBG_OFF
-
-#define DEFAULT_THREAD_PRIO             (tskIDLE_PRIORITY + 1)
-#define DEFAULT_THREAD_STACKSIZE        (configMINIMAL_STACK_SIZE)
-#define DEFAULT_ACCEPTMBOX_SIZE			6
-#define DEFAULT_ACCEPTMBOX_SIZE			6
-#define DEFAULT_TCP_RECVMBOX_SIZE		6
-#define DEFAULT_UDP_RECVMBOX_SIZE		6
-
-/* TCPIP thread must run at higher priority than MAC threads! */
-#define TCPIP_THREAD_PRIO				(DEFAULT_THREAD_PRIO + configMAX_PRIORITIES - 1)
-#define TCPIP_THREAD_STACKSIZE			(configMINIMAL_STACK_SIZE)
-#define TCPIP_MBOX_SIZE					6
 
 /**		  
  * @}

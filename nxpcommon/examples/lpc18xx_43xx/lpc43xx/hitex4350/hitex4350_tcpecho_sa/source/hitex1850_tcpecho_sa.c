@@ -1,7 +1,7 @@
 /**********************************************************************
-* $Id$		tcpecho_sa_app.c			2011-11-20
+* $Id$		hitex1850_tcpecho_sa.c			2011-11-20
 *//**
-* @file		tcpecho_sa_app.c
+* @file		hitex1850_tcpecho_sa.c
 * @brief	Standalone TCP echo app
 * @version	1.0
 * @date		20. Nov. 2011
@@ -42,9 +42,9 @@
 #include "lpc_arch.h"
 #include "lpc_board.h"
 #include "lpc_phy.h" /* For the PHY monitor support */
-#include "tcpecho.h"
+#include "echo.h"
 
-/** @defgroup hitex1850_tcpecho_freertos	TCP echo server with FreeRTOS
+/** @defgroup hitex1850_tcpecho_sa	TCP echo server (standalone)
  * @ingroup HITEX4350
  *
  * This example shows how to use a TCP echo server. The example can
@@ -74,26 +74,36 @@ static void prvSetupHardware(void)
 
 	/* Initialize debug output via serial port */
 	debug_frmwrk_init();
+
+	/* Setup a 1mS sysTick for the primary time base */
+	SysTick_Enable(1);
 }
 
-/* Callback for TCPIP thread to indicate TCPIP init is done */
-static void tcpip_init_done_signal(void *arg)
+/** \brief  SysTick IRQ user handler and timebase management
+ *
+ *  This function is called by the Systick timer when the
+ *  timer count is updated. It does nothing in this application,
+ *  but can be used for the ARP timer or PHY monitoring. 
+ *
+ *  \param[in]    ms    Number of milliSconds since the timer was started
+ */
+void SysTick_User(u32_t ms)
 {
-	/* Tell main thread TCP/IP init is done */
-	*(s32_t *) arg = 1;
+	;
 }
 
-/* LWIP kickoff and PHY link monitor thread */
-static portTASK_FUNCTION( vSetupIFTask, pvParameters )
+/** \brief  Application entry point
+ *
+ * \return       Does not return
+ */
+int main (void)
 {
 	ip_addr_t ipaddr, netmask, gw;
-	volatile s32_t tcpipdone = 0;
 
-	/* Wait until the TCP/IP thread is finished before
-	   continuing or wierd things may happen */
-	LWIP_DEBUGF(LWIP_DBG_ON, ("Waiting for TCPIP thread to initialize...\n"));
-	tcpip_init(tcpip_init_done_signal, &tcpipdone);
-	while (!tcpipdone);
+	prvSetupHardware();
+
+	/* Initialize LWIP */
+	lwip_init();
 
 	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting LWIP TCP echo server...\n"));
 
@@ -110,64 +120,44 @@ static portTASK_FUNCTION( vSetupIFTask, pvParameters )
 #endif
 
 	/* Add netif interface for lpc17xx_8x */
-	memset(lpc_netif, 0, sizeof(lpc_netif));
-	if (!netif_add(&lpc_netif, &ipaddr, &netmask, &gw, NULL, lpc_enetif_init,
-		tcpip_input))
-		LWIP_ASSERT("Net interface failed to initialize\r\n", 0);
-
+	netif_add(&lpc_netif, &ipaddr, &netmask, &gw, NULL, lpc_enetif_init,
+		ethernet_input);
 	netif_set_default(&lpc_netif);
 	netif_set_up(&lpc_netif);
-
-   	/* Enable MAC interrupts only after LWIP is ready */
-	NVIC_SetPriority(ETHERNET_IRQn, ((0x01<<3)|0x01));
-    NVIC_EnableIRQ(ETHERNET_IRQn);
 
 #if LWIP_DHCP
 	dhcp_start(&lpc_netif);
 #endif
 
 	/* Initialize and start application */
-	tcpecho_init();
+	echo_init();
 
-	/* This loop monitors the PHY link and will handle cable events
-	   via the PHY driver. */
-	while (1)
-	{
+	/* This could be done in the sysTick ISR, but may stay in IRQ context
+	   too long, so do this stuff with a background loop. */
+	while (1) {
+		/* Handle packets as part of this loop, not in the IRQ handler */
+		lpc_enetif_input(&lpc_netif);
+
+		/* Re-queue RX buffers as needed */
+		while (lpc_rx_queue(&lpc_netif));
+
+		/* Free TX buffers that are done sending */
+		lpc_tx_reclaim(&lpc_netif);
+
+		/* LWIP timers - ARP, DHCP, TCP, etc. */
+		sys_check_timeouts();
+
 		/* Call the PHY status update state machine once in a while
 		   to keep the link status up-to-date */
 		if (lpc_phy_sts_sm(&lpc_netif) != 0) {
 			/* Set the state of the LED to on if the ethernet link is
 			   active or off is disconnected. */
-			if (lpc_netif.flags & NETIF_FLAG_LINK_UP) {
-				LWIP_DEBUGF(LWIP_DBG_ON, ("Ethernet link up\n"));
+			if (lpc_netif.flags & NETIF_FLAG_LINK_UP)
 				led_set(1);
-			} else {
-				LWIP_DEBUGF(LWIP_DBG_ON, ("Ethernet link down\n"));
+			else
 				led_set(0);
-			}
 		}
-
-		/* Delay for link detection */
-		msDelay(250);
 	}
-}
-
-/** \brief  Application entry point
- *
- * \return       Does not return
- */
-int main (void)
-{
-	prvSetupHardware();
-
-	/* Add another thread for initializing physical interface. This
-	   is delayed from the main LWIP initialization. */
-	xTaskCreate( vSetupIFTask, ( signed char * ) "SetupIFx",
-		configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
-		( xTaskHandle * ) NULL );
-
-	/* Start the scheduler */
-	vTaskStartScheduler();
 
 	/* Should never arrive here */
 	return 1;

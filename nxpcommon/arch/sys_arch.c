@@ -39,9 +39,7 @@
 #include <stdio.h>
 
  #if NO_SYS==1
-/** \brief  Returns the current time in mS. This is needed for the
- *          LWIP timers.
- */
+/* Returns the current time in mS. This is needed for the LWIP timers */
 u32_t sys_now(void)
 {
   return (u32_t) SysTick_GetMS();
@@ -53,11 +51,6 @@ u32_t sys_now(void)
 
 /* ------------------------ lwIP includes --------------------------------- */
 #include "lwip/opt.h"
-
-#include "lwip/debug.h"
-#include "lwip/def.h"
-#include "lwip/sys.h"
-#include "lwip/mem.h"
 #include "lwip/stats.h"
 
 /*---------------------------------------------------------------------------*
@@ -453,8 +446,7 @@ void sys_init(void)
 
 u32_t sys_now(void)
 {
-//	return xTaskGetTickCount(); // FIXME this is broken
-	return 0;
+	return xTaskGetTickCount();
 }
 
 /*---------------------------------------------------------------------------*
@@ -552,40 +544,6 @@ void sys_assert( const char *pcMessage )
  * End of File:  sys_arch.c
  *-------------------------------------------------------------------------*/
 
-
-
-
-
-/** \brief  Returns the current time in mS. This is needed for the
- *          LWIP timers when using FreeRTOS.
- */
-//u32_t sys_now(void)
-//{
-  //return (u32_t) SysTick_GetMS();
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif
-
-/**		  
- * @}
- */
 
 /*-----------------------------------------------------------------------------------*/

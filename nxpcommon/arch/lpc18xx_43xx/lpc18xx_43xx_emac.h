@@ -26,15 +26,13 @@
 #ifndef __LPC18XX_43XX_EMAC_H
 #define __LPC18XX_43XX_EMAC_H
 
+#include "lwip/opt.h"
 #include "lwip/netif.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-
-/** @ingroup lwip18xx_43xx_emac_DRIVER
- */
 
 /* These functions are only visible when not using an RTOS */ 
 #if NO_SYS == 1
@@ -45,10 +43,6 @@ void lpc_tx_reclaim(struct netif *netif);
 #endif
 
 err_t lpc_enetif_init(struct netif *netif);
-
-/**		  
- * @}
- */
 
 #ifdef __cplusplus
 }

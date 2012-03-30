@@ -30,7 +30,7 @@
 #include "lpc177x_8x_systick.h"
 #include "lpc_arch.h"
 
-/** @defgroup LPC177x_8x_TimerSysTick	LPC177x_8x LWIP timer base
+/** @defgroup LPC177x_8x_systick	LPC177x_8x LWIP (standalone) timer base
  * @ingroup LPC177x_8x
  * @{
  */
@@ -41,12 +41,7 @@
 /* Saved total time in mS since timer was enabled */
 static volatile u32_t systick_timems;
 
-/** \brief  Enable the system tick timer with a reference period.
-
-    This function sets the Systick at a specific rate.
-
-    \param[in]     period      Rate in mS for the system tick
- */
+/* Enable systick rate and interrupt */
 void SysTick_Enable(uint32_t period)
 {
 	/* Initialize System Tick with time interval */
@@ -61,10 +56,7 @@ void SysTick_Enable(uint32_t period)
 	SYSTICK_Cmd(ENABLE);
 }
 
-/** \brief  Disable the system tick timer.
-
-    This function disables the Systick timer.
- */
+/* Disable systick */
 void SysTick_Disable(void)
 {
 	/* Disable System Tick Counter */
@@ -75,10 +67,10 @@ void SysTick_Disable(void)
 }
 
 /** \brief  SysTick IRQ handler and timebase management
-
-    This function keeps a timebase for the sysTick that can be
-	used for other functions. It also calls an external function
-	(SysTick_User) that must be defined outside this handler.
+ *
+ *  This function keeps a timebase for the sysTick that can be
+ * used for other functions. It also calls an external function
+ * (SysTick_User) that must be defined outside this handler.
  */
 void SysTick_Handler(void)
 {
@@ -92,24 +84,13 @@ void SysTick_Handler(void)
 	SysTick_User(systick_timems);
 }
 
-/** \brief  Returns the number of mS since the timer was started
-
-    This function will return the number of milliSeconds since the
-	System tick timer was started. It overflows at about 49 days.
-
-	\return    Number of milliSeconds since timer was started
- */
+/* Get the current systick time in milliSeconds */
 uint32_t SysTick_GetMS(void)
 {
 	return systick_timems;
 }
 
-/** \brief  Delay the specified number of milliSeconds.
-
-    This function will delay the passed number of milliSeconds.
-
-	\param[in]    ms   Number of milliSeconds to delay
- */
+/* Delay for the specified number of milliSeconds */
 void msDelay(uint32_t ms)
 {
 	uint32_t to = ms + systick_timems;

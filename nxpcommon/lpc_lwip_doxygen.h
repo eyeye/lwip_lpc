@@ -31,14 +31,39 @@
 #define __LPC_LWIP_DOXYGEN_H
 
 /* Documentation grouping structure
- * lwip_lpc
- *  lwip_emac
- *  lwip_phy
- *  lwip_applications
- *  lpc_board
- *   EA1788
- *  lpc_arch
- *   LPC177x_8x
+ * lwip_lpc(X)--XXX
+ *  lwip_emac(X)--XXX
+ *   lwip17xx_emac_DRIVER --XXX <Needs cleanup, remove zemac file, other changes for FreeRTOS, kill extra thread
+ *   lwip18xx_43xx_emac_DRIVER--XXX
+ *  lwip_phy(X)--XXX
+ *   dp83848_phy--XXX
+ *   lan8720_phy--XXX
+ *  lpc_board(X)--XXX
+ *   EA1788(X)--XXX
+ *    ea1788_tcpecho_sa
+ *     ea1788_tcpecho_sa_iram
+ *     ea1788_tcpecho_sa_flash
+ *     ea1788_tcpecho_sa_dram
+ *    ea1788_httpraw_sa
+ *     ea1788_httpraw_sa_iram
+ *     ea1788_httpraw_sa_flash
+ *     ea1788_httpraw_sa_dram
+ *    ea1788_tcpecho_freertos
+ *     ea1788_tcpecho_freertos_iram
+ *     ea1788_tcpecho_freertos_flash
+ *     ea1788_tcpecho_freertos_dram
+ *   HITEX4350(X)--XXX
+ *    hitex1850_tcpecho_freertos--XXX
+ *     hitex1850_tcpecho_freertos_iram--XXX
+ *     hitex1850_tcpecho_freertos_flash
+ *     hitex1850_tcpecho_freertos_dram
+ *  lpc_arch(X)--XXX
+ *   lpc_debug(X)--XXX
+ *   LPC177x_8x(X)--XXX
+ *    LPC177x_8x_systick--XXX
+ *    LPC177x_8x_freertos_support--XXX
+ *   LPC18xx_43xx(X)--XXX
+ *    LPC18xx_43xx_freertos_support--XXX
  */
 
  /** @mainpage lwip_lpc	NXP LPC LWIP library port
@@ -65,13 +90,13 @@
 /** @defgroup lwip_emac	LPC EMAC driver.
  * @ingroup lwip_lpc
  *
- * The NXP LPC EMAC driver supoprts the ethernet MAC controller in
- * some of NXP's devices. This same controller is used in the
- * LPC2000, LPC32xx, and LPC177x_8x devices. The driver supports
- * standalone and RTOS based applications and both copied and
- * zero-copy buffers for both receive and transmit. The driver
- * depends on an external PHY driver that handles link status via
- * the MII link interface.
+ * The NXP LPC EMAC drivers supoprt the ethernet MAC controller in
+ * some of NXP's devices. Currently, the EMAC in the LPC17xx
+ * series of devices and the LPC18xx/43xx are supported. The driver
+ * supports standalone and RTOS based applications with  zero-copy
+ * buffers for both receive and transmit. The driver depends on an
+ * external PHY driver that handles link status via the MII link
+ * interface.
  * @{
  */
 
@@ -84,19 +109,6 @@
  *
  * The PHY driver is needed by the EMAC driver and handles the basic
  * PHY management functions such as link status, speed, and duplex.
- * @{
- */
-
-/**		  
- * @}
- */
-
-/** @defgroup lwip_applications	LWIP applications
- * @ingroup lwip_lpc
- *
- * LWIP applications consist of echo servers, HTTP servers, etc. and
- * can usually run in standalone mode or with an RTOS. Applications
- * may support multiple toolchains such as Keil, IAR, or XPresso.
  * @{
  */
 
@@ -124,6 +136,15 @@
  * @}
  */
 
+/** @defgroup HITEX4350	Hitex LPC4350 (HITEX4350) board
+ * @ingroup lpc_board
+ * @{
+ */
+
+/**		  
+ * @}
+ */
+
 /**		  
  * @}
  */
@@ -138,6 +159,15 @@
  * @{
  */
 
+/** @defgroup lpc_debug	LPC debug support
+ * @ingroup lpc_arch
+ * @{
+ */
+
+/**		  
+ * @}
+ */
+
 /** @defgroup LPC177x_8x	NXP LPC177x_8x devices
  * @ingroup lpc_arch
  * @{
@@ -147,7 +177,16 @@
  * @}
  */
 
+/** @defgroup LPC18xx_43xx	NXP LPC18xx/43xx devices
+ * @ingroup lpc_arch
+ * @{
+ */
+
 /**		  
+ * @}
+ */
+
+ /**		  
  * @}
  */
 

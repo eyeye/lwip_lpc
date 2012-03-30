@@ -39,8 +39,28 @@
 #define LPC_EMAC_ADDR4 0x34 /**< Hardware MAC address field 4 */
 #define LPC_EMAC_ADDR5 0x56 /**< Hardware MAC address field 5 */
 
+/** \brief  Set the EA1788 module red LED to an on or off state
+ *
+ *  This function sets the LED to an on or off state for the board.
+ *  The red LED on the EA1788 CPU module is used.
+ *
+ *  \param[in]      state  New LED state, 0 = off, !0 = on
+ */
 void led_set(s32_t state);
+
+/** \brief  Setup EA1788 board for LWIP examples
+ *
+ *  This function sets up the LED and ethernet pin muxing for the LPC1788
+ *  as used on the EA1788 board.
+ */
 void board_setup(void);
+
+/** \brief  Populates the MAC address for the board.
+ *
+ *  This function sets the MAC address used for the EA1788 board. Although
+ *  this can be replaced with something more capable, it simply uses a
+ *  hard-coded MAC address for this example.
+ */
 void board_get_macaddr(u8_t *macaddr);
 
 /**

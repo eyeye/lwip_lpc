@@ -33,10 +33,20 @@
 #include "netif/etharp.h"
 #include "netif/ppp_oe.h"
 
+#ifdef LPC43XX
 #include "lpc43xx_cgu.h"
+#include "lpc43xx_rgu.h"
+#else
+#ifdef LPC43XX
+#include "lpc18xx_cgu.h"
+#include "lpc18xx_rgu.h"
+#else
+#error LPC18XX or LPC43XX for target system not defined!
+#endif
+#endif
+
 #include "lpc18xx_43xx_mac_regs.h"
 #include "lpc_emac_config.h"
-#include "lpc43xx_rgu.h"
 #include "lpc18xx_43xx_emac.h"
 #include "lpc_emac_config.h"
 
@@ -55,22 +65,34 @@
 #error LPC_NUM_BUFF_RXDESCS must be at least 3
 #endif
 
+/** @defgroup lwip18xx_43xx_emac_DRIVER	lpc18xx/43xx EMAC driver for LWIP
+ * @ingroup lwip_emac
+ *
+ * @{
+ */
+
 #if NO_SYS == 0
-/* Thread priorities for receive thread and TX cleanup thread. Alter
-   to prioritize receive or transmit bandwidth. In a heavily loaded
-   system or with LEIP_DEBUG enabled, the priorities might be better
-   the same. */
+/** \brief  Driver transmit and receive thread priorities
+ * 
+ * Thread priorities for receive thread and TX cleanup thread. Alter
+ * to prioritize receive or transmit bandwidth. In a heavily loaded
+ * system or with LEIP_DEBUG enabled, the priorities might be better
+ * the same. */
 #define tskTXCLEAN_PRIORITY  (TCPIP_THREAD_PRIO - 1)
 #define tskRECPKT_PRIORITY   (TCPIP_THREAD_PRIO - 1)
 #endif
 
-/* When using FreeRTOS and with LWIP_DEBUG enabled, enabling this
-   define will allow RX debug messages to not interleave with the
-   TX messages (so they are actually readable). */
+/** \brief  Debug output formatter lock define
+ * 
+ * When using FreeRTOS and with LWIP_DEBUG enabled, enabling this
+ * define will allow RX debug messages to not interleave with the
+ * TX messages (so they are actually readable). Not enabling this
+ * define when the system is under load will cause the output to
+ * be unreadable. There is a small tradeoff in performance for this
+ * so use it only for debug. */
 //#define LOCK_RX_THREAD
 
-/** \brief  LPC EMAC driver data structure
- */
+/* LPC EMAC driver data structure */
 struct lpc_enetdata {
 	struct netif *netif;        /**< Reference back to LWIP parent netif */
 	TRAN_DESC_T ptdesc[LPC_NUM_BUFF_TXDESCS]; /**< TX descriptor list */
@@ -91,25 +113,11 @@ struct lpc_enetdata {
 #endif
 };
 
-/* Driver data structure */
+/** \brief  LPC EMAC driver work data
+ */
 static struct lpc_enetdata lpc_enetdata;
 
-/** @defgroup lwip18xx_43xx_emac_DRIVER	lpc118xx/43xx EMAC driver for LWIP
- * @ingroup lwip_emac
- *
- * @{
- */
-
-/** \brief  Write a value via the MII link (non-blocking)
-
-    This function will write a value on the MII link interface to a PHY
-	or a connected device. The function will return immediately without
-	a status. Status needs to be polled later to determine if the write
-	was successful.
-
-    \param [in]      PhyReg  PHY register to write to
-    \param [in]      Value   Value to write
- */
+/* Write a value via the MII link (non-blocking) */
 void lpc_mii_write_noblock(u32_t PhyReg, u32_t Value)
 {
 	/* Write value at PHY address and register */
@@ -119,15 +127,7 @@ void lpc_mii_write_noblock(u32_t PhyReg, u32_t Value)
 	LPC_ETHERNET->MAC_MII_ADDR |= MAC_MIIA_GB;
 }
 
-/** \brief  Write a value via the MII link (blocking)
-
-    This function will write a value on the MII link interface to a PHY
-	or a connected device. The function will block until complete.
-
-    \param [in]      PhyReg  PHY register to write to
-    \param [in]      Value   Value to write
-	\returns         ERR_OK if the write was successful, otherwise !0
- */
+/* Write a value via the MII link (blocking) */
 err_t lpc_mii_write(u32_t PhyReg, u32_t Value)
 {
 	u32_t mst = 250;
@@ -153,42 +153,19 @@ err_t lpc_mii_write(u32_t PhyReg, u32_t Value)
 	return sts;
 }
 
-/** \brief  Reads current MII link busy status
-
-    This function will return the current MII link busy status and is meant to
-	be used with non-blocking functions for monitor PHY status such as
-	connection state.
-
-	\returns         !0 if the MII link is busy, otherwise 0
- */
+/* Reads current MII link busy status */
 u32_t lpc_mii_is_busy(void)
 {
 	return (LPC_ETHERNET->MAC_MII_ADDR & MAC_MIIA_GB);
 }
 
-/** \brief  Starts a read operation via the MII link (non-blocking)
-
-    This function returns the current value in the MII data register. It is
-	meant to be used with the non-blocking operations. This value should
-	only be read after a non-block read command has been issued and the
-	MII status has been determined to be good.
-
-    \returns          The current value in the MII value register
- */
+/* Starts a read operation via the MII link (non-blocking) */
 u32_t lpc_mii_read_data(void)
 {
 	return LPC_ETHERNET->MAC_MII_DATA;
 }
 
-/** \brief  Starts a read operation via the MII link (non-blocking)
-
-    This function will start a read operation on the MII link interface
-	from a PHY or a connected device. The function will not block and
-	the status mist be polled until complete. Once complete, the data
-	can be read.
-
-    \param [in]      PhyReg  PHY register to read from
- */
+/* Starts a read operation via the MII link (non-blocking) */
 void lpc_mii_read_noblock(u32_t PhyReg) 
 {
 	/* Read value at PHY address and register */
@@ -197,15 +174,7 @@ void lpc_mii_read_noblock(u32_t PhyReg)
 	LPC_ETHERNET->MAC_MII_ADDR |= MAC_MIIA_GB;
 }
 
-/** \brief  Read a value via the MII link (blocking)
-
-    This function will read a value on the MII link interface from a PHY
-	or a connected device. The function will block until complete.
-
-    \param [in]      PhyReg  PHY register to read from
-    \param [in]      data    Pointer to where to save data read via MII
-	\returns         ERR_OK if the read was successful, otherwise !0
- */
+/* Read a value via the MII link (blocking) */
 err_t lpc_mii_read(u32_t PhyReg, u32_t *data) 
 {
 	u32_t mst = 250;
@@ -233,9 +202,9 @@ err_t lpc_mii_read(u32_t PhyReg, u32_t *data)
 }
 
 /** \brief  Queues a pbuf into a free RX descriptor
-
-    \param lpc_netifdata Pointer to the driver data structure
-    \param p             Pointer to pbuf to queue
+ *
+ *  \param[in] lpc_netifdata Pointer to the driver data structure
+ *  \param[in] p             Pointer to pbuf to queue
  */
 static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_netifdata,
 	struct pbuf *p)
@@ -269,9 +238,9 @@ static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_netifdata,
 }
 
 /** \brief  Attempt to allocate and requeue a new pbuf for RX
-
-    \param     netif Pointer to the netif structure
-    \returns    The number of new descriptors queued
+ *
+ *  \param[in]  netif Pointer to the netif structure
+ *  \returns    The number of new descriptors queued
  */
 s32_t lpc_rx_queue(struct netif *netif)
 {
@@ -309,11 +278,11 @@ s32_t lpc_rx_queue(struct netif *netif)
 }
 
 /** \brief  Sets up the RX descriptor ring buffers
-
-    This function sets up the descriptor list used for receive packets.
-
-    \param [in]  lpc_netifdata Pointer to driver data structure
-	\returns                   Always returns ERR_OK
+ *
+ *  This function sets up the descriptor list used for receive packets.
+ *
+ *  \param[in]  lpc_netifdata Pointer to driver data structure
+ * \returns                   Always returns ERR_OK
  */
 static err_t lpc_rx_setup(struct lpc_enetdata *lpc_netifdata)
 {
@@ -350,9 +319,9 @@ static err_t lpc_rx_setup(struct lpc_enetdata *lpc_netifdata)
 }
 
 /** \brief  Gets data from queue and forwards to LWIP
-
-    \param netif the lwip network interface structure for this lpc_enetif
-    \return a pbuf filled with the received packet (including MAC header)
+ *
+ *  \param[in] netif the lwip network interface structure for this lpc_enetif
+ *  \return a pbuf filled with the received packet (including MAC header) or
  *         NULL on memory error
  */
 static struct pbuf *lpc_low_level_input(struct netif *netif)
@@ -487,8 +456,8 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 }
 
 /** \brief  Attempt to read a packet from the EMAC interface.
-
-    \param[in] netif the lwip network interface structure for this lpc_enetif
+ *
+ *  \param[in] netif the lwip network interface structure for this lpc_enetif
  */
 void lpc_enetif_input(struct netif *netif)
 {
@@ -527,10 +496,10 @@ void lpc_enetif_input(struct netif *netif)
 }
 
 /** \brief  Sets up the TX descriptor ring buffers.
-
-    This function sets up the descriptor list used for transmit packets.
-
-    \param [in]      lpc_netifdata Pointer to driver data structure
+ *
+ *  This function sets up the descriptor list used for transmit packets.
+ *
+ *  \param[in]   lpc_netifdata Pointer to driver data structure
  */
 static err_t lpc_tx_setup(struct lpc_enetdata *lpc_netifdata)
 {
@@ -560,8 +529,8 @@ static err_t lpc_tx_setup(struct lpc_enetdata *lpc_netifdata)
 }
 
 /** \brief  Call for freeing TX buffers that are complete
-
-    \param [in] netif the lwip network interface structure for this lpc_enetif
+ *
+ *  \param[in] netif the lwip network interface structure for this lpc_enetif
  */
 void lpc_tx_reclaim(struct netif *netif)
 {
@@ -627,11 +596,11 @@ void lpc_tx_reclaim(struct netif *netif)
 #endif
 }
 
- /** \brief  Polls if an available TX descriptor is ready. Can be used to
-             determine if the low level transmit function will block.
-
-    \param [in] netif the lwip network interface structure for this lpc_enetif
-    \return 0 if no descriptors are read, or >0
+/** \brief  Polls if an available TX descriptor is ready. Can be used to
+ *          determine if the low level transmit function will block.
+ *
+ *  \param[in] netif the lwip network interface structure for this lpc_enetif
+ *  \return 0 if no descriptors are read, or >0
  */
 s32_t lpc_tx_ready(struct netif *netif)
 {
@@ -639,13 +608,13 @@ s32_t lpc_tx_ready(struct netif *netif)
 }
 
 /** \brief  Low level output of a packet. Never call this from an
-            interrupt context, as it may block until TX descriptors
-			become available.
-
-    \param netif the lwip network interface structure for this lpc_enetif
-    \param p the MAC packet to send (e.g. IP packet including MAC addresses and type)
-    \return ERR_OK if the packet could be sent
-           an err_t value if the packet couldn't be sent
+ *          interrupt context, as it may block until TX descriptors
+ *          become available.
+ *
+ *  \param[in] netif the lwip network interface structure for this lpc_enetif
+ *  \param[in] p the MAC packet to send (e.g. IP packet including MAC addresses and type)
+ *  \return ERR_OK if the packet could be sent or
+ *         an err_t value if the packet couldn't be sent
  */
 static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 {
@@ -738,9 +707,9 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 }
 
 /** \brief  LPC EMAC interrupt handler.
-
-    This function handles the transmit, receive, and error interrupt of
-	the LPC118xx/43xx. This is meant to be used when NO_SYS=0.
+ *
+ *  This function handles the transmit, receive, and error interrupt of
+ *  the LPC118xx/43xx. This is meant to be used when NO_SYS=0.
  */
 void ETH_IRQHandler(void)
 {
@@ -781,6 +750,8 @@ void ETH_IRQHandler(void)
  *
  * This task is called when a packet is received. It will
  * pass the packet to the LWIP core.
+ *
+ *  \param[in] pvParameters Pointer to driver data
  */
 static portTASK_FUNCTION( vPacketReceiveTask, pvParameters )
 {
@@ -802,6 +773,8 @@ static portTASK_FUNCTION( vPacketReceiveTask, pvParameters )
  * This task is called when a transmit interrupt occurs and
  * reclaims the pbuf and descriptor used for the packet once
  * the packet has been transferred.
+ *
+ *  \param[in] pvParameters Pointer to driver data
  */
 static portTASK_FUNCTION( vTransmitCleanupTask, pvParameters )
 {
@@ -818,9 +791,9 @@ static portTASK_FUNCTION( vTransmitCleanupTask, pvParameters )
 #endif
 
 /** \brief  Low level init of the MAC and PHY.
-
-    \param [in]      netif  Pointer to LWIP netif structure
-    \return          ERR_OK or error code
+ *
+ *  \param[in]       netif  Pointer to LWIP netif structure
+ *  \return          ERR_OK or error code
  */
 static err_t low_level_init(struct netif *netif)
 {
@@ -930,7 +903,7 @@ static err_t low_level_init(struct netif *netif)
  * This function provides a method for the PHY to setup the EMAC
  * for the PHY negotiated duplex mode.
  *
- * @param[in] full_duplex 0 = half duplex, 1 = full duplex
+ * \param[in] full_duplex 0 = half duplex, 1 = full duplex
  */
 void lpc_emac_set_duplex(int full_duplex)
 {
@@ -944,7 +917,7 @@ void lpc_emac_set_duplex(int full_duplex)
  * This function provides a method for the PHY to setup the EMAC
  * for the PHY negotiated bit rate.
  *
- * @param[in] mbs_100     0 = 10mbs mode, 1 = 100mbs mode
+ * \param[in] mbs_100     0 = 10mbs mode, 1 = 100mbs mode
  */
 void lpc_emac_set_speed(int mbs_100)
 {
@@ -958,10 +931,10 @@ void lpc_emac_set_speed(int mbs_100)
  * This function is the ethernet packet send function. It calls
  * etharp_output after checking link status.
  *
- * @param[in] netif the lwip network interface structure for this lpc_enetif
- * @param[in] q Pointer to pbug to send
- * @param[in] ipaddr IP address 
- * @return ERR_OK or error code
+ * \param[in] netif the lwip network interface structure for this lpc_enetif
+ * \param[in] q Pointer to pbug to send
+ * \param[in] ipaddr IP address 
+ * \return ERR_OK or error code
  */
 err_t lpc_etharp_output(struct netif *netif, struct pbuf *q,
 	ip_addr_t *ipaddr)
@@ -979,8 +952,8 @@ err_t lpc_etharp_output(struct netif *netif, struct pbuf *q,
  *
  * This function should be passed as a parameter to netif_add().
  *
- * @param[in] netif the lwip network interface structure for this lpc_enetif
- * @return ERR_OK if the loopif is initialized
+ * \param[in] netif the lwip network interface structure for this lpc_enetif
+ * \return ERR_OK if the loopif is initialized
  *         ERR_MEM if private data couldn't be allocated
  *         any other err_t on error
  */

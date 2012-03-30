@@ -103,14 +103,14 @@ static PHY_STATUS_TYPE olddphysts;
 static s32_t phyustate;
 
 /** \brief  Update PHY status from passed value
-
-    This function updates the current PHY status based on the
-	passed PHY status word. The PHY status indicate if the link
-	is active, the connection speed, and duplex.
-
-	\param [in]    netif   NETIF structure
-	\param [in]    linksts Status word from PHY
-	\return        1 if the status has changed, otherwise 0
+ *
+ *  This function updates the current PHY status based on the
+ *  passed PHY status word. The PHY status indicate if the link
+ *  is active, the connection speed, and duplex.
+ *
+ *  \param[in]    netif   NETIF structure
+ *  \param[in]    linksts Status word from PHY
+ *  \return        1 if the status has changed, otherwise 0
  */
 static s32_t lpc_update_phy_sts(struct netif *netif, u32_t linksts)
 {
@@ -176,14 +176,14 @@ static s32_t lpc_update_phy_sts(struct netif *netif, u32_t linksts)
 }
 
 /** \brief  Initialize the DP83848 PHY.
-
-    This function initializes the DP83848 PHY. It will block until
-	complete. This function is called as part of the EMAC driver
-	initialization. Configuration of the PHY at startup is
-	controlled by setting up configuration defines in lpc_phy.h.
-
-	\param [in]     netif   NETIF structure
-	\return         ERR_OK if the setup was successful, otherwise ERR_TIMEOUT
+ *
+ *  This function initializes the DP83848 PHY. It will block until
+ *  complete. This function is called as part of the EMAC driver
+ *  initialization. Configuration of the PHY at startup is
+ *  controlled by setting up configuration defines in lpc_phy.h.
+ *
+ *  \param[in]     netif   NETIF structure
+ *  \return         ERR_OK if the setup was successful, otherwise ERR_TIMEOUT
  */
 err_t lpc_phy_init(struct netif *netif)
 {
@@ -228,23 +228,13 @@ err_t lpc_phy_init(struct netif *netif)
 #endif
 	lpc_mii_write(DP8_BMCR_REG, tmp);
 
-	/* No point in waiting around for the link to go active if
-	   the cable is unplugged, so set the current link status and
-	   exit. */
-//	lpc_mii_read(DP8_PHY_STAT_REG, &tmp); // FIXME - let delay until after LWIP init is complete
-//	lpc_update_phy_sts(netif, tmp);
+	/* The link is not set active at this point, but will be detected
+       later */
 
 	return ERR_OK;
 }
 
-/** \brief  Phy status update state machine
-
-    This function provides a state machine for maintaining the PHY
-	status without blocking. It must be occasionally called for the
-	PHY status to be maintained.
-
-	\param [in]     netif   NETIF structure
- */
+/* Phy status update state machine */
 s32_t lpc_phy_sts_sm(struct netif *netif)
 {
 	s32_t changed = 0;

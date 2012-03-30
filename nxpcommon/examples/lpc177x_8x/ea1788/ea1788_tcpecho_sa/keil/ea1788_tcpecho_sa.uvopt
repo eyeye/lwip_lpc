@@ -812,7 +812,7 @@
 
   <Group>
     <GroupName>Startup</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -1040,7 +1040,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>293</TopLine>
+      <TopLine>287</TopLine>
       <CurrentLine>304</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</PathWithFileName>
@@ -1080,9 +1080,9 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>69</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>77</TopLine>
+      <TopLine>71</TopLine>
       <CurrentLine>77</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\source\tcpecho_sa_app.c</PathWithFileName>
@@ -1497,16 +1497,16 @@
       <ActiveTab>1</ActiveTab>
       <Documents>
         <Doc>
-          <Name>..\source\tcpecho_sa_app.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>77</TopLine>
-          <CurrentLine>77</CurrentLine>
-        </Doc>
-        <Doc>
           <Name>C:\dev\git\lwip_work\lpc177x_8x\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>293</TopLine>
+          <TopLine>287</TopLine>
           <CurrentLine>304</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\source\tcpecho_sa_app.c</Name>
+          <ColumnNumber>69</ColumnNumber>
+          <TopLine>71</TopLine>
+          <CurrentLine>77</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

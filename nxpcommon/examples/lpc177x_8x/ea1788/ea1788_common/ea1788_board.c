@@ -26,25 +26,13 @@
 #include "lpc177x_8x_gpio.h"
 #include "lpc_board.h"
 
-/** @ingroup EA1788
- * @{
- */
-
-/** \brief  GPIO port used for LED control on the EA1788 board
- */
+/* GPIO port used for LED control on the EA1788 board */
 #define LED_GPIO_PORT_USED		(1)
 
-/** \brief  GPIO bit used for LED control on the EA1788 board
- */
+/* GPIO bit used for LED control on the EA1788 board */
 #define LED_GPIO_PIN_BIT		(1 << 18)
 
-/** \brief  Set the EA1788 module red LED to an on or off state
-
-    This function sets the LED to an on or off state for the board.
-	The red LED on the EA1788 CPU module is used.
-
-    \param [in]      state  New LED state, 0 = off, !0 = on
- */
+/* Set the EA1788 module red LED to an on or off state */
 void led_set(s32_t state)
 {
 	/* Set inverse GPIO state based on LED drive state */
@@ -54,11 +42,7 @@ void led_set(s32_t state)
 		GPIO_OutputValue(LED_GPIO_PORT_USED, LED_GPIO_PIN_BIT, ENABLE);
 }
 
-/** \brief  Setup EA1788 board for LWIP examples
-
-    This function sets up the LED and ethernet pin muxing for the LPC1788
-	as used on the EA1788 board.
- */
+/* Setup EA1788 board for LWIP examples */
 void board_setup(void)
 {
 	GPIO_Init();
@@ -90,12 +74,7 @@ void board_setup(void)
 	PINSEL_ConfigPin(1, 15, 1);
 }
 
-/** \brief  Populates the MAC address for the board.
-
-    This function sets the MAC address used for the EA1788 board. Although
-	this can be replaced with something more capable, it simply uses a
-	hard-coded MAC address for this example.
- */
+/* Populates the MAC address for the board */
 void board_get_macaddr(u8_t *macaddr)
 {
 	macaddr[0] = LPC_EMAC_ADDR0;
@@ -105,9 +84,5 @@ void board_get_macaddr(u8_t *macaddr)
 	macaddr[4] = LPC_EMAC_ADDR4;
 	macaddr[5] = LPC_EMAC_ADDR5;
 }
-
-/**
- * @}
- */
 
 /* --------------------------------- End Of File ------------------------------ */

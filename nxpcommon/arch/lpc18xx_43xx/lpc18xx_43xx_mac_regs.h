@@ -29,17 +29,29 @@
 * this code.
 **********************************************************************/
 
-/* Peripheral group ----------------------------------------------------------- */
-/** @defgroup MAC MAC (Media Access Controller)
- * @ingroup LPC4300CMSIS_FwLib_Drivers
- * @{
- */
-
 #ifndef __lpc18xx_lpc43xx_mac_regs_H_
 #define __lpc18xx_lpc43xx_mac_regs_H_
 
-/* Includes ------------------------------------------------------------------- */
+/** @defgroup lwip18xx_43xx_emac_regs	lpc18xx/43xx EMAC registers
+ * @ingroup lwip18xx_43xx_emac_DRIVER
+ *
+ * Variants of these constants and macros exist in the lpc18xx or
+ * lpc43xx files. These are signficantly shorter and make the code
+ * easier to read.
+ *
+ * @{
+ */
+
+#ifdef LPC43XX
 #include "lpc43xx.h"
+#else
+#ifdef LPC43XX
+#include "lpc18xx.h"
+#else
+#error LPC18XX or LPC43XX for target system not defined!
+#endif
+#endif
+
 #include "lpc_types.h"
 
 #ifdef __cplusplus
@@ -292,49 +304,6 @@ extern "C"
  * @{
  */
 
-#if 0 /* Info only, the structure defined in lpc43xx.h is used instead */
-/**
- * @brief Structure of the MAC control block */
-typedef struct
-{
-	__IO uint32_t MAC_CONFIG;          /*!< MAC configuration register */
-	__IO uint32_t MAC_FRAME_FILTER;    /*!< MAC frame filter */
-	__IO uint32_t MAC_HASHTABLE_HIGH;  /*!< Hash table high register */
-	__IO uint32_t MAC_HASHTABLE_LOW;   /*!< Hash table low register */
-	__IO uint32_t MAC_MII_ADDR;        /*!< MII address register */
-	__IO uint32_t MAC_MII_DATA;        /*!< MII data register */
-	__IO uint32_t MAC_FLOW_CONTROL;    /*!< Flow control register */
-	__IO uint32_t MAC_VLAN_TAG;        /*!< VLAN tag register */
-	__I  uint32_t MAC_RESERVED1;
-	__IO uint32_t MAC_DEBUG;           /*!< Debug register */
-	__IO uint32_t MAC_RWAKE_FRFLT;     /*!< Remote wake-up frame filter register */
-	__IO uint32_t MAC_PMT_CTRL_STAT;   /*!< PMT control and status register */
-	__I  uint32_t MAC_RESERVED2[2];
-	__I  uint32_t MAC_INTR;            /*!< Interrupt status register */
-	__IO uint32_t MAC_INTR_MASK;       /*!< Interrupt mask register */
-	__IO uint32_t MAC_ADDR0_HIGH;      /*!< MAC address 0 high register */
-	__IO uint32_t MAC_ADDR0_LOW;       /*!< MAC address 0 low register */
-	__I  uint32_t MAC_RESERVED3[430];
-	__IO uint32_t MAC_TIMESTAMP;       /*!< Time stamp control register */
-	__I  uint32_t MAC_RESERVED4[575];
-	__IO uint32_t DMA_BUS_MODE;        /*!< Bus Mode register */
-	__IO uint32_t DMA_TRANS_POLL_DMN;  /*!< Transmit poll demand register */
-	__IO uint32_t DMA_REC_POLL_DMN;    /*!< Receive poll demand register */
-	__IO uint32_t DMA_REC_DES_ADDR;    /*!< Receive descriptor list address register */
-	__IO uint32_t DMA_TRANS_DES_ADDR;  /*!< Transmit descriptor list address register */
-	__IO uint32_t DMA_STAT;            /*!< Status register */
-	__IO uint32_t DMA_OP_MODE;         /*!< Operation mode register */
-	__IO uint32_t DMA_INT_EN;          /*!< Interrupt enable register */
-	__I  uint32_t DMA_MFRM_BUFOF;      /*!< Missed frame and buffer overflow register */
-	__IO uint32_t DMA_REC_INT_WDT;     /*!< Receive interrupt watchdog timer register */
-	__I  uint32_t DMA_RESERVED1[8];
-	__I  uint32_t DMA_CHOST_TRANS_DES; /*!< Current host transmit register */
-	__I  uint32_t DMA_CHOST_REC_DES;   /*!< Current host receive register */
-	__I  uint32_t DMA_CHOST_TRANS_BUF; /*!< Current host transmit buffer address register */
-	__I  uint32_t DMA_CHOST_REC_BUF;   /*!< Current host receive buffer address register */
-} MAC_REG_T;
-#endif
-
 /**
  * @brief Structure of a transmit descriptor (without timestamp) */
 typedef struct
@@ -391,8 +360,8 @@ typedef struct
 }
 #endif
 
-#endif /* __lpc18xx_lpc43xx_mac_regs_H_ */
-
 /**
  * @}
  */
+
+#endif /* __lpc18xx_lpc43xx_mac_regs_H_ */
