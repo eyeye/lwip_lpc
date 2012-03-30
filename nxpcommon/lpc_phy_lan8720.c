@@ -238,12 +238,8 @@ err_t lpc_phy_init(struct netif *netif)
 #endif
 	lpc_mii_write(LAN8_BCR_REG, tmp);
 
-	/* No point in waiting around for the link to go active if
-	   the cable is unplugged, so set the current link status and
-	   exit. */
-	lpc_mii_read(LAN8_BSR_REG, &tmp);
-	lpc_mii_read(LAN8_PHYSPLCTL_REG, &tmp1);
-	lpc_update_phy_sts(netif, tmp, tmp1);
+	/* The link is not set active at this point, but will be detected
+       later */
 
 	return ERR_OK;
 }
