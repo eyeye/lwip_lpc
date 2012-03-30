@@ -130,9 +130,9 @@ static s32_t lpc_update_phy_sts(struct netif *netif, u32_t linksts)
 
 	/* Configure 100MBit/10MBit mode. */
 	if (linksts & DP8_SPEED10MBPS)
-		physts.phy_speed_100mbs = 1;
-	else
 		physts.phy_speed_100mbs = 0;
+	else
+		physts.phy_speed_100mbs = 1;
 
 	if (physts.phy_speed_100mbs != olddphysts.phy_speed_100mbs) {
 		changed = 1;
@@ -231,8 +231,8 @@ err_t lpc_phy_init(struct netif *netif)
 	/* No point in waiting around for the link to go active if
 	   the cable is unplugged, so set the current link status and
 	   exit. */
-	lpc_mii_read(DP8_PHY_STAT_REG, &tmp);
-	lpc_update_phy_sts(netif, tmp);
+//	lpc_mii_read(DP8_PHY_STAT_REG, &tmp); // FIXME - let delay until after LWIP init is complete
+//	lpc_update_phy_sts(netif, tmp);
 
 	return ERR_OK;
 }
