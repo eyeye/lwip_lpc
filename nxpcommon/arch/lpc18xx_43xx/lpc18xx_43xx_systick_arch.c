@@ -65,16 +65,12 @@ void SysTick_Disable(void)
 /** \brief  SysTick IRQ handler and timebase management
  *
  *  This function keeps a timebase for the sysTick that can be
- * used for other functions. It also calls an external function
- * (SysTick_User) that must be defined outside this handler.
+ *  used for other functions.
  */
 void SysTick_Handler(void)
 {
 	/* Increment tick count */
 	systick_timems += saved_period;
-
-	/* Call user function */
-	SysTick_User(systick_timems);
 }
 
 /* Get the current systick time in milliSeconds */

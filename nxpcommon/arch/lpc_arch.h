@@ -61,16 +61,6 @@ void SysTick_Disable(void);
  *  /returns current systick time in milliSeconds
  */
 uint32_t SysTick_GetMS(void);
-
-/** \brief  Systick user callback function 
- *
- *  This function is called on each systick interrupt. It can be used for
- *  user defined actions on systick. This function is only used in standalone
- *  systems.
- * 
- *  /param[in]  ms The number of milliSeconds systick has been running
- */
-void SysTick_User(u32_t ms);
 #endif
 
 /** \brief  Delay for the specified number of milliSeconds

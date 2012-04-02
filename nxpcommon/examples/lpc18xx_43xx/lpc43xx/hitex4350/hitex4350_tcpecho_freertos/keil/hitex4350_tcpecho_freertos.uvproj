@@ -34,8 +34,8 @@
           <BinPath></BinPath>
           <IncludePath></IncludePath>
           <LibPath></LibPath>
-          <RegisterFilePath>NXP\LPC177x_8x\</RegisterFilePath>
-          <DBRegisterFilePath>NXP\LPC177x_8x\</DBRegisterFilePath>
+          <RegisterFilePath>NXP\LPC43xx\</RegisterFilePath>
+          <DBRegisterFilePath>NXP\LPC43xx\</DBRegisterFilePath>
           <TargetStatus>
             <Error>0</Error>
             <ExitCodeStop>0</ExitCodeStop>
@@ -444,7 +444,7 @@
                   <MiscControls></MiscControls>
                   <Define></Define>
                   <Undefine></Undefine>
-                  <IncludePath>..\..\..\Core\CM3\DeviceSupport\NXP\LPC17xx</IncludePath>
+                  <IncludePath>..\..\..\Core\CM3\DeviceSupport\NXP\LPC43xx</IncludePath>
                 </VariousControls>
               </Cads>
               <Aads>

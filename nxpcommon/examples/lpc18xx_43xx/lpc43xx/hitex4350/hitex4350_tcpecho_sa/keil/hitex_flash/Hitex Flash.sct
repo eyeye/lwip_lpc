@@ -2,12 +2,16 @@
 ;   Keil scatter loading file
 ;-------------------------------------------------------------------------------------
 
-; Load region is in IRAM
-FLASH 0x10000000 0x20000 {
-  ; All code and RO data in IRAM
-  ER_RO 0x10000000 0x20000 {
+; Load region is in SPI FLASH
+FLASH 0x1C000000 0x400000 {
+  ; All code and RO data in SPI FLASH
+  ER_RO 0x1C000000 0x400000 {
     startup_LPC43xx.o (RESET, +FIRST)
     *.o (+RO)
+  }
+
+  ; IRAM for data
+  ER_RW 0x10000000 0x20000 {
     *.o (+RW)
     *.o (+ZI)
 	memp.o (+RW, +ZI)

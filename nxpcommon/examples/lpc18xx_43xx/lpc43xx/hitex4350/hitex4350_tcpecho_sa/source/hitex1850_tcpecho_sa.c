@@ -79,19 +79,6 @@ static void prvSetupHardware(void)
 	SysTick_Enable(1);
 }
 
-/** \brief  SysTick IRQ user handler and timebase management
- *
- *  This function is called by the Systick timer when the
- *  timer count is updated. It does nothing in this application,
- *  but can be used for the ARP timer or PHY monitoring. 
- *
- *  \param[in]    ms    Number of milliSconds since the timer was started
- */
-void SysTick_User(u32_t ms)
-{
-	;
-}
-
 /** \brief  Application entry point
  *
  * \return       Does not return
