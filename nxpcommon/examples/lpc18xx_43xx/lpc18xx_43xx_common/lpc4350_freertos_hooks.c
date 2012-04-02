@@ -2,7 +2,7 @@
 * $Id$		lpc4350_freertos_hooks.c			2011-11-20
 *//**
 * @file		lpc4350_freertos_hooks.c
-* @brief	FreeRTOS support hooks for the LPC177x_8x
+* @brief	FreeRTOS support hooks for the LPC43xx (and LPC18xx)
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
