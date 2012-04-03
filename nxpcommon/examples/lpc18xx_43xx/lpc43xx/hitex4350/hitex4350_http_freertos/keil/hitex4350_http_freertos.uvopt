@@ -647,7 +647,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>15</FileNumber>
+      <FileNumber>13</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -661,7 +661,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>16</FileNumber>
+      <FileNumber>14</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -675,7 +675,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>17</FileNumber>
+      <FileNumber>15</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -689,7 +689,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>18</FileNumber>
+      <FileNumber>16</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -703,28 +703,28 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>0</FileNumber>
+      <FileNumber>17</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>7</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>85</TopLine>
-      <CurrentLine>85</CurrentLine>
+      <TopLine>155</TopLine>
+      <CurrentLine>155</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\source\hitex4350_http_freertos.c</PathWithFileName>
       <FilenameWithoutPath>hitex4350_http_freertos.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>0</FileNumber>
+      <FileNumber>18</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>24</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>63</TopLine>
-      <CurrentLine>94</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\..\..\..\..\contrib-1.4.0\apps\httpserver\httpserver-netconn.c</PathWithFileName>
       <FilenameWithoutPath>httpserver-netconn.c</FilenameWithoutPath>
@@ -1171,7 +1171,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1879</TopLine>
+      <TopLine>1868</TopLine>
       <CurrentLine>1879</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\FreeRTOSV7.1.0\Source\tasks.c</PathWithFileName>
@@ -1234,5 +1234,124 @@
       <FilenameWithoutPath>port.c</FilenameWithoutPath>
     </File>
   </Group>
+
+  <AlienFiles>
+    <PathWithFilename>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\nxpcommon\examples\lpc18xx_43xx\lpc43xx\hitex4350\hitex4350_http_freertos\keil\IRAM\IRAM.ini</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>1</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\nxpcommon\examples\lpc18xx_43xx\lpc43xx\hitex4350\hitex4350_http_freertos\keil\spifi_64mb\spifi_64mb.ini</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>12</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\nxpcommon\examples\lpc18xx_43xx\lpc43xx\hitex4350\hitex4350_http_freertos\keil\hitex_flash\Hitex Flash.ini</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>1</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <MDIGroups>
+    <Orientation>1</Orientation>
+    <ActiveMDIGroup>0</ActiveMDIGroup>
+    <MDIGroup>
+      <Size>100</Size>
+      <ActiveTab>4</ActiveTab>
+      <Documents>
+        <Doc>
+          <Name>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\nxpcommon\examples\lpc18xx_43xx\lpc43xx\hitex4350\hitex4350_http_freertos\keil\IRAM\IRAM.ini</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>1</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\nxpcommon\examples\lpc18xx_43xx\lpc43xx\hitex4350\hitex4350_http_freertos\keil\spifi_64mb\spifi_64mb.ini</Name>
+          <ColumnNumber>16</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>12</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\nxpcommon\examples\lpc18xx_43xx\lpc43xx\hitex4350\hitex4350_http_freertos\keil\hitex_flash\Hitex Flash.ini</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>1</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\source\hitex4350_http_freertos.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>155</TopLine>
+          <CurrentLine>155</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>C:\dev\git\lwip_work\lpc43xx\FreeRTOSV7.1.0\Source\tasks.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>1868</TopLine>
+          <CurrentLine>1879</CurrentLine>
+        </Doc>
+      </Documents>
+    </MDIGroup>
+  </MDIGroups>
 
 </ProjectOpt>

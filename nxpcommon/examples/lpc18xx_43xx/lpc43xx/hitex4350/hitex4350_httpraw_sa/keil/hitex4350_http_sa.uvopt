@@ -668,8 +668,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>148</TopLine>
-      <CurrentLine>159</CurrentLine>
+      <TopLine>318</TopLine>
+      <CurrentLine>329</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\..\..\..\arch\lpc18xx_43xx\lpc18xx_43xx_emac.c</PathWithFileName>
       <FilenameWithoutPath>lpc18xx_43xx_emac.c</FilenameWithoutPath>
@@ -738,8 +738,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>87</TopLine>
-      <CurrentLine>87</CurrentLine>
+      <TopLine>75</TopLine>
+      <CurrentLine>82</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\source\hitex1850_http_sa.c</PathWithFileName>
       <FilenameWithoutPath>hitex1850_http_sa.c</FilenameWithoutPath>
@@ -1116,5 +1116,28 @@
       <FilenameWithoutPath>etharp.c</FilenameWithoutPath>
     </File>
   </Group>
+
+  <MDIGroups>
+    <Orientation>1</Orientation>
+    <ActiveMDIGroup>0</ActiveMDIGroup>
+    <MDIGroup>
+      <Size>100</Size>
+      <ActiveTab>1</ActiveTab>
+      <Documents>
+        <Doc>
+          <Name>..\source\hitex1850_http_sa.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>75</TopLine>
+          <CurrentLine>82</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\..\..\..\arch\lpc18xx_43xx\lpc18xx_43xx_emac.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>318</TopLine>
+          <CurrentLine>329</CurrentLine>
+        </Doc>
+      </Documents>
+    </MDIGroup>
+  </MDIGroups>
 
 </ProjectOpt>
