@@ -59,8 +59,6 @@ static struct netif lpc_netif;
  */
 
 /** \brief  Sets up system hardware
-
-	\return       Does not return
  */
 void prvSetupHardware(void)
 {

@@ -1,7 +1,7 @@
 /**********************************************************************
-* $Id$		httprdaw_sa_app.c			2011-11-20
+* $Id$		hitex1850_http_sa.c			2011-11-20
 *//**
-* @file		httprdaw_sa_app.c
+* @file		hitex1850_http_sa.c
 * @brief	Standalone HTTP server app
 * @version	1.0
 * @date		20. Nov. 2011
@@ -36,17 +36,18 @@
 #include "lwip/dhcp.h"
 #endif
 
-#include "lpc177x_8x.h"
-#include "lpc17_emac.h"
+#include "lpc43xx.h"
+#include "lpc18xx_43xx_emac.h"
 #include "debug_frmwrk.h"
 #include "lpc_arch.h"
 #include "lpc_board.h"
+#include "lpc_phy.h" /* For the PHY monitor support */
 #include "httpd.h"
 
-/** @defgroup httpraw_sa_app	httpd raw server
- * @ingroup lwip_applications
+/** @defgroup hitex1850_tcpecho_sa	TCP echo server (standalone)
+ * @ingroup HITEX4350
  *
- * This example shows how to use a HTTP server. The example can
+ * This example shows how to use a TCP echo server. The example can
  * be built with a static or DHCP obtained IP addresses and copied
  * or zero-copy buffers. Once the system is initialized, a single
  * while(1) loop is used to handle the main system tasks including
@@ -55,37 +56,43 @@
  * @{
  */
 
-  /** \brief  Sets up system hardware
+/** \brief  NETIF data
  */
-void prvSetupHardware(void)
+static struct netif lpc_netif;
+
+/* Sets up system hardware */
+static void prvSetupHardware(void)
 {
+	SystemInit();
+	CGU_Init();
+	fpuInit();
+	fpuEnable();
+
 	/* Setup board including GPIOs and pin muxing */
 	board_setup();
 	led_set(0);
 
-	/* Setup a 1mS sysTick for the primary time base */
-	SysTick_Enable(1);
-
 	/* Initialize debug output via serial port */
 	debug_frmwrk_init();
+
+	/* Setup a 1mS sysTick for the primary time base */
+	SysTick_Enable(1);
 }
 
 /** \brief  Application entry point
-
-	\return       Does not return
+ *
+ * \return       Does not return
  */
 int main (void)
 {
-	struct netif lpc_netif;
 	ip_addr_t ipaddr, netmask, gw;
-	struct pbuf *p;
 
-    prvSetupHardware();
+	prvSetupHardware();
 
 	/* Initialize LWIP */
 	lwip_init();
 
-	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting httpd...\n"));
+	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting LWIP HTTP server...\n"));
 
 	/* Static IP assignment */
 #if LWIP_DHCP
@@ -105,10 +112,6 @@ int main (void)
 	netif_set_default(&lpc_netif);
 	netif_set_up(&lpc_netif);
 
-    /* Enable MAC interrupts */
-    NVIC_SetPriority(ENET_IRQn, ((0x01 << 3) | 0x01));
-    NVIC_EnableIRQ(ENET_IRQn);
-
 #if LWIP_DHCP
 	dhcp_start(&lpc_netif);
 #endif
@@ -122,15 +125,11 @@ int main (void)
 		/* Handle packets as part of this loop, not in the IRQ handler */
 		lpc_enetif_input(&lpc_netif);
 
-#if LPC_PBUF_RX_ZEROCOPY
 		/* Re-queue RX buffers as needed */
 		while (lpc_rx_queue(&lpc_netif));
-#endif
 
-#if LPC_PBUF_TX_ZEROCOPY
 		/* Free TX buffers that are done sending */
 		lpc_tx_reclaim(&lpc_netif);
-#endif
 
 		/* LWIP timers - ARP, DHCP, TCP, etc. */
 		sys_check_timeouts();
@@ -147,6 +146,7 @@ int main (void)
 		}
 	}
 
+	/* Should never arrive here */
 	return 1;
 }
 

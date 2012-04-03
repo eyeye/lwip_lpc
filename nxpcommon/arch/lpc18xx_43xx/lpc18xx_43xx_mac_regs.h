@@ -225,12 +225,11 @@ extern "C"
 #define DMA_MFRM_FMA(n) (((n) & 0x0FFE0000) >> 17) /*!< Number of frames missed by the application mask/shift */
 #define DMA_MFRM_OF    (1 << 28)     /*!< Overflow bit for FIFO overflow counter */
 
-/* TRAN_DESC_T and TRAN_DESC_ENH_T CTRLSTAT field bit defines */
+/* Common TRAN_DESC_T and TRAN_DESC_ENH_T CTRLSTAT field bit defines */
 #define TDES_DB        (1 << 0)      /*!< Deferred Bit */
 #define TDES_UF        (1 << 1)      /*!< Underflow Error */
 #define TDES_ED        (1 << 2)      /*!< Excessive Deferral */
 #define TDES_CCMSK(n)  (((n) & 0x000000F0) >> 3) /*!< CC: Collision Count (Status field) mask and shift */
-#define TDES_SLOT(n)   ((n) << 1)    /*!< Slot Number Control Bits in AV Mode */
 #define TDES_VF        (1 << 7)      /*!< VLAN Frame */
 #define TDES_EC        (1 << 8)      /*!< Excessive Collision */
 #define TDES_LC        (1 << 9)      /*!< Late Collision */
@@ -242,18 +241,37 @@ extern "C"
 #define TDES_ES        (1 << 15)     /*!< Error Summary */
 #define TDES_IHE       (1 << 16)     /*!< IP Header Error */
 #define TDES_TTSS      (1 << 17)     /*!< Transmit Timestamp Status */
-#define TDES_TCH       (1 << 20)     /*!< Second Address Chained */
-#define TDES_TER       (1 << 21)     /*!< Transmit End of Ring */
-#define TDES_CIC(n)    ((n) << 22)   /*!< Checksum Insertion Control */
-#define TDES_TTSE      (1 << 25)     /*!< Transmit Timestamp Enable */
-#define TDES_DP        (1 << 26)     /*!< Disable Pad */
-#define TDES_DC        (1 << 27)     /*!< Disable CRC */
-#define TDES_FS        (1 << 28)     /*!< First Segment */
-#define TDES_LS        (1 << 29)     /*!< Last Segment */
-#define TDES_IC        (1 << 30)     /*!< Interrupt on Completion */
 #define TDES_OWN       (1UL << 31)   /*!< Own Bit */
 
-/* REC_DESC_T and REC_DESC_T STATUS field bit defines */
+/* TRAN_DESC_ENH_T only CTRLSTAT field bit defines */
+#define TDES_ENH_IC   (1UL << 30)    /*!< Interrupt on Completion, enhanced descriptor */
+#define TDES_ENH_LS   (1 << 29)      /*!< Last Segment, enhanced descriptor */
+#define TDES_ENH_FS   (1 << 28)      /*!< First Segment, enhanced descriptor */
+#define TDES_ENH_DC   (1 << 27)      /*!< Disable CRC, enhanced descriptor */
+#define TDES_ENH_DP   (1 << 26)      /*!< Disable Pad, enhanced descriptor */
+#define TDES_ENH_TTSE (1 << 25)      /*!< Transmit Timestamp Enable, enhanced descriptor */
+#define TDES_ENH_CIC(n) ((n) << 22)  /*!< Checksum Insertion Control, enhanced descriptor */
+#define TDES_ENH_TER  (1 << 21)      /*!< Transmit End of Ring, enhanced descriptor */
+#define TDES_ENH_TCH  (1 << 20)      /*!< Second Address Chained, enhanced descriptor */
+
+/* TRAN_DESC_T only BSIZE field bit defines */
+#define TDES_NORM_IC   (1UL << 31)   /*!< Interrupt on Completion, normal descriptor */
+#define TDES_NORM_FS   (1 << 30)     /*!< First Segment, normal descriptor */
+#define TDES_NORM_LS   (1 << 29)     /*!< Last Segment, normal descriptor */
+#define TDES_NORM_CIC(n) ((n) << 27) /*!< Checksum Insertion Control, normal descriptor */
+#define TDES_NORM_DC   (1 << 26)     /*!< Disable CRC, normal descriptor */
+#define TDES_NORM_TER  (1 << 25)     /*!< Transmit End of Ring, normal descriptor */
+#define TDES_NORM_TCH  (1 << 24)     /*!< Second Address Chained, normal descriptor */
+#define TDES_NORM_DP   (1 << 23)     /*!< Disable Pad, normal descriptor */
+#define TDES_NORM_TTSE (1 << 22)     /*!< Transmit Timestamp Enable, normal descriptor */
+#define TDES_NORM_BS2(n) (((n) & 0x3FF) << 11) /*!< Buffer 2 size, normal descriptor */
+#define TDES_NORM_BS1(n) (((n) & 0x3FF) << 0) /*!< Buffer 1 size, normal descriptor */
+
+/* TRAN_DESC_ENH_T only BSIZE field bit defines */
+#define TDES_ENH_BS2(n) (((n) & 0xFFF) << 16) /*!< Buffer 2 size, enhanced descriptor */
+#define TDES_ENH_BS1(n) (((n) & 0xFFF) << 0) /*!< Buffer 1 size, enhanced descriptor */
+
+/* Common REC_DESC_T and REC_DESC_ENH_T STATUS field bit defines */
 #define RDES_ESA      (1 << 0)       /*!< Extended Status Available/Rx MAC Address */
 #define RDES_CE       (1 << 1)       /*!< CRC Error */
 #define RDES_DE       (1 << 2)       /*!< Dribble Bit Error */
@@ -274,23 +292,29 @@ extern "C"
 #define RDES_AFM      (1 << 30)      /*!< Destination Address Filter Fail */
 #define RDES_OWN      (1UL << 31)    /*!< Own Bit */
 
-/* REC_DESC_T and REC_DESC_T BSIZE field bit defines */
-#define RDES_RCH      (1 << 14)      /*!< Second Address Chained */
-#define RDES_RER      (1 << 15)      /*!< Receive End of Ring */
+/* Common REC_DESC_T and REC_DESC_ENH_T CTRL field bit defines */
+#define RDES_DINT     (1UL << 31)    /*!< Disable interrupt on completion */
 
-/* REC_DESC_T and REC_DESC_T EXTSTAT field bit defines */
-#define RDES_IPPL(n)  (((n) & 0x7) >> 2) /*!< IP Payload Type mask and shift */
-#define RDES_IPHE     (1 << 3)       /*!< IP Header Error */
-#define RDES_IPPLE    (1 << 4)       /*!< IP Payload Error */
-#define RDES_IPCSB    (1 << 5)       /*!< IP Checksum Bypassed */
-#define RDES_IPV4     (1 << 6)       /*!< IPv4 Packet Received */
-#define RDES_IPV6     (1 << 7)       /*!< IPv6 Packet Received */
-#define RDES_MTMSK(n) (((n) & 0xF) >> 8) /*!< Message Type mask and shift */
+/* REC_DESC_T pnly CTRL field bit defines */
+#define RDES_NORM_RER (1 << 25)      /*!< Receive End of Ring, normal descriptor */
+#define RDES_NORM_RCH (1 << 24)      /*!< Second Address Chained, normal descriptor */
+#define RDES_NORM_BS2(n) (((n) & 0x3FF) << 11) /*!< Buffer 2 size, normal descriptor */
+#define RDES_NORM_BS1(n) (((n) & 0x3FF) << 0) /*!< Buffer 1 size, normal descriptor */
 
-/* TRAN_DESC_T,  TRAN_DESC_ENH_T, REC_DESC_T, and
-   REC_DESC_T BSIZE field defines */
-#define DES_BS1(n)  (((n) & 0xFFF) << 0) /*!< Buffer 1 size */
-#define DES_BS2(n)  (((n) & 0xFFF) << 16) /*!< Buffer 2 size */
+/* REC_DESC_ENH_T only CTRL field bit defines */
+#define RDES_ENH_RER  (1 << 15)      /*!< Receive End of Ring, enhanced descriptor */
+#define RDES_ENH_RCH  (1 << 14)      /*!< Second Address Chained, enhanced descriptor */
+#define RDES_ENH_BS2(n) (((n) & 0xFFF) << 16) /*!< Buffer 2 size, enhanced descriptor */
+#define RDES_ENH_BS1(n) (((n) & 0xFFF) << 0) /*!< Buffer 1 size, enhanced descriptor */
+
+/* REC_DESC_ENH_T only EXTSTAT field bit defines */
+#define RDES_ENH_IPPL(n)  (((n) & 0x7) >> 2) /*!< IP Payload Type mask and shift, enhanced descripto */
+#define RDES_ENH_IPHE     (1 << 3)   /*!< IP Header Error, enhanced descripto */
+#define RDES_ENH_IPPLE    (1 << 4)   /*!< IP Payload Error, enhanced descripto */
+#define RDES_ENH_IPCSB    (1 << 5)   /*!< IP Checksum Bypassed, enhanced descripto */
+#define RDES_ENH_IPV4     (1 << 6)   /*!< IPv4 Packet Received, enhanced descripto */
+#define RDES_ENH_IPV6     (1 << 7)   /*!< IPv6 Packet Received, enhanced descripto */
+#define RDES_ENH_MTMSK(n) (((n) & 0xF) >> 8) /*!< Message Type mask and shift, enhanced descripto */
 
 /* Maximum size of an ethernet buffer */
 #define EMAC_ETH_MAX_FLEN (1536)

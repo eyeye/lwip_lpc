@@ -56,19 +56,21 @@
  * @{
  */
 
-/** \brief  SysTick IRQ user handler and timebase management
-
-    This function is called by the Systick timer when the
-	timer count is updated. It does nothing in this application,
-	but can be used for the ARP timer or PHY monitoring. 
-
-	\param[in]    ms    Number of milliSconds since the timer was started
+ /** \brief  Sets up system hardware
  */
-void SysTick_User(u32_t ms)
+void prvSetupHardware(void)
 {
-	;
-}
+	/* Setup board including GPIOs and pin muxing */
+	board_setup();
+	led_set(0);
 
+	/* Setup a 1mS sysTick for the primary time base */
+	SysTick_Enable(1);
+
+	/* Initialize debug output via serial port */
+	debug_frmwrk_init();
+}
+ 
 /** \brief  Application entry point
 
 	\return       Does not return
@@ -79,20 +81,12 @@ int main (void)
 	ip_addr_t ipaddr, netmask, gw;
 	struct pbuf *p;
 
-	/* Setup board including GPIOs and pin muxing */
-	board_setup();
-	led_set(0);
+   	prvSetupHardware();
 
-	/* Setup a 1mS sysTick for the primary time base */
-	SysTick_Enable(1);
-
-	/* Initialize debug output via serial port */
-	debug_frmwrk_init();
-						
 	/* Initialize LWIP */
 	lwip_init();
 
-	LWIP_DEBUGF(1, ("Starting LWIP TCP echo server...\n"));
+	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting LWIP TCP echo server...\n"));
 
 	/* Static IP assignment */
 #if LWIP_DHCP

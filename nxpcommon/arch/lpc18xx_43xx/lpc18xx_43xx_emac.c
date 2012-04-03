@@ -95,8 +95,8 @@
 /* LPC EMAC driver data structure */
 struct lpc_enetdata {
 	struct netif *netif;        /**< Reference back to LWIP parent netif */
-	TRAN_DESC_T ptdesc[LPC_NUM_BUFF_TXDESCS]; /**< TX descriptor list */
-	REC_DESC_T prdesc[LPC_NUM_BUFF_RXDESCS]; /**< RX descriptor list */
+	TRAN_DESC_ENH_T ptdesc[LPC_NUM_BUFF_TXDESCS]; /**< TX descriptor list */
+	REC_DESC_ENH_T prdesc[LPC_NUM_BUFF_RXDESCS]; /**< RX descriptor list */
 	struct pbuf *txpbufs[LPC_NUM_BUFF_TXDESCS]; /**< Saved pbuf pointers, for free after TX */
 	volatile u32_t tx_free_descs; /**< Number of free TX descriptors */
 	u32_t tx_fill_idx;  /**< Current free TX descriptor index */
@@ -215,9 +215,10 @@ static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_netifdata,
 	lpc_netifdata->rxpbufs[idx] = p;
 
 	/* Buffer size and address for pbuf */
-	lpc_netifdata->prdesc[idx].CTRL = (u32_t) DES_BS1(p->len) | RDES_RCH;
+	lpc_netifdata->prdesc[idx].CTRL = (u32_t) RDES_ENH_BS1(p->len) |
+		RDES_ENH_RCH;
 	if (idx == (LPC_NUM_BUFF_RXDESCS - 1))
-		lpc_netifdata->prdesc[idx].CTRL |= RDES_RER;
+		lpc_netifdata->prdesc[idx].CTRL |= RDES_ENH_RER;
 	lpc_netifdata->prdesc[idx].B1ADD = (u32_t) p->payload;
 
 	/* Give descriptor to MAC/DMA */
@@ -299,12 +300,12 @@ static err_t lpc_rx_setup(struct lpc_enetdata *lpc_netifdata)
 	/* Setup buffer chaining before allocating pbufs for descriptors
 	   just in case memory runs out. */
 	for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++) {
-		lpc_netifdata->prdesc[idx].CTRL = RDES_RCH;
+		lpc_netifdata->prdesc[idx].CTRL = RDES_ENH_RCH;
 		lpc_netifdata->prdesc[idx].B2ADD = (u32_t)
 			&lpc_netifdata->prdesc[idx + 1];
 	}
 	lpc_netifdata->prdesc[LPC_NUM_BUFF_RXDESCS - 1].CTRL =
-		RDES_RCH | RDES_RER;
+		RDES_ENH_RCH | RDES_ENH_RER;
 	lpc_netifdata->prdesc[LPC_NUM_BUFF_RXDESCS - 1].B2ADD =
 		(u32_t) &lpc_netifdata->prdesc[0];
 	LPC_ETHERNET->DMA_REC_DES_ADDR = (u32_t) lpc_netifdata->prdesc;
@@ -513,12 +514,12 @@ static err_t lpc_tx_setup(struct lpc_enetdata *lpc_netifdata)
 
 	/* Link/wrap descriptors */
 	for (idx = 0; idx < LPC_NUM_BUFF_TXDESCS; idx++) {
-		lpc_netifdata->ptdesc[idx].CTRLSTAT = TDES_TCH;
+		lpc_netifdata->ptdesc[idx].CTRLSTAT = TDES_ENH_TCH | TDES_ENH_CIC(3);
 		lpc_netifdata->ptdesc[idx].B2ADD =
 			(u32_t) &lpc_netifdata->ptdesc[idx + 1];
 	}
 	lpc_netifdata->ptdesc[LPC_NUM_BUFF_TXDESCS - 1].CTRLSTAT =
-		TDES_TCH | TDES_TER;
+		TDES_ENH_TCH | TDES_ENH_TER | TDES_ENH_CIC(3);
 	lpc_netifdata->ptdesc[LPC_NUM_BUFF_TXDESCS - 1].B2ADD =
 			(u32_t) &lpc_netifdata->ptdesc[0];
 
@@ -571,9 +572,10 @@ void lpc_tx_reclaim(struct netif *netif)
 
 		/* Reset control for this descriptor */
 		if (ridx == (LPC_NUM_BUFF_TXDESCS - 1))
-			lpc_netifdata->ptdesc[ridx].CTRLSTAT = TDES_TCH | TDES_TER;
+			lpc_netifdata->ptdesc[ridx].CTRLSTAT = TDES_ENH_TCH |
+				TDES_ENH_TER;
 		else
-			lpc_netifdata->ptdesc[ridx].CTRLSTAT = TDES_TCH;
+			lpc_netifdata->ptdesc[ridx].CTRLSTAT = TDES_ENH_TCH;
 
 		/* Free the pbuf associate with this descriptor */
 		pbuf_free(lpc_netifdata->txpbufs[ridx]);
@@ -653,22 +655,22 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 
 		/* Setup packet address and length */
 		lpc_netifdata->ptdesc[idx].B1ADD = (u32_t) p->payload;
-		lpc_netifdata->ptdesc[idx].BSIZE = (u32_t) DES_BS1(p->len);
-
-		/* Setup packet control */
-		/* FIXME: For now, only IP header checksumming */
-		lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_CIC(1);
+		lpc_netifdata->ptdesc[idx].BSIZE = (u32_t) TDES_ENH_BS1(p->len);
 
 		/* For first packet only, first flag */
 		lpc_netifdata->tx_free_descs--;
 		if (idx == fidx)
-			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_FS;
+			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_ENH_FS;
 		else
 			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_OWN;
 
 		/* For last packet only, interrupt and last flag */
 		if (dn == 0)
-			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_LS | TDES_IC;
+			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_ENH_LS |
+				TDES_ENH_IC;
+
+		/* FIXME: For now, only IP header checksumming */
+		lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_ENH_CIC(3);
 
 		LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
 			("lpc_low_level_output: pbuf packet %p sent, chain %d,"
@@ -836,6 +838,7 @@ static err_t low_level_init(struct netif *netif)
 		if (timeout == 0)
 			return ERR_TIMEOUT;
 	}
+	LPC_ETHERNET->DMA_BUS_MODE = DMA_BM_ATDS | DMA_BM_PBL(1) | DMA_BM_RPBL(1);
 
 	/* Save MAC address */
 	LPC_ETHERNET->MAC_ADDR0_LOW = ((u32_t) netif->hwaddr[3] << 24) |

@@ -79,9 +79,6 @@ void SysTick_Handler(void)
 
 	/* Increment tick count */
 	systick_timems += saved_period;
-
-	/* Call user function */
-	SysTick_User(systick_timems);
 }
 
 /* Get the current systick time in milliSeconds */
