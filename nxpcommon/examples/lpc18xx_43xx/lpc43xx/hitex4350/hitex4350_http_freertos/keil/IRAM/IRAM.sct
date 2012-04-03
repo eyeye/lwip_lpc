@@ -1,0 +1,20 @@
+;-------------------------------------------------------------------------------------
+;   Keil scatter loading file
+;-------------------------------------------------------------------------------------
+
+; Load region is in internal FLASH, 256KBytes
+FLASH 0x10000000 0x20000 {
+  ; All code and RO data in in FLASH
+  ER_RO 0x10000000 0x20000 {
+    startup_LPC43xx_freertos.o (RESET, +FIRST)
+    *.o (+RO)
+    *.o (+RW)
+    *.o (+ZI)
+	memp.o (+RW, +ZI)
+  }
+
+  ; DMA buffers need to be located in peripheral RAM, but not pbufs
+  PIRAM 0x10080000 0x00012000 {
+	mem.o (+RW, +ZI)
+  }
+}
