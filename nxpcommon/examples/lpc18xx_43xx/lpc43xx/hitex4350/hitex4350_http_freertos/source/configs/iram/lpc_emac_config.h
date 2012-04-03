@@ -33,8 +33,8 @@ extern "C"
 {
 #endif
 
-/** @defgroup hitex1850_tcpecho_freertos_iram	LWIP EMAC/PHY configuration
- * @ingroup hitex1850_tcpecho_freertos
+/** @defgroup hitex1850_http_freertos_iram	LWIP EMAC/PHY configuration
+ * @ingroup hitex1850_http_freertos
  *
  * @{
  */

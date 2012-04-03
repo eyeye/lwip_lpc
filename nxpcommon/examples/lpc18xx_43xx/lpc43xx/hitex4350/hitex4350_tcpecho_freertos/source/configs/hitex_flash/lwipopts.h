@@ -26,7 +26,7 @@
 #ifndef __LWIP_USER_OPT_H__
 #define __LWIP_USER_OPT_H__
 
-/** @defgroup hitex1850_tcpecho_freertos_iram	LWIP configuration configuration
+/** @defgroup hitex1850_tcpecho_freertos_flash	LWIP configuration configuration
  * @ingroup hitex1850_tcpecho_freertos
  *
  * @{

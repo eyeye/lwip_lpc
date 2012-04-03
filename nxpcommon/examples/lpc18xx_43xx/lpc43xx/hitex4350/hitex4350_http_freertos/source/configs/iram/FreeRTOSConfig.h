@@ -57,6 +57,12 @@
 #include "lpc_types.h"
 #include "system_LPC43xx.h"
 
+/** @defgroup hitex1850_http_freertos_iram	FreeRTOS configuration
+ * @ingroup hitex1850_http_freertos
+ *
+ * @{
+ */
+
 /*-----------------------------------------------------------
  * Application specific definitions.
  *
@@ -114,5 +120,9 @@ to exclude the API function. */
 #define configKERNEL_INTERRUPT_PRIORITY 	( 31 << (8 - configPRIO_BITS) )
 /* Priority 5, or 160 as only the top three bits are implemented. */
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY 	( 5 << (8 - configPRIO_BITS) )
+
+/**		  
+ * @}
+ */
 
 #endif /* FREERTOS_CONFIG_H */

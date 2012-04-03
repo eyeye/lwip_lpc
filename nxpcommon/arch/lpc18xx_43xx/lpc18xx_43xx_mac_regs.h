@@ -32,16 +32,6 @@
 #ifndef __lpc18xx_lpc43xx_mac_regs_H_
 #define __lpc18xx_lpc43xx_mac_regs_H_
 
-/** @defgroup lwip18xx_43xx_emac_regs	lpc18xx/43xx EMAC registers
- * @ingroup lwip18xx_43xx_emac_DRIVER
- *
- * Variants of these constants and macros exist in the lpc18xx or
- * lpc43xx files. These are signficantly shorter and make the code
- * easier to read.
- *
- * @{
- */
-
 #ifdef LPC43XX
 #include "lpc43xx.h"
 #else
@@ -59,8 +49,13 @@ extern "C"
 {
 #endif
 
-/* Public Macros -------------------------------------------------------------- */
-/** @defgroup MAC_Public_Macros MAC Public Macros
+/** @defgroup lwip18xx_43xx_emac_regs	lpc18xx/43xx EMAC registers
+ * @ingroup lwip18xx_43xx_emac_DRIVER
+ *
+ * Variants of these constants and macros exist in the lpc18xx or
+ * lpc43xx files. These are signficantly shorter and make the code
+ * easier to read.
+ *
  * @{
  */
 
@@ -319,17 +314,7 @@ extern "C"
 /* Maximum size of an ethernet buffer */
 #define EMAC_ETH_MAX_FLEN (1536)
 
-/**
- * @}
- */
-
-/* Public Types --------------------------------------------------------------- */
-/** @defgroup MAC_Public_Types MAC Public Types
- * @{
- */
-
-/**
- * @brief Structure of a transmit descriptor (without timestamp) */
+/* Structure of a transmit descriptor (without timestamp) */
 typedef struct
 {
 	__IO uint32_t CTRLSTAT;            /*!< TDES control and status word */
@@ -338,8 +323,7 @@ typedef struct
 	__IO uint32_t B2ADD;               /*!< Buffer 2 or next descriptor address */
 } TRAN_DESC_T;
 
-/**
- * @brief Structure of a enhanced transmit descriptor (with timestamp) */
+/* Structure of a enhanced transmit descriptor (with timestamp) */
 typedef struct
 {
 	__IO uint32_t CTRLSTAT;            /*!< TDES control and status word */
@@ -352,8 +336,7 @@ typedef struct
 	__IO uint32_t TTSH;                /*!< Timestamp value high */
 } TRAN_DESC_ENH_T;
 
-/**
- * @brief Structure of a receive descriptor (without timestamp) */
+/* Structure of a receive descriptor (without timestamp) */
 typedef struct
 {
 	__IO uint32_t STATUS;              /*!< RDES status word */
@@ -362,8 +345,7 @@ typedef struct
 	__IO uint32_t B2ADD;               /*!< Buffer 2 or next descriptor address */
 } REC_DESC_T;
 
-/**
- * @brief Structure of a enhanced receive descriptor (with timestamp) */
+/* Structure of a enhanced receive descriptor (with timestamp) */
 typedef struct
 {
 	__IO uint32_t STATUS;              /*!< RDES status word */
@@ -383,9 +365,5 @@ typedef struct
 #ifdef __cplusplus
 }
 #endif
-
-/**
- * @}
- */
 
 #endif /* __lpc18xx_lpc43xx_mac_regs_H_ */

@@ -46,21 +46,16 @@
 
 static struct netif lpc_netif;
 
-/** @defgroup tcpecho_sa_app	TCP echo server
- * @ingroup lwip_applications
+/** @defgroup ea1788_tcpecho_freertos	TCP echo server with FreeRTOS
+ * @ingroup EA1788
  *
- * This example shows how to use a TCP echo server. The example can
- * be built with a static or DHCP obtained IP addresses and copied
- * or zero-copy buffers. Once the system is initialized, a single
- * while(1) loop is used to handle the main system tasks including
- * timers and PHY status. The LED on the board module will indicate
- * if a cable is plugged into the board (on = cable attached).
+ * This example shows how to use a TCP echo server integrated with FreeRTOS.
  * @{
  */
 
 /** \brief  Sets up system hardware
  */
-void prvSetupHardware(void)
+static void prvSetupHardware(void)
 {
 	/* Setup board including GPIOs and pin muxing */
 	board_setup();
