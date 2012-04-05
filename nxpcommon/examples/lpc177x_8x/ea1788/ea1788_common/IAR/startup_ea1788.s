@@ -1,5 +1,5 @@
 ;/*****************************************************************************
-; * @file:    startup_LPC177x_8x.s
+; * @file:    startup_ea1788.s
 ; * @purpose: CMSIS Cortex-M3 Core Device Startup File
 ; *           for the NXP LPC17xx Device Series
 ; * @version: V1.03

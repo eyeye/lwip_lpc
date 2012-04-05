@@ -1,5 +1,5 @@
 ;/***********************************************************************
-; * $Id: startup_LPC18xx.s 6473 2011-02-16 17:40:54Z nxp27266 $
+; * $Id: startup_hitex4350_freertos_M4.s 6473 2011-02-16 17:40:54Z nxp27266 $
 ; *
 ; * Project: LPC18xx CMSIS Package
 ; *
@@ -26,7 +26,7 @@
 ;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
 
-Stack_Size      EQU     0x00001000
+Stack_Size      EQU     0x00000400
 
                 AREA    STACK, NOINIT, READWRITE, ALIGN=3
 Stack_Mem       SPACE   Stack_Size
@@ -36,7 +36,7 @@ __initial_sp
 ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
 
-Heap_Size       EQU     0x00000400
+Heap_Size       EQU     0x00008000
 
                 AREA    HEAP, NOINIT, READWRITE, ALIGN=3
 __heap_base
@@ -45,6 +45,10 @@ __heap_limit
 
                 PRESERVE8
                 THUMB
+
+	extern xPortSysTickHandler
+	extern xPortPendSVHandler
+	extern vPortSVCHandler
 
 ; Vector Table Mapped to Address 0 at Reset
 
@@ -64,11 +68,11 @@ __Vectors       DCD     __initial_sp              	; 0 Top of Stack
                 DCD     0                         	; 8 Reserved
                 DCD     0                         	; 9 Reserved
                 DCD     0                         	; 10 Reserved
-                DCD     SVC_Handler               	; 11 SVCall Handler
+				DCD		vPortSVCHandler             ; SVCall Handler
                 DCD     DebugMon_Handler          	; 12 Debug Monitor Handler
                 DCD     0                         	; 13 Reserved
-                DCD     PendSV_Handler            	; 14 PendSV Handler
-                DCD     SysTick_Handler           	; 15 SysTick Handler
+				DCD		xPortPendSVHandler          ; PendSV Handler
+				DCD		xPortSysTickHandler         ; SysTick Handler
 
                 ; External Interrupts				
 				DCD		DAC_IRQHandler	 			; 16 D/A Converter
