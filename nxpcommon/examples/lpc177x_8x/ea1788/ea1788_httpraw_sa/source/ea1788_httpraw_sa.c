@@ -1,8 +1,8 @@
 /**********************************************************************
-* $Id$		tcpecho_sa_app.c			2011-11-20
+* $Id$		ea1788_httpraw_sa.c			2011-11-20
 *//**
-* @file		tcpecho_sa_app.c
-* @brief	Standalone TCP echo app
+* @file		ea1788_httpraw_sa.c
+* @brief	Standalone HTTP server app
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
@@ -41,19 +41,16 @@
 #include "debug_frmwrk.h"
 #include "lpc_arch.h"
 #include "lpc_board.h"
-#include "lpc_phy.h" /* For the PHY monitor support */
-#include "tcpecho.h"
+#include "httpd.h"
 
-static struct netif lpc_netif;
-
-/** @defgroup ea1788_tcpecho_freertos	TCP echo server with FreeRTOS
+/** @defgroup ea1788_httpraw_sa 	HTTP server (standalone)
  * @ingroup EA1788
  *
- * This example shows how to use a TCP echo server integrated with FreeRTOS.
+ * This example shows how to use a HTTP server without an RTOS.
  * @{
  */
 
-/** \brief  Sets up system hardware
+  /** \brief  Sets up system hardware
  */
 static void prvSetupHardware(void)
 {
@@ -61,23 +58,29 @@ static void prvSetupHardware(void)
 	board_setup();
 	led_set(0);
 
+	/* Setup a 1mS sysTick for the primary time base */
+	SysTick_Enable(1);
+
 	/* Initialize debug output via serial port */
 	debug_frmwrk_init();
 }
 
-/** \brief  LWIP kickoff and PHY link monitor thread
+/** \brief  Application entry point
 
-	\param[in]    pvParameters    Not used
 	\return       Does not return
  */
-static portTASK_FUNCTION( vSetupIFTask, pvParameters )
+int main (void)
 {
+	struct netif lpc_netif;
 	ip_addr_t ipaddr, netmask, gw;
+	struct pbuf *p;
 
-	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting LWIP TCP echo server...\n"));
+    prvSetupHardware();
 
-	/* Initialize LWIP and start TCP/IP thread */
-	tcpip_init(NULL, NULL);
+	/* Initialize LWIP */
+	lwip_init();
+
+	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting httpd...\n"));
 
 	/* Static IP assignment */
 #if LWIP_DHCP
@@ -92,16 +95,13 @@ static portTASK_FUNCTION( vSetupIFTask, pvParameters )
 #endif
 
 	/* Add netif interface for lpc17xx_8x */
-	memset(lpc_netif, 0, sizeof(lpc_netif));
-	if (!netif_add(&lpc_netif, &ipaddr, &netmask, &gw, NULL, lpc_enetif_init,
-		ethernet_input))
-		LWIP_ASSERT("Net interface failed to initialize\r\n", 0);
-
+	netif_add(&lpc_netif, &ipaddr, &netmask, &gw, NULL, lpc_enetif_init,
+		ethernet_input);
 	netif_set_default(&lpc_netif);
 	netif_set_up(&lpc_netif);
 
-   	/* Enable MAC interrupts */
-   	NVIC_SetPriority(ENET_IRQn, ((0x01 << 3) | 0x01));
+    /* Enable MAC interrupts */
+    NVIC_SetPriority(ENET_IRQn, ((0x01 << 3) | 0x01));
     NVIC_EnableIRQ(ENET_IRQn);
 
 #if LWIP_DHCP
@@ -109,12 +109,27 @@ static portTASK_FUNCTION( vSetupIFTask, pvParameters )
 #endif
 
 	/* Initialize and start application */
-	tcpecho_init();
+	httpd_init();
 
-	/* This loop monitors the PHY link and will handle cable events
-	   via the PHY driver. */
-	while (1)
-	{
+	/* This could be done in the sysTick ISR, but may stay in IRQ context
+	   too long, so do this stuff with a background loop. */
+	while (1) {
+		/* Handle packets as part of this loop, not in the IRQ handler */
+		lpc_enetif_input(&lpc_netif);
+
+#if LPC_PBUF_RX_ZEROCOPY
+		/* Re-queue RX buffers as needed */
+		while (lpc_rx_queue(&lpc_netif));
+#endif
+
+#if LPC_PBUF_TX_ZEROCOPY
+		/* Free TX buffers that are done sending */
+		lpc_tx_reclaim(&lpc_netif);
+#endif
+
+		/* LWIP timers - ARP, DHCP, TCP, etc. */
+		sys_check_timeouts();
+
 		/* Call the PHY status update state machine once in a while
 		   to keep the link status up-to-date */
 		if (lpc_phy_sts_sm(&lpc_netif) != 0) {
@@ -125,30 +140,8 @@ static portTASK_FUNCTION( vSetupIFTask, pvParameters )
 			else
 				led_set(0);
 		}
-
-		/* Non-blocking delay for link detection */
-		msDelay(250);
 	}
-}
 
-/** \brief  Application entry point
-
-	\return       Does not return
- */
-int main (void)
-{
-	prvSetupHardware();
-
-	/* Add another thread for initializing physical interface. This
-	   is delayed from the main LWIP initialization. */
-	xTaskCreate( vSetupIFTask, ( signed char * ) "SetupIFx",
-		configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
-		( xTaskHandle * ) NULL );
-
-	/* Start the scheduler */
-	vTaskStartScheduler();
-
-	/* Should never arrive here */
 	return 1;
 }
 

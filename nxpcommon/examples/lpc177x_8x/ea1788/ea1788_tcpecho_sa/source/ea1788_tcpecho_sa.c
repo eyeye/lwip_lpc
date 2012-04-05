@@ -1,8 +1,8 @@
 /**********************************************************************
-* $Id$		httprdaw_sa_app.c			2011-11-20
+* $Id$		ea1788_tcpecho_sa.c			2011-11-20
 *//**
-* @file		httprdaw_sa_app.c
-* @brief	Standalone HTTP server app
+* @file		ea1788_tcpecho_sa.c
+* @brief	Standalone TCP echo app
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
@@ -41,16 +41,17 @@
 #include "debug_frmwrk.h"
 #include "lpc_arch.h"
 #include "lpc_board.h"
-#include "httpd.h"
+#include "lpc_phy.h" /* For the PHY monitor support */
+#include "echo.h"
 
-/** @defgroup ea1788_http_sa	HTTP server (standalone)
+/** @defgroup ea1788_tcpecho_sa	TCP echo server (standalone)
  * @ingroup EA1788
  *
- * This example shows how to use a HTTP server without an RTOS.
+ * This example shows how to use a TCP echo server without an RTOS.
  * @{
  */
 
-  /** \brief  Sets up system hardware
+ /** \brief  Sets up system hardware
  */
 static void prvSetupHardware(void)
 {
@@ -64,7 +65,7 @@ static void prvSetupHardware(void)
 	/* Initialize debug output via serial port */
 	debug_frmwrk_init();
 }
-
+ 
 /** \brief  Application entry point
 
 	\return       Does not return
@@ -75,12 +76,12 @@ int main (void)
 	ip_addr_t ipaddr, netmask, gw;
 	struct pbuf *p;
 
-    prvSetupHardware();
+   	prvSetupHardware();
 
 	/* Initialize LWIP */
 	lwip_init();
 
-	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting httpd...\n"));
+	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting LWIP TCP echo server...\n"));
 
 	/* Static IP assignment */
 #if LWIP_DHCP
@@ -109,7 +110,7 @@ int main (void)
 #endif
 
 	/* Initialize and start application */
-	httpd_init();
+	echo_init();
 
 	/* This could be done in the sysTick ISR, but may stay in IRQ context
 	   too long, so do this stuff with a background loop. */

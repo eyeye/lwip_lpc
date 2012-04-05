@@ -1,8 +1,8 @@
 /**********************************************************************
-* $Id$		tcpecho_sa_app.c			2011-11-20
+* $Id$		hitex4350_tcpecho_freertos.c			2011-11-20
 *//**
-* @file		tcpecho_sa_app.c
-* @brief	Standalone TCP echo app
+* @file		hitex4350_tcpecho_freertos.c
+* @brief	RTOS based TCP echo app
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
