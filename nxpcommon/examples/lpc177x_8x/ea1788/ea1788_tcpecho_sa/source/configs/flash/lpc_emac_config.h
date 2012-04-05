@@ -78,36 +78,12 @@ extern "C"
  */
 #define LPC_EMAC_RMII 1         /**< Use the RMII or MII driver variant .*/
 
-/** \brief  Set this define to '0' to use traditional copied buffers. If set
- *          to 0, receive buffers will be allocated statically for the EMAC
- *          interface per descriptor (LPC_NUM_BUFF_RXDESCS) and then copied
- *          into another allocated buffer that is passed to the network layer.
- *          If set to 1, receive buffers are allocated when needed for an
- *          empty receive descriptor and then sent directly to the network
- *          layer without a copy when a packet is received. New buffers must
- *          be allocated and re-queued for receive by periodically calling
- *          the lpc_rx_requeue() function.
- */
-#define LPC_PBUF_RX_ZEROCOPY 1 /**< Set to '1' to use zero-copy pbufs for receive. */
-
-/** \brief  Defines the number of descriptors used for RX. A higher number of
- *          descriptors allows for more receive packets before rejecting them,
- *          but uses more memory. 1 buffer is allocated per descriptor. This
+/** \brief  Defines the number of descriptors used for RX. This
  *          must be a minimum value of 2.
  */
 #define LPC_NUM_BUFF_RXDESCS 4
 
-/** \brief  Set this define to '1' to enable zero-copy pbufs for transmit.
- *          If this is used, the EMAC driver will not create or use any local
- *          buffers - this can save lots of memory.
- */
-#define LPC_PBUF_TX_ZEROCOPY 1 /**< Set to '1' to use no-copy pbufs for transmit. */
-
-/** \brief  Defines the number of descriptors used for TX. In zero-copy mode,
- *          this value designates the number of descriptors that can be assigned
- *          to buffers for transmit. When not in zero-copy mode, a buffer is
- *          also assigned to the descriptor, so memory use can be high if this
- *          value is set high. Use a low count when LPC_PBUF_TX_ZEROCOPY=0. Must
+/** \brief  Defines the number of descriptors used for TX. Must
  *          be a minimum value of 2.
  */
 #define LPC_NUM_BUFF_TXDESCS 4

@@ -76,7 +76,7 @@
  * 
  * Thread priorities for receive thread and TX cleanup thread. Alter
  * to prioritize receive or transmit bandwidth. In a heavily loaded
- * system or with LEIP_DEBUG enabled, the priorities might be better
+ * system or with LWIP_DEBUG enabled, the priorities might be better
  * the same. */
 #define tskTXCLEAN_PRIORITY  (TCPIP_THREAD_PRIO - 1)
 #define tskRECPKT_PRIORITY   (TCPIP_THREAD_PRIO - 1)
@@ -998,7 +998,6 @@ err_t lpc_enetif_init(struct netif *netif)
 
 	/* For FreeRTOS, start tasks */
 #if NO_SYS == 0
-
 	lpc_enetdata.xTXDCountSem = xSemaphoreCreateCounting(LPC_NUM_BUFF_TXDESCS,
 		LPC_NUM_BUFF_TXDESCS);
 	LWIP_ASSERT("xTXDCountSem creation error",

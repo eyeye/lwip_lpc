@@ -27,10 +27,13 @@
 #define __LWIP_USER_OPT_H__
 
 /* Standalone build */
-#define NO_SYS                          1
+#define NO_SYS                          0
 
 /* Use LWIP timers */
 #define NO_SYS_NO_TIMERS				0
+
+/* Need for memory protection */
+#define SYS_LIGHTWEIGHT_PROT            1
 
 /* 32-bit alignment */
 #define MEM_ALIGNMENT                   4
@@ -65,7 +68,10 @@
  * MEM_SIZE: the size of the heap memory. If the application will send
  * a lot of data that needs to be copied, this should be set high.
  */
-#define MEM_SIZE						(15 * 1024)
+#define MEM_SIZE						(12*1024)
+
+/* Raw interface not needed */
+#define LWIP_RAW                        0
 
 /* DHCP is ok, UDP is required with DHCP */
 #define LWIP_DHCP                       1
@@ -74,14 +80,14 @@
 /* Hostname can be used */
 #define LWIP_NETIF_HOSTNAME             1
 
-#define LWIP_BROADCAST_PING				0
+#define LWIP_BROADCAST_PING				1
 
 /* MSS should match the hardware packet size */
 #define TCP_MSS                         1460
 #define TCP_SND_BUF						(2 * TCP_MSS)
 
 #define LWIP_SOCKET                     0
-#define LWIP_NETCONN                    0
+#define LWIP_NETCONN                    1
 #define MEMP_NUM_SYS_TIMEOUT            300
 
 #define LWIP_STATS                      0
@@ -102,5 +108,16 @@
 /* This define is custom for the LPC EMAC driver. Enabled it to
    get debug messages for the driver. */
 #define UDP_LPC_EMAC                    LWIP_DBG_OFF
+
+#define DEFAULT_THREAD_PRIO             (tskIDLE_PRIORITY + 1)
+#define DEFAULT_THREAD_STACKSIZE        (configMINIMAL_STACK_SIZE)
+#define DEFAULT_ACCEPTMBOX_SIZE			6
+#define DEFAULT_ACCEPTMBOX_SIZE			6
+#define DEFAULT_TCP_RECVMBOX_SIZE		6
+#define DEFAULT_UDP_RECVMBOX_SIZE		6
+
+#define TCPIP_THREAD_PRIO				(DEFAULT_THREAD_PRIO + configMAX_PRIORITIES - 1)
+#define TCPIP_THREAD_STACKSIZE			(configMINIMAL_STACK_SIZE)
+#define TCPIP_MBOX_SIZE					6
 
 #endif /* __LWIP_USER_OPT_H__ */

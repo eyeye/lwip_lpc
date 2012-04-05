@@ -38,7 +38,7 @@
 /* pbuf buffers in pool. In zero-copy mode, these buffers are
    located in peripheral RAM. In copied mode, they are located in
    internal IRAM */
-#define PBUF_POOL_SIZE                  4
+#define PBUF_POOL_SIZE                  6
 
  /* No padding needed */
 #define ETH_PAD_SIZE                    0
@@ -65,7 +65,7 @@
  * MEM_SIZE: the size of the heap memory. If the application will send
  * a lot of data that needs to be copied, this should be set high.
  */
-#define MEM_SIZE						16384
+#define MEM_SIZE						(14 * 1024)
 
 /* DHCP is ok, UDP is required with DHCP */
 #define LWIP_DHCP                       1

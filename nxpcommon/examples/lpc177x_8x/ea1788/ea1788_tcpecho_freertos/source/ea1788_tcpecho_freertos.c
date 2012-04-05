@@ -65,6 +65,13 @@ static void prvSetupHardware(void)
 	debug_frmwrk_init();
 }
 
+/* Callback for TCPIP thread to indicate TCPIP init is done */
+static void tcpip_init_done_signal(void *arg)
+{
+	/* Tell main thread TCP/IP init is done */
+	*(s32_t *) arg = 1;
+}
+
 /** \brief  LWIP kickoff and PHY link monitor thread
 
 	\param[in]    pvParameters    Not used
@@ -73,11 +80,15 @@ static void prvSetupHardware(void)
 static portTASK_FUNCTION( vSetupIFTask, pvParameters )
 {
 	ip_addr_t ipaddr, netmask, gw;
+	volatile s32_t tcpipdone = 0;
+
+	/* Wait until the TCP/IP thread is finished before
+	   continuing or wierd things may happen */
+	LWIP_DEBUGF(LWIP_DBG_ON, ("Waiting for TCPIP thread to initialize...\n"));
+	tcpip_init(tcpip_init_done_signal, &tcpipdone);
+	while (!tcpipdone);
 
 	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting LWIP TCP echo server...\n"));
-
-	/* Initialize LWIP and start TCP/IP thread */
-	tcpip_init(NULL, NULL);
 
 	/* Static IP assignment */
 #if LWIP_DHCP

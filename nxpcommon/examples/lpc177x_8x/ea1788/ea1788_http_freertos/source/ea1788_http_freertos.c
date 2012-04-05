@@ -1,8 +1,8 @@
 /**********************************************************************
-* $Id$		ea1788_tcpecho_sa.c			2011-11-20
+* $Id$		ea1788_http_freertos.c			2011-11-20
 *//**
-* @file		ea1788_tcpecho_sa.c
-* @brief	Standalone TCP echo app
+* @file		ea1788_http_freertos.c
+* @brief	RTOS based HTTP server app
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
@@ -42,16 +42,18 @@
 #include "lpc_arch.h"
 #include "lpc_board.h"
 #include "lpc_phy.h" /* For the PHY monitor support */
-#include "echo.h"
+#include "httpserver-netconn.h"
 
-/** @defgroup ea1788_tcpecho_sa	TCP echo server (standalone)
+static struct netif lpc_netif;
+
+/** @defgroup ea1788_http_freertos	HTTP server with FreeRTOS
  * @ingroup EA1788
  *
- * This example shows how to use a TCP echo server without an RTOS.
+ * This example shows how to use a HTTP server integrated with FreeRTOS.
  * @{
  */
 
- /** \brief  Sets up system hardware
+/** \brief  Sets up system hardware
  */
 static void prvSetupHardware(void)
 {
@@ -59,29 +61,34 @@ static void prvSetupHardware(void)
 	board_setup();
 	led_set(0);
 
-	/* Setup a 1mS sysTick for the primary time base */
-	SysTick_Enable(1);
-
 	/* Initialize debug output via serial port */
 	debug_frmwrk_init();
 }
- 
-/** \brief  Application entry point
 
+/* Callback for TCPIP thread to indicate TCPIP init is done */
+static void tcpip_init_done_signal(void *arg)
+{
+	/* Tell main thread TCP/IP init is done */
+	*(s32_t *) arg = 1;
+}
+
+/** \brief  LWIP kickoff and PHY link monitor thread
+
+	\param[in]    pvParameters    Not used
 	\return       Does not return
  */
-int main (void)
+static portTASK_FUNCTION( vSetupIFTask, pvParameters )
 {
-	struct netif lpc_netif;
 	ip_addr_t ipaddr, netmask, gw;
-	struct pbuf *p;
+	volatile s32_t tcpipdone = 0;
 
-   	prvSetupHardware();
+	/* Wait until the TCP/IP thread is finished before
+	   continuing or wierd things may happen */
+	LWIP_DEBUGF(LWIP_DBG_ON, ("Waiting for TCPIP thread to initialize...\n"));
+	tcpip_init(tcpip_init_done_signal, &tcpipdone);
+	while (!tcpipdone);
 
-	/* Initialize LWIP */
-	lwip_init();
-
-	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting LWIP TCP echo server...\n"));
+	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting LWIP HTTP server...\n"));
 
 	/* Static IP assignment */
 #if LWIP_DHCP
@@ -96,13 +103,16 @@ int main (void)
 #endif
 
 	/* Add netif interface for lpc17xx_8x */
-	netif_add(&lpc_netif, &ipaddr, &netmask, &gw, NULL, lpc_enetif_init,
-		ethernet_input);
+	memset(lpc_netif, 0, sizeof(lpc_netif));
+	if (!netif_add(&lpc_netif, &ipaddr, &netmask, &gw, NULL, lpc_enetif_init,
+		ethernet_input))
+		LWIP_ASSERT("Net interface failed to initialize\r\n", 0);
+
 	netif_set_default(&lpc_netif);
 	netif_set_up(&lpc_netif);
 
-    /* Enable MAC interrupts */
-    NVIC_SetPriority(ENET_IRQn, ((0x01 << 3) | 0x01));
+   	/* Enable MAC interrupts */
+   	NVIC_SetPriority(ENET_IRQn, ((0x01 << 3) | 0x01));
     NVIC_EnableIRQ(ENET_IRQn);
 
 #if LWIP_DHCP
@@ -110,28 +120,12 @@ int main (void)
 #endif
 
 	/* Initialize and start application */
-	echo_init();
+	http_server_netconn_init();
 
-	/* This could be done in the sysTick ISR, but may stay in IRQ context
-	   too long, so do this stuff with a background loop. */
-	while (1) {
-		/* Handle packets as part of this loop, not in the IRQ handler */
-		lpc_enetif_input(&lpc_netif);
-
-		/* lpc_rx_queue will re-qeueu receive buffers. This normally occurs
-		   automatically, but in systems were memory is constrained, pbufs
-		   may not always be able to get allocated, so this function can be
-		   optionally enabled to re-queue receive buffers. */
-#if 0
-		while (lpc_rx_queue(&lpc_netif));
-#endif
-
-		/* Free TX buffers that are done sending */
-		lpc_tx_reclaim(&lpc_netif);
-
-		/* LWIP timers - ARP, DHCP, TCP, etc. */
-		sys_check_timeouts();
-
+	/* This loop monitors the PHY link and will handle cable events
+	   via the PHY driver. */
+	while (1)
+	{
 		/* Call the PHY status update state machine once in a while
 		   to keep the link status up-to-date */
 		if (lpc_phy_sts_sm(&lpc_netif) != 0) {
@@ -142,8 +136,30 @@ int main (void)
 			else
 				led_set(0);
 		}
-	}
 
+		/* Non-blocking delay for link detection */
+		msDelay(250);
+	}
+}
+
+/** \brief  Application entry point
+
+	\return       Does not return
+ */
+int main (void)
+{
+	prvSetupHardware();
+
+	/* Add another thread for initializing physical interface. This
+	   is delayed from the main LWIP initialization. */
+	xTaskCreate( vSetupIFTask, ( signed char * ) "SetupIFx",
+		configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 1UL),
+		( xTaskHandle * ) NULL );
+
+	/* Start the scheduler */
+	vTaskStartScheduler();
+
+	/* Should never arrive here */
 	return 1;
 }
 

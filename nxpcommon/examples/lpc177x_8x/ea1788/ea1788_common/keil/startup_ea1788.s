@@ -35,7 +35,11 @@ __initial_sp
 ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
 
+				IF      :DEF:USE_FREERTOS
+Heap_Size       EQU     0x00008000
+				ELSE
 Heap_Size       EQU     0x00000000
+				ENDIF
 
                 AREA    HEAP, NOINIT, READWRITE, ALIGN=3
 __heap_base
@@ -46,6 +50,11 @@ __heap_limit
                 PRESERVE8
                 THUMB
 
+				IF      :DEF:USE_FREERTOS
+	extern xPortSysTickHandler
+	extern xPortPendSVHandler
+	extern vPortSVCHandler
+				ENDIF
 
 ; Vector Table Mapped to Address 0 at Reset
 
@@ -63,12 +72,20 @@ __Vectors		DCD		__initial_sp              ; Top of Stack
 				DCD		0                         ; Reserved
 				DCD		0                         ; Reserved
 				DCD		0                         ; Reserved
+				IF      :DEF:USE_FREERTOS
+				DCD		vPortSVCHandler           ; SVCall Handler
+				DCD		DebugMon_Handler          ; Debug Monitor Handler
+				DCD		0                         ; Reserved
+				DCD		xPortPendSVHandler        ; PendSV Handler
+				DCD		xPortSysTickHandler       ; SysTick Handler
+				ELSE
 				DCD		SVC_Handler               ; SVCall Handler
 				DCD		DebugMon_Handler          ; Debug Monitor Handler
 				DCD		0                         ; Reserved
 				DCD		PendSV_Handler            ; PendSV Handler
 				DCD		SysTick_Handler           ; SysTick Handler
-				
+				ENDIF				
+
 				; External Interrupts
 				DCD		WDT_IRQHandler            ; 16: Watchdog Timer
 				DCD		TIMER0_IRQHandler         ; 17: Timer0
@@ -131,8 +148,10 @@ Reset_Handler	PROC
 				IMPORT  __main
 				LDR     R0, =SystemInit
 				BLX     R0
+				IF      :DEF:USE_SDRAM
 				LDR     R0, =SDRAMInit
 				BLX     R0
+				ENDIF
 				LDR     R0, =__main
 				BX      R0
 				ENDP

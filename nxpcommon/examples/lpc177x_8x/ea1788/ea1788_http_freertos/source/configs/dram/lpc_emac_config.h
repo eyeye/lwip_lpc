@@ -96,7 +96,7 @@ extern "C"
  *          is determined to be non-usable for zero-copy, a temporary bounce
  *          buffer will be created and used instead.
  */
-#define LPC_TX_PBUF_BOUNCE_EN 0
+#define LPC_TX_PBUF_BOUNCE_EN 1
 
 /**		  
  * @}

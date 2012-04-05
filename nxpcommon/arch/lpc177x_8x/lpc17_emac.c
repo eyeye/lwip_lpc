@@ -38,42 +38,44 @@
 #include "lpc17_emac.h"
 #include "lpc_emac_config.h"
 
-// FIXME TBD
-// *
-// RX descriptors for zero-copy do not need to be cleaned, the RX buffer
-// can be passed off to the recevie function and a new pbuf can be requeued
-// right away
-// *
-// Lockup after so many sends
-// *
-// Zero-copy TX seems to work
-// *
-// Zero-copy RX doesn't work
-// *
-// System appears to crash under heavy load
-// *
-// System appears to crash under heavy load
+#ifndef LPC_EMAC_RMII
+#error LPC_EMAC_RMII is not defined!
+#endif
+
+#if LPC_NUM_BUFF_TXDESCS < 2
+#error LPC_NUM_BUFF_TXDESCS must be at least 2
+#endif
+
+#if LPC_NUM_BUFF_RXDESCS < 3
+#error LPC_NUM_BUFF_RXDESCS must be at least 3
+#endif
 
 /** @defgroup lwip17xx_emac_DRIVER	lpc17 EMAC driver for LWIP
  * @ingroup lwip_emac
- *
- * This driver is currently for the LPC177x_8x devices only, although
- * the LPC32x0 and LPC2000 series devices share the same ethernet
- * controller.
  *
  * @{
  */
 
 #if NO_SYS == 0
-/** \brief  Driver thread priorities
- */
+/** \brief  Driver transmit and receive thread priorities
+ * 
+ * Thread priorities for receive thread and TX cleanup thread. Alter
+ * to prioritize receive or transmit bandwidth. In a heavily loaded
+ * system or with LEIP_DEBUG enabled, the priorities might be better
+ * the same. */
 #define tskRECPKT_PRIORITY   (DEFAULT_THREAD_PRIO + 4)
 #define tskTXCLEAN_PRIORITY  (DEFAULT_THREAD_PRIO + 5)
-#define tskRECCLEAN_PRIORITY (DEFAULT_THREAD_PRIO + 6)
-#define tskRECCLEAN_RATE (3) /* Cleanup rate in mS */
-#endif
 
-#if NO_SYS == 1
+/** \brief  Debug output formatter lock define
+ * 
+ * When using FreeRTOS and with LWIP_DEBUG enabled, enabling this
+ * define will allow RX debug messages to not interleave with the
+ * TX messages (so they are actually readable). Not enabling this
+ * define when the system is under load will cause the output to
+ * be unreadable. There is a small tradeoff in performance for this
+ * so use it only for debug. */
+//#define LOCK_RX_THREAD
+
 /** \brief  Receive group interrupts
  */
 #define RXINTGROUP (EMAC_INT_RX_OVERRUN | EMAC_INT_RX_ERR | EMAC_INT_RX_DONE)
@@ -112,13 +114,16 @@ struct lpc_enetdata {
 	LPC_TXRX_DESC_T prxd[LPC_NUM_BUFF_RXDESCS];   /**< Pointer to RX descriptor list */
 	struct pbuf *rxb[LPC_NUM_BUFF_RXDESCS]; /**< RX pbuf pointer list, zero-copy mode */
 	u32_t rx_fill_desc_index; /**< RX descriptor next available index */
-	u32_t rx_free_descs; /**< Count of free RX descriptors */
+	volatile u32_t rx_free_descs; /**< Count of free RX descriptors */
 	struct pbuf *txb[LPC_NUM_BUFF_TXDESCS]; /**< TX pbuf pointer list, zero-copy mode */
 	u32_t lpc_last_tx_idx; /**< TX last descriptor index, zero-copy mode */
 #if NO_SYS == 0
-    sys_sem_t RxSem, TxCleanSem;
+	sys_sem_t RxSem; /**< RX receive thread wakeup semaphore */
+	sys_sem_t TxCleanSem; /**< TX cleanup thread wakeup semaphore */
+	sys_mutex_t TXLockMutex; /**< TX critical section mutex */
+	xSemaphoreHandle xTXDCountSem; /**< TX free buffer counting semaphore */
 #endif
-    };
+};
 
 /** \brief  LPC EMAC driver work data
  */
@@ -212,24 +217,24 @@ err_t lpc_mii_read(u32_t PhyReg, u32_t *data)
 
 /** \brief  Queues a pbuf into the RX descriptor list
  *
- *  \param[in] lpc_enetdata Pointer to the drvier data structure
+ *  \param[in] lpc_enetif Pointer to the drvier data structure
  *  \param[in] p            Pointer to pbuf to queue
  */
-static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_enetdata, struct pbuf *p)
+static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_enetif, struct pbuf *p)
 {
 	u32_t idx;
 
 	/* Get next free descriptor index */
-	idx = lpc_enetdata->rx_fill_desc_index;
+	idx = lpc_enetif->rx_fill_desc_index;
 
 	/* Setup descriptor and clear statuses */
-	lpc_enetdata->prxd[idx].control = EMAC_RCTRL_INT | ((u32_t) (p->len - 1));
-	lpc_enetdata->prxd[idx].packet = (u32_t) p->payload;
-	lpc_enetdata->prxs[idx].statusinfo = 0xFFFFFFFF;
-	lpc_enetdata->prxs[idx].statushashcrc = 0xFFFFFFFF;
+	lpc_enetif->prxd[idx].control = EMAC_RCTRL_INT | ((u32_t) (p->len - 1));
+	lpc_enetif->prxd[idx].packet = (u32_t) p->payload;
+	lpc_enetif->prxs[idx].statusinfo = 0xFFFFFFFF;
+	lpc_enetif->prxs[idx].statushashcrc = 0xFFFFFFFF;
 
 	/* Save pbuf pointer for push to network layer later */
-	lpc_enetdata->rxb[idx] = p;
+	lpc_enetif->rxb[idx] = p;
 
 	/* Wrap at end of descriptor list */
 	idx++;
@@ -237,13 +242,13 @@ static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_enetdata, struct pbuf *p)
 		idx = 0;
 
 	/* Queue descriptor(s) */
-	lpc_enetdata->rx_free_descs -= 1;
-	lpc_enetdata->rx_fill_desc_index = idx;
+	lpc_enetif->rx_free_descs -= 1;
+	lpc_enetif->rx_fill_desc_index = idx;
 	LPC_EMAC->RxConsumeIndex = idx;
 
 	LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
 		("lpc_rxqueue_pbuf: pbuf packet queued: %p (free desc=%d)\n", p,
-			lpc_enetdata->rx_free_descs));
+			lpc_enetif->rx_free_descs));
 }
 
 /** \brief  Attempt to allocate and requeue a new pbuf for RX
@@ -253,55 +258,58 @@ static void lpc_rxqueue_pbuf(struct lpc_enetdata *lpc_enetdata, struct pbuf *p)
  */
 s32_t lpc_rx_queue(struct netif *netif)
 {
+	struct lpc_enetdata *lpc_enetif = netif->state;
 	struct pbuf *p;
-	struct lpc_enetdata *lpc_enetdata = netif->state;
+	s32_t queued = 0;
 
-	/* Exit of there are no descriptor available */
-	if (lpc_enetdata->rx_free_descs == 0)
-		return 0;
+	/* Attempt to requeue as many packets as possible */
+	while (lpc_enetif->rx_free_descs > 0) {
+		/* Allocate a pbuf from the pool. We need to allocate at the
+		   maximum size as we don't know the size of the yet to be
+		   received packet. */
+		p = pbuf_alloc(PBUF_RAW, (u16_t) EMAC_ETH_MAX_FLEN, PBUF_RAM);
+		if (p == NULL) {
+			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
+				("lpc_rx_queue: could not allocate RX pbuf (free desc=%d)\n",
+				lpc_enetif->rx_free_descs));
+			return queued;
+		}
 
-	/* Allocate a pbuf from the pool. We need to allocate at the maximum size
-	   as we don't know the size of the yet to be received packet. */
-	p = pbuf_alloc(PBUF_RAW, (u16_t) EMAC_ETH_MAX_FLEN, PBUF_RAM);
-	if (p == NULL) {
-		LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
-			("lpc_rx_queue: could not allocate RX pbuf (free desc=%d)\n",
-			lpc_enetdata->rx_free_descs));
-		return 0;
+		/* pbufs allocated from the RAM pool should be non-chained. */
+		LWIP_ASSERT("lpc_rx_queue: pbuf is not contiguous (chained)",
+			pbuf_clen(p) <= 1);
+
+		/* Queue packet */
+		lpc_rxqueue_pbuf(lpc_enetif, p);
+
+		/* Update queued count */
+		queued++;
 	}
 
-	/* pbufs allocated from the RAM pool should be non-chained. */
-	LWIP_ASSERT("lpc_rx_queue: pbuf is not contiguous (chained)",
-		pbuf_clen(p) <= 1);
-
-	/* Queue packet */
-	lpc_rxqueue_pbuf(lpc_enetdata, p);
-
-	return 1;
+	return queued;
 }
 
 /** \brief  Sets up the RX descriptor ring buffers.
  * 
  *  This function sets up the descriptor list used for receive packets.
  *
- *  \param[in]  lpc_enetdata  Pointer to driver data structure
+ *  \param[in]  lpc_enetif  Pointer to driver data structure
  *  \returns                   Always returns ERR_OK
  */
-static err_t lpc_rx_setup(struct lpc_enetdata *lpc_enetdata)
+static err_t lpc_rx_setup(struct lpc_enetdata *lpc_enetif)
 {
 	s32_t idx;
 
 	/* Setup pointers to RX structures */
-	LPC_EMAC->RxDescriptor = (u32_t) &lpc_enetdata->prxd[0];
-	LPC_EMAC->RxStatus = (u32_t) &lpc_enetdata->prxs[0];
+	LPC_EMAC->RxDescriptor = (u32_t) &lpc_enetif->prxd[0];
+	LPC_EMAC->RxStatus = (u32_t) &lpc_enetif->prxs[0];
 	LPC_EMAC->RxDescriptorNumber = LPC_NUM_BUFF_RXDESCS - 1;
 
-	lpc_enetdata->rx_free_descs = LPC_NUM_BUFF_RXDESCS;
-	lpc_enetdata->rx_fill_desc_index = 0;
+	lpc_enetif->rx_free_descs = LPC_NUM_BUFF_RXDESCS;
+	lpc_enetif->rx_fill_desc_index = 0;
 
 	/* Build RX buffer and descriptors */
-	for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++)
-		lpc_rx_queue(lpc_enetdata->netif);
+	lpc_rx_queue(lpc_enetif->netif);
 
 	return ERR_OK;
 }
@@ -314,10 +322,17 @@ static err_t lpc_rx_setup(struct lpc_enetdata *lpc_enetdata)
  */
 static struct pbuf *lpc_low_level_input(struct netif *netif)
 {
-	struct lpc_enetdata *lpc_enetdata = netif->state;
+	struct lpc_enetdata *lpc_enetif = netif->state;
 	struct pbuf *p = NULL, *q;
 	u32_t idx, length;
 	u8_t *src;
+
+#ifdef LOCK_RX_THREAD
+#if NO_SYS == 0
+	/* Get exclusive access */
+	sys_mutex_lock(&lpc_enetif->TXLockMutex);
+#endif
+#endif
 
 	/* Monitor RX overrun status. This should never happen unless
 	   (possibly) the internal bus is behing held up by something.
@@ -337,17 +352,23 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 
 		/* De-allocate all queued RX pbufs */
 		for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++) {
-			if (lpc_enetdata->rxb[idx] != NULL) {
-				pbuf_free(lpc_enetdata->rxb[idx]);
-				lpc_enetdata->rxb[idx] = NULL;
+			if (lpc_enetif->rxb[idx] != NULL) {
+				pbuf_free(lpc_enetif->rxb[idx]);
+				lpc_enetif->rxb[idx] = NULL;
 			}
 		}
 
 		/* Start RX side again */
-		lpc_rx_setup(lpc_enetdata);
+		lpc_rx_setup(lpc_enetif);
 
 		/* Re-enable RX */
 		LPC_EMAC->MAC1 |= EMAC_MAC1_REC_EN;
+
+#ifdef LOCK_RX_THREAD
+#if NO_SYS == 0
+		sys_mutex_unlock(&lpc_enetif->TXLockMutex);
+#endif
+#endif
 
 		return NULL;
 	}
@@ -357,42 +378,39 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 	idx = LPC_EMAC->RxConsumeIndex;
 	if (LPC_EMAC->RxProduceIndex != idx) {
 		/* Handle errors */
-		if (lpc_enetdata->prxs[idx].statusinfo & (EMAC_RINFO_CRC_ERR |
+		if (lpc_enetif->prxs[idx].statusinfo & (EMAC_RINFO_CRC_ERR |
 			EMAC_RINFO_SYM_ERR | EMAC_RINFO_ALIGN_ERR | EMAC_RINFO_LEN_ERR)) {
 #if LINK_STATS
-			if (lpc_enetdata->prxs[idx].statusinfo & (EMAC_RINFO_CRC_ERR |
+			if (lpc_enetif->prxs[idx].statusinfo & (EMAC_RINFO_CRC_ERR |
 				EMAC_RINFO_SYM_ERR | EMAC_RINFO_ALIGN_ERR))
 				LINK_STATS_INC(link.chkerr);
-			if (lpc_enetdata->prxs[idx].statusinfo & EMAC_RINFO_LEN_ERR)
+			if (lpc_enetif->prxs[idx].statusinfo & EMAC_RINFO_LEN_ERR)
 				LINK_STATS_INC(link.lenerr);
 #endif
 
 			/* Drop the frame */
 			LINK_STATS_INC(link.drop);
 
-			/* Free the pbuf associated with this descriptor. The RX
-			   queue function will queue a new pbuf later. */
-			if (lpc_enetdata->rxb[idx] != NULL) {
-				pbuf_free(lpc_enetdata->rxb[idx]);
-				lpc_enetdata->rxb[idx] = NULL;
-				lpc_enetdata->rx_free_descs++;
-			}
+			/* Re-queue the pbuf for receive */
+			lpc_enetif->rx_free_descs++;
+			p = lpc_enetif->rxb[idx];
+			lpc_enetif->rxb[idx] = NULL;
+			lpc_rxqueue_pbuf(lpc_enetif, p);
 
 			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
 				("lpc_low_level_input: Packet dropped with errors (0x%x)\n",
-				lpc_enetdata->prxs[idx].statusinfo));
-		}
-		else {
+				lpc_enetif->prxs[idx].statusinfo));
+		} else {
 			/* A packet is waiting, get length */
-			length = (lpc_enetdata->prxs[idx].statusinfo & 0x7FF) + 1;
+			length = (lpc_enetif->prxs[idx].statusinfo & 0x7FF) + 1;
 
 			/* Zero-copy */
-			p = lpc_enetdata->rxb[idx];
+			p = lpc_enetif->rxb[idx];
 			p->len = (u16_t) length;
 
 			/* Free pbuf from desriptor */
-			lpc_enetdata->rxb[idx] = NULL;
-			lpc_enetdata->rx_free_descs++;
+			lpc_enetif->rxb[idx] = NULL;
+			lpc_enetif->rx_free_descs++;
 
 			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
 				("lpc_low_level_input: Packet received: %p, size %d (index=%d)\n",
@@ -401,8 +419,17 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 			/* Save size */
 			p->tot_len = (u16_t) length;
 			LINK_STATS_INC(link.recv);
+
+			/* Queue new buffer(s) */
+			lpc_rx_queue(lpc_enetif->netif);
 		}
 	}
+
+#ifdef LOCK_RX_THREAD
+#if NO_SYS == 0
+	sys_mutex_unlock(&lpc_enetif->TXLockMutex);
+#endif
+#endif
 
 	return p;  
 }
@@ -413,7 +440,6 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
  */
 void lpc_enetif_input(struct netif *netif)
 {
-	struct lpc_enetif *lpc_enetif = netif->state;
 	struct eth_hdr *ethhdr;
 	struct pbuf *p;
 
@@ -466,49 +492,62 @@ static s32_t lpc_packet_addr_notsafe(void *addr) {
  *
  *  This function sets up the descriptor list used for transmit packets.
  *
- *  \param[in]      lpc_enetdata  Pointer to driver data structure
+ *  \param[in]      lpc_enetif  Pointer to driver data structure
  */
-static err_t lpc_tx_setup(struct lpc_enetdata *lpc_enetdata)
+static err_t lpc_tx_setup(struct lpc_enetdata *lpc_enetif)
 {
 	s32_t idx;
 
-	/* Setup pointers to TX structures */
-	LPC_EMAC->TxDescriptor = (u32_t) &lpc_enetdata->ptxd[0];
-	LPC_EMAC->TxStatus = (u32_t) &lpc_enetdata->ptxs[0];
-	LPC_EMAC->TxDescriptorNumber = LPC_NUM_BUFF_TXDESCS - 1;
-
-	lpc_enetdata->lpc_last_tx_idx = 0;
-
 	/* Build TX descriptors for local buffers */
 	for (idx = 0; idx < LPC_NUM_BUFF_TXDESCS; idx++) {
-		lpc_enetdata->ptxd[idx].control = 0;
-		lpc_enetdata->ptxs[idx].statusinfo = 0xFFFFFFFF;
+		lpc_enetif->ptxd[idx].control = 0;
+		lpc_enetif->ptxs[idx].statusinfo = 0xFFFFFFFF;
 	}
+
+	/* Setup pointers to TX structures */
+	LPC_EMAC->TxDescriptor = (u32_t) &lpc_enetif->ptxd[0];
+	LPC_EMAC->TxStatus = (u32_t) &lpc_enetif->ptxs[0];
+	LPC_EMAC->TxDescriptorNumber = LPC_NUM_BUFF_TXDESCS - 1;
+
+	lpc_enetif->lpc_last_tx_idx = 0;
 
 	return ERR_OK;
 }
 
 /** \brief  Free TX buffers that are complete
  *
- *  \param[in] lpc_enetdata  Pointer to driver data structure
+ *  \param[in] lpc_enetif  Pointer to driver data structure
  *  \param[in] cidx  EMAC current descriptor comsumer index
  */
-static void lpc_tx_reclaim_st(struct lpc_enetdata *lpc_enetdata, u32_t cidx)
+static void lpc_tx_reclaim_st(struct lpc_enetdata *lpc_enetif, u32_t cidx)
 {
-	while (cidx != lpc_enetdata->lpc_last_tx_idx) {
-		if (lpc_enetdata->txb[lpc_enetdata->lpc_last_tx_idx] != NULL) {
+#if NO_SYS == 0
+	/* Get exclusive access */
+	sys_mutex_lock(&lpc_enetif->TXLockMutex);
+#endif
+
+	while (cidx != lpc_enetif->lpc_last_tx_idx) {
+		if (lpc_enetif->txb[lpc_enetif->lpc_last_tx_idx] != NULL) {
 			LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
 				("lpc_tx_reclaim_st: Freeing packet %p (index %d)\n",
-				lpc_enetdata->txb[lpc_enetdata->lpc_last_tx_idx],
-				lpc_enetdata->lpc_last_tx_idx));
-			pbuf_free(lpc_enetdata->txb[lpc_enetdata->lpc_last_tx_idx]);
-		 	lpc_enetdata->txb[lpc_enetdata->lpc_last_tx_idx] = NULL;
+				lpc_enetif->txb[lpc_enetif->lpc_last_tx_idx],
+				lpc_enetif->lpc_last_tx_idx));
+			pbuf_free(lpc_enetif->txb[lpc_enetif->lpc_last_tx_idx]);
+		 	lpc_enetif->txb[lpc_enetif->lpc_last_tx_idx] = NULL;
 		}
 
-		lpc_enetdata->lpc_last_tx_idx++;
-		if (lpc_enetdata->lpc_last_tx_idx >= LPC_NUM_BUFF_TXDESCS)
-			lpc_enetdata->lpc_last_tx_idx = 0;
+#if NO_SYS == 0
+		xSemaphoreGive(lpc_enetif->xTXDCountSem);
+#endif
+		lpc_enetif->lpc_last_tx_idx++;
+		if (lpc_enetif->lpc_last_tx_idx >= LPC_NUM_BUFF_TXDESCS)
+			lpc_enetif->lpc_last_tx_idx = 0;
 	}
+
+#if NO_SYS == 0
+	/* Restore access */
+	sys_mutex_unlock(&lpc_enetif->TXLockMutex);
+#endif
 }
 
 /** \brief  User call for freeingTX buffers that are complete
@@ -533,8 +572,6 @@ s32_t lpc_tx_ready(struct netif *netif)
 	u32_t idx, cidx;
 
 	cidx = LPC_EMAC->TxConsumeIndex;
-	lpc_tx_reclaim_st((struct lpc_enetdata *) netif->state, cidx);
-
 	idx = LPC_EMAC->TxProduceIndex;
 
 	/* Determine number of free buffers */
@@ -559,36 +596,13 @@ s32_t lpc_tx_ready(struct netif *netif)
  */
 static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 {
-	struct lpc_enetdata *lpc_enetdata = netif->state;
+	struct lpc_enetdata *lpc_enetif = netif->state;
 	struct pbuf *q;
 	u8_t *dst;
 	u32_t idx, sz = 0;
 	err_t err = ERR_OK;
 	struct pbuf *np;
 	u32_t dn, notdmasafe = 0;
-
-	/* Error handling for TX underruns. This should never happen unless
-	   something is holding the bus or the clocks are going too slow. It
-	   can probably be safely removed. */
- 	if (LPC_EMAC->IntStatus & EMAC_INT_TX_UNDERRUN) {
-		LINK_STATS_INC(link.err);
-		LINK_STATS_INC(link.drop);
-
-		/* Reset the TX side */
-		LPC_EMAC->MAC1 |= EMAC_MAC1_RES_TX;
-		LPC_EMAC->IntClear = EMAC_INT_TX_UNDERRUN;
-
-		/* De-allocate all queued TX pbufs */
-		for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++) {
-			if (lpc_enetdata->txb[idx] != NULL) {
-				pbuf_free(lpc_enetdata->txb[idx]);
-				lpc_enetdata->txb[idx] = NULL;
-			}
-		}
-
-		/* Start TX side again */
-		lpc_tx_setup(lpc_enetdata);
-	}
 
 	/* Zero-copy TX buffers may be fragmented across mutliple payload
 	   chains. Determine the number of descriptors needed for the
@@ -641,34 +655,44 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 
 	/* Wait until enough descriptors are available for the transfer. */
 	/* THIS WILL BLOCK UNTIL THERE ARE ENOUGH DESCRIPTORS AVAILABLE */
-	while (dn > lpc_tx_ready(netif));
+	while (dn > lpc_tx_ready(netif))
+#if NO_SYS == 0
+		xSemaphoreTake(lpc_enetif->xTXDCountSem, 0);
+#else
+		msDelay(1);
+#endif
 
 	/* Get free TX buffer index */
 	idx = LPC_EMAC->TxProduceIndex;
+
+#if NO_SYS == 0
+	/* Get exclusive access */
+	sys_mutex_lock(&lpc_enetif->TXLockMutex);
+#endif
 
 	/* Setup transfers */
 	q = p;
 	while (dn > 0) {
 		dn--;
 
-		lpc_enetdata->txb[idx] = q;
+		lpc_enetif->txb[idx] = q;
 
 		/* Only save pointer to free on last descriptor */
 		if (dn == 0) {
 			/* Save size of packet and signal it's ready */
-			lpc_enetdata->ptxd[idx].control = (q->len - 1) | EMAC_TCTRL_INT |
+			lpc_enetif->ptxd[idx].control = (q->len - 1) | EMAC_TCTRL_INT |
 				EMAC_TCTRL_LAST;
 		}
 		else {
 			/* Save size of packet, descriptor is not last */
-			lpc_enetdata->ptxd[idx].control = (q->len - 1) | EMAC_TCTRL_INT;
+			lpc_enetif->ptxd[idx].control = (q->len - 1) | EMAC_TCTRL_INT;
 		}
 
 		LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
 			("lpc_low_level_output: pbuf packet(%p) sent, chain#=%d,"
 			" size = %d (index=%d)\n", q->payload, dn, q->len, idx));
 
-		lpc_enetdata->ptxd[idx].packet = (u32_t) q->payload;
+		lpc_enetif->ptxd[idx].packet = (u32_t) q->payload;
 
 		/* Increment packet reference to prevent de-allocation only if buffers
 		   are zero-copy - the TX cleanup task will de-allocate it once the
@@ -685,6 +709,11 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 	LPC_EMAC->TxProduceIndex = idx;
 
 	LINK_STATS_INC(link.xmit);
+
+#if NO_SYS == 0
+	/* Restore access */
+	sys_mutex_unlock(&lpc_enetif->TXLockMutex);
+#endif
 
 	return ERR_OK;
 }
@@ -713,22 +742,21 @@ void ENET_IRQHandler(void)
 		/* RX group interrupt(s) */
 		/* Give semaphore to wakeup RX receive task. Note the FreeRTOS
 		   method is used instead of the LWIP arch method. */
-        xSemaphoreGiveFromISR(RxSem, &xRecTaskWoken);
+        xSemaphoreGiveFromISR(lpc_enetdata.RxSem, &xRecTaskWoken);
 	}
 
 	if (ints & TXINTGROUP) {
 		/* TX group interrupt(s) */
 		/* Give semaphore to wakeup TX cleanup task. Note the FreeRTOS
 		   method is used instead of the LWIP arch method. */
-        xSemaphoreGiveFromISR(TxCleanSem, &XTXTaskWoken);
+        xSemaphoreGiveFromISR(lpc_enetdata.TxCleanSem, &XTXTaskWoken);
 	}
 
 	/* Clear pending interrupts */
 	LPC_EMAC->IntClear = ints;
 
 	/* Context switch needed? */
-	if (xRecTaskWoken || XTXTaskWoken)
-		vPortYieldFromISR();
+	portEND_SWITCHING_ISR( xRecTaskWoken || XTXTaskWoken );
 #endif
 }
 
@@ -742,13 +770,15 @@ void ENET_IRQHandler(void)
  */
 static portTASK_FUNCTION( vPacketReceiveTask, pvParameters )
 {
+	struct lpc_enetdata *lpc_enetif = pvParameters;
+
 	while (1) {
 		/* Wait for receive task to wakeup */
-		sys_arch_sem_wait(&RxSem, 0);
+		sys_arch_sem_wait(&lpc_enetif->RxSem, 0);
 
 		/* Process packets until all empty */
 		while (LPC_EMAC->RxConsumeIndex != LPC_EMAC->RxProduceIndex)
-			lpc_enetif_input(lpc_enetdata.netif);
+			lpc_enetif_input(lpc_enetif->netif);
 	}
 }
 
@@ -762,34 +792,46 @@ static portTASK_FUNCTION( vPacketReceiveTask, pvParameters )
  */
 static portTASK_FUNCTION( vTransmitCleanupTask, pvParameters )
 {
+	struct lpc_enetdata *lpc_enetif = pvParameters;
+	s32_t idx;
+
 	while (1) {
 		/* Wait for transmit cleanup task to wakeup */
-		sys_arch_sem_wait(&TxCleanSem, 0);
+		sys_arch_sem_wait(&lpc_enetif->TxCleanSem, 0);
 
-		/* Free TX buffers that are done sending */
-		lpc_tx_reclaim(lpc_enetdata.netif);
-	}
-}
+		/* Error handling for TX underruns. This should never happen unless
+		   something is holding the bus or the clocks are going too slow. It
+		   can probably be safely removed. */
+	 	if (LPC_EMAC->IntStatus & EMAC_INT_TX_UNDERRUN) {
+			LINK_STATS_INC(link.err);
+			LINK_STATS_INC(link.drop);
 
-/** \brief  Receive packet reclaimation cleanup task
- *
- * This task is only used when zero copy receive buffers are used.
- * This task is periodically called to reclaim pbufs and descriptors
- * used for receive packets. The packet is only reclaimed after
- * the LWIP core is done with them.
- */
-static portTASK_FUNCTION( vReceiveCleanupTask, pvParameters )
-{
-	portTickType xLastExecutionTime;
+#if NO_SYS == 0
+			/* Get exclusive access */
+			sys_mutex_lock(&lpc_enetif->TXLockMutex);
+#endif
+			/* Reset the TX side */
+			LPC_EMAC->MAC1 |= EMAC_MAC1_RES_TX;
+			LPC_EMAC->IntClear = EMAC_INT_TX_UNDERRUN;
 
-	while (1) {
-		/* Task will occasionally wakeup and reclaim pbufs and
-		   descriptors used for zero-copy. */
-		xLastExecutionTime = xTaskGetTickCount();
-		vTaskDelayUntil(&xLastExecutionTime, tskRECCLEAN_RATE);
+			/* De-allocate all queued TX pbufs */
+			for (idx = 0; idx < LPC_NUM_BUFF_RXDESCS; idx++) {
+				if (lpc_enetif->txb[idx] != NULL) {
+					pbuf_free(lpc_enetif->txb[idx]);
+					lpc_enetif->txb[idx] = NULL;
+				}
+			}
 
-		/* Re-queue RX buffers as needed */
-		while (lpc_rx_queue(lpc_enetdata.netif));
+#if NO_SYS == 0
+			/* Restore access */
+			sys_mutex_unlock(&lpc_enetif->TXLockMutex);
+#endif
+			/* Start TX side again */
+			lpc_tx_setup(lpc_enetif);
+		} else {
+			/* Free TX buffers that are done sending */
+			lpc_tx_reclaim(lpc_enetdata.netif);
+		}
 	}
 }
 #endif
@@ -800,7 +842,7 @@ static portTASK_FUNCTION( vReceiveCleanupTask, pvParameters )
  */
 static err_t low_level_init(struct netif *netif)
 {
-	struct lpc_enetdata *lpc_enetdata = netif->state;
+	struct lpc_enetdata *lpc_enetif = netif->state;
 	err_t err = ERR_OK;
 
 	/* Enable MII clocking */
@@ -850,9 +892,9 @@ static err_t low_level_init(struct netif *netif)
 		(((u32_t) netif->hwaddr[5]) << 8);
 
 	/* Setup transmit and receive descriptors */
-	if (lpc_tx_setup(lpc_enetdata) != ERR_OK)
+	if (lpc_tx_setup(lpc_enetif) != ERR_OK)
 		return ERR_BUF;
-	if (lpc_rx_setup(lpc_enetdata) != ERR_OK)
+	if (lpc_rx_setup(lpc_enetif) != ERR_OK)
 		return ERR_BUF;
 
 	/* Enable packet reception */
@@ -899,6 +941,25 @@ void lpc_emac_set_speed(int mbs_100)
 }
 
 /**
+ * This function is the ethernet packet send function. It calls
+ * etharp_output after checking link status.
+ *
+ * \param[in] netif the lwip network interface structure for this lpc_enetif
+ * \param[in] q Pointer to pbug to send
+ * \param[in] ipaddr IP address 
+ * \return ERR_OK or error code
+ */
+err_t lpc_etharp_output(struct netif *netif, struct pbuf *q,
+	ip_addr_t *ipaddr)
+{
+	/* Only send packet is link is up */
+	if (netif->flags & NETIF_FLAG_LINK_UP)
+		return etharp_output(netif, q, ipaddr);
+
+	return ERR_CONN;
+}
+
+/**
  * Should be called at the beginning of the program to set up the
  * network interface.
  *
@@ -942,26 +1003,30 @@ err_t lpc_enetif_init(struct netif *netif)
 	netif->name[0] = 'e';
 	netif->name[1] = 'n';
 
-	netif->output = etharp_output;
+	netif->output = lpc_etharp_output;
 	netif->linkoutput = lpc_low_level_output;
 
 	/* For FreeRTOS, start tasks */
 #if NO_SYS == 0
+	lpc_enetdata.xTXDCountSem = xSemaphoreCreateCounting(LPC_NUM_BUFF_TXDESCS,
+		LPC_NUM_BUFF_TXDESCS);
+	LWIP_ASSERT("xTXDCountSem creation error",
+		(lpc_enetdata.xTXDCountSem != NULL));
+
+	err = sys_mutex_new(&lpc_enetdata.TXLockMutex);
+	LWIP_ASSERT("TXLockMutex creation error", (err == ERR_OK));
+
 	/* Packet receive task */
-	err = sys_sem_new(&RxSem, 0);
+	err = sys_sem_new(&lpc_enetdata.RxSem, 0);
 	LWIP_ASSERT("RxSem creation error", (err == ERR_OK));
-	sys_thread_new("receive_thread", vPacketReceiveTask, NULL,
+	sys_thread_new("receive_thread", vPacketReceiveTask, netif->state,
 		DEFAULT_THREAD_STACKSIZE, tskRECPKT_PRIORITY);
 
 	/* Transmit cleanup task */
-	err = sys_sem_new(&TxCleanSem, 0);
+	err = sys_sem_new(&lpc_enetdata.TxCleanSem, 0);
 	LWIP_ASSERT("TxCleanSem creation error", (err == ERR_OK));
-	sys_thread_new("txclean_thread", vTransmitCleanupTask, NULL,
+	sys_thread_new("txclean_thread", vTransmitCleanupTask, netif->state,
 		DEFAULT_THREAD_STACKSIZE, tskTXCLEAN_PRIORITY);
-
-	/* Receive cleanup task */
-	sys_thread_new("rxclean_thread", vReceiveCleanupTask, NULL,
-		DEFAULT_THREAD_STACKSIZE, tskRECCLEAN_PRIORITY);
 #endif
 
 	return ERR_OK;

@@ -117,15 +117,16 @@ int main (void)
 		/* Handle packets as part of this loop, not in the IRQ handler */
 		lpc_enetif_input(&lpc_netif);
 
-#if LPC_PBUF_RX_ZEROCOPY
-		/* Re-queue RX buffers as needed */
+		/* lpc_rx_queue will re-qeueu receive buffers. This normally occurs
+		   automatically, but in systems were memory is constrained, pbufs
+		   may not always be able to get allocated, so this function can be
+		   optionally enabled to re-queue receive buffers. */
+#if 0
 		while (lpc_rx_queue(&lpc_netif));
 #endif
 
-#if LPC_PBUF_TX_ZEROCOPY
 		/* Free TX buffers that are done sending */
 		lpc_tx_reclaim(&lpc_netif);
-#endif
 
 		/* LWIP timers - ARP, DHCP, TCP, etc. */
 		sys_check_timeouts();

@@ -35,9 +35,7 @@
 /* 32-bit alignment */
 #define MEM_ALIGNMENT                   4
 
-/* pbuf buffers in pool. In zero-copy mode, these buffers are
-   located in peripheral RAM. In copied mode, they are located in
-   internal IRAM */
+/* pbuf buffers in pool */
 #define PBUF_POOL_SIZE                  256
 
  /* No padding needed */
