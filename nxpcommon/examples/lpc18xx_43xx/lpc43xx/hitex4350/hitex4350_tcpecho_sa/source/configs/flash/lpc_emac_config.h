@@ -74,6 +74,24 @@ extern "C"
  */
 #define LPC_NUM_BUFF_TXDESCS 20
 
+/** \brief  Enables slow speed memory buffering
+ *          Enable this define if you expect to transfer packets directly
+ *          from SPI FLASH or any slower memory. This will add a check
+ *          before queueing up the transfer pbuf to make sure the packet
+ *          is not in slow memoey (defined by the LPC_SLOWMEM_ARRAY). If
+ *          the packet does exists in slow memory, a pbuf will be created
+ *          in the PBUF_RAM pool, copied to it, and sent from there.
+ */
+#define LPC_CHECK_SLOWMEM 0
+
+/** \brief  Array of slow memory addresses for LPC_CHECK_SLOWMEM
+ *          Define the array - start and ending address - for the slow
+ *          memory regions in the system that need pbuf copies.
+ *
+ *          Not defined since LPC_CHECK_SLOWMEM = 0.
+ */
+#define LPC_SLOWMEM_ARRAY
+
 /**		  
  * @}
  */

@@ -36,7 +36,11 @@ __initial_sp
 ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
 ; </h>
 
+				IF      :DEF:USE_FREERTOS
+Heap_Size       EQU     0x00008000
+				ELSE
 Heap_Size       EQU     0x00000400
+				ENDIF
 
                 AREA    HEAP, NOINIT, READWRITE, ALIGN=3
 __heap_base
@@ -45,6 +49,12 @@ __heap_limit
 
                 PRESERVE8
                 THUMB
+
+  				IF      :DEF:USE_FREERTOS
+	extern xPortSysTickHandler
+	extern xPortPendSVHandler
+	extern vPortSVCHandler
+				ENDIF
 
 ; Vector Table Mapped to Address 0 at Reset
 
@@ -64,11 +74,19 @@ __Vectors       DCD     __initial_sp              	; 0 Top of Stack
                 DCD     0                         	; 8 Reserved
                 DCD     0                         	; 9 Reserved
                 DCD     0                         	; 10 Reserved
+				IF      :DEF:USE_FREERTOS
+				DCD		vPortSVCHandler           ; SVCall Handler
+				DCD		DebugMon_Handler          ; Debug Monitor Handler
+				DCD		0                         ; Reserved
+				DCD		xPortPendSVHandler        ; PendSV Handler
+				DCD		xPortSysTickHandler       ; SysTick Handler
+				ELSE
                 DCD     SVC_Handler               	; 11 SVCall Handler
                 DCD     DebugMon_Handler          	; 12 Debug Monitor Handler
                 DCD     0                         	; 13 Reserved
                 DCD     PendSV_Handler            	; 14 PendSV Handler
                 DCD     SysTick_Handler           	; 15 SysTick Handler
+                ENDIF
 
                 ; External Interrupts				
 				DCD		DAC_IRQHandler	 			; 16 D/A Converter

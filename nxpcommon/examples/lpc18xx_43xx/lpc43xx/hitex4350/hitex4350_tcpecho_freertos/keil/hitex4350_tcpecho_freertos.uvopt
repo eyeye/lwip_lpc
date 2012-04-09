@@ -96,8 +96,8 @@
         <sRmem>1</sRmem>
         <sRfunc>1</sRfunc>
         <sRbox>1</sRbox>
-        <tLdApp>0</tLdApp>
-        <tGomain>0</tGomain>
+        <tLdApp>1</tLdApp>
+        <tGomain>1</tGomain>
         <tRbreak>1</tRbreak>
         <tRwatch>1</tRwatch>
         <tRmem>1</tRmem>
@@ -115,7 +115,7 @@
         <tDllPa></tDllPa>
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
-        <tIfile>.\IRAM\IRAM.ini</tIfile>
+        <tIfile>..\..\hitex4350_common\keil\configs\IRAM.ini</tIfile>
         <pMon>BIN\UL2CM3.DLL</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
@@ -172,7 +172,7 @@
   </Target>
 
   <Target>
-    <TargetName>SPIFI 64MB Debug IRAM</TargetName>
+    <TargetName>spifi64</TargetName>
     <ToolsetNumber>0x4</ToolsetNumber>
     <ToolsetName>ARM-ADS</ToolsetName>
     <TargetOption>
@@ -194,7 +194,7 @@
         <PageWidth>79</PageWidth>
         <PageLength>66</PageLength>
         <TabStop>8</TabStop>
-        <ListingPath>.\__spifi_64mb\</ListingPath>
+        <ListingPath>.\__spifi64\</ListingPath>
       </OPTLEX>
       <ListingPage>
         <CreateCListing>1</CreateCListing>
@@ -247,8 +247,8 @@
         <sRmem>1</sRmem>
         <sRfunc>1</sRfunc>
         <sRbox>1</sRbox>
-        <tLdApp>0</tLdApp>
-        <tGomain>0</tGomain>
+        <tLdApp>1</tLdApp>
+        <tGomain>1</tGomain>
         <tRbreak>1</tRbreak>
         <tRwatch>1</tRwatch>
         <tRmem>1</tRmem>
@@ -266,7 +266,7 @@
         <tDllPa></tDllPa>
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
-        <tIfile>.\spifi_64mb\spifi_64mb.ini</tIfile>
+        <tIfile>..\..\hitex4350_common\keil\configs\spifi64.ini</tIfile>
         <pMon>BIN\UL2CM3.DLL</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
@@ -323,7 +323,7 @@
   </Target>
 
   <Target>
-    <TargetName>Hitex Flash IRAM</TargetName>
+    <TargetName>flash</TargetName>
     <ToolsetNumber>0x4</ToolsetNumber>
     <ToolsetName>ARM-ADS</ToolsetName>
     <TargetOption>
@@ -345,7 +345,7 @@
         <PageWidth>79</PageWidth>
         <PageLength>66</PageLength>
         <TabStop>8</TabStop>
-        <ListingPath>.\__hitex_flash\</ListingPath>
+        <ListingPath>.\__flash\</ListingPath>
       </OPTLEX>
       <ListingPage>
         <CreateCListing>1</CreateCListing>
@@ -398,8 +398,8 @@
         <sRmem>1</sRmem>
         <sRfunc>1</sRfunc>
         <sRbox>1</sRbox>
-        <tLdApp>0</tLdApp>
-        <tGomain>0</tGomain>
+        <tLdApp>1</tLdApp>
+        <tGomain>1</tGomain>
         <tRbreak>1</tRbreak>
         <tRwatch>1</tRwatch>
         <tRmem>1</tRmem>
@@ -417,7 +417,7 @@
         <tDllPa></tDllPa>
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
-        <tIfile>.\hitex_flash\Hitex Flash.ini</tIfile>
+        <tIfile>..\..\hitex4350_common\keil\configs\flash.ini</tIfile>
         <pMon>BIN\UL2CM3.DLL</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
@@ -474,7 +474,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\..\..\Core\Device\NXP\LPC43xx\Source\fpu_init.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\LPC43XX\Core\Device\NXP\LPC43xx\Source\fpu_init.c</PathWithFileName>
       <FilenameWithoutPath>fpu_init.c</FilenameWithoutPath>
     </File>
     <File>
@@ -488,7 +488,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\..\..\Core\Device\NXP\LPC43xx\Source\fpu_enable.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\LPC43XX\Core\Device\NXP\LPC43xx\Source\fpu_enable.c</PathWithFileName>
       <FilenameWithoutPath>fpu_enable.c</FilenameWithoutPath>
     </File>
     <File>
@@ -502,7 +502,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\..\..\Core\Device\NXP\LPC43xx\Source\Templates\system_LPC43xx.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\LPC43XX\Core\Device\NXP\LPC43xx\Source\Templates\system_LPC43xx.c</PathWithFileName>
       <FilenameWithoutPath>system_LPC43xx.c</FilenameWithoutPath>
     </File>
     <File>
@@ -511,13 +511,13 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>73</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\lpc43xx_common\keil\startup_LPC43xx_freertos.s</PathWithFileName>
-      <FilenameWithoutPath>startup_LPC43xx_freertos.s</FilenameWithoutPath>
+      <PathWithFileName>..\..\hitex4350_common\keil\startup_hitex4350_M4.s</PathWithFileName>
+      <FilenameWithoutPath>startup_hitex4350_M4.s</FilenameWithoutPath>
     </File>
   </Group>
 
@@ -537,7 +537,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\..\..\Drivers\source\debug_frmwrk.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\LPC43XX\Drivers\source\debug_frmwrk.c</PathWithFileName>
       <FilenameWithoutPath>debug_frmwrk.c</FilenameWithoutPath>
     </File>
     <File>
@@ -551,7 +551,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\..\..\Drivers\source\lpc43xx_cgu.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\LPC43XX\Drivers\source\lpc43xx_cgu.c</PathWithFileName>
       <FilenameWithoutPath>lpc43xx_cgu.c</FilenameWithoutPath>
     </File>
     <File>
@@ -565,7 +565,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\..\..\Drivers\source\lpc43xx_gpio.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\LPC43XX\Drivers\source\lpc43xx_gpio.c</PathWithFileName>
       <FilenameWithoutPath>lpc43xx_gpio.c</FilenameWithoutPath>
     </File>
     <File>
@@ -579,7 +579,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\..\..\Drivers\source\lpc43xx_scu.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\LPC43XX\Drivers\source\lpc43xx_scu.c</PathWithFileName>
       <FilenameWithoutPath>lpc43xx_scu.c</FilenameWithoutPath>
     </File>
     <File>
@@ -593,7 +593,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\..\..\Drivers\source\lpc43xx_uart.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\LPC43XX\Drivers\source\lpc43xx_uart.c</PathWithFileName>
       <FilenameWithoutPath>lpc43xx_uart.c</FilenameWithoutPath>
     </File>
   </Group>
@@ -614,7 +614,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\nxpcommon\arch\lpc_debug.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\nxpcommon\arch\lpc_debug.c</PathWithFileName>
       <FilenameWithoutPath>lpc_debug.c</FilenameWithoutPath>
     </File>
     <File>
@@ -628,7 +628,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\nxpcommon\arch\sys_arch.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\nxpcommon\arch\sys_arch.c</PathWithFileName>
       <FilenameWithoutPath>sys_arch.c</FilenameWithoutPath>
     </File>
     <File>
@@ -642,36 +642,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\nxpcommon\arch\Retarget.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\nxpcommon\arch\Retarget.c</PathWithFileName>
       <FilenameWithoutPath>Retarget.c</FilenameWithoutPath>
-    </File>
-    <File>
-      <GroupNumber>3</GroupNumber>
-      <FileNumber>13</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\source\tcpecho_freertos_app.c</PathWithFileName>
-      <FilenameWithoutPath>tcpecho_freertos_app.c</FilenameWithoutPath>
-    </File>
-    <File>
-      <GroupNumber>3</GroupNumber>
-      <FileNumber>14</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\..\..\..\contrib-1.4.0\apps\tcpecho\tcpecho.c</PathWithFileName>
-      <FilenameWithoutPath>tcpecho.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
@@ -679,7 +651,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>21</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
@@ -712,8 +684,8 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\lpc18xx_43xx_common\lpc4350_freertos_hooks.c</PathWithFileName>
-      <FilenameWithoutPath>lpc4350_freertos_hooks.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\lpc18xx_43xx_common\lpc18xx_43xx_freertos_hooks.c</PathWithFileName>
+      <FilenameWithoutPath>lpc18xx_43xx_freertos_hooks.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
@@ -728,6 +700,34 @@
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\..\..\..\lpc_phy_dp83848.c</PathWithFileName>
       <FilenameWithoutPath>lpc_phy_dp83848.c</FilenameWithoutPath>
+    </File>
+    <File>
+      <GroupNumber>3</GroupNumber>
+      <FileNumber>0</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>32</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>19</TopLine>
+      <CurrentLine>34</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\source\hitex4350_tcpecho_freertos.c</PathWithFileName>
+      <FilenameWithoutPath>hitex4350_tcpecho_freertos.c</FilenameWithoutPath>
+    </File>
+    <File>
+      <GroupNumber>3</GroupNumber>
+      <FileNumber>0</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\..\..\..\..\contrib-1.4.0\apps\tcpecho\tcpecho.c</PathWithFileName>
+      <FilenameWithoutPath>tcpecho.c</FilenameWithoutPath>
     </File>
   </Group>
 
@@ -747,7 +747,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\def.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\def.c</PathWithFileName>
       <FilenameWithoutPath>def.c</FilenameWithoutPath>
     </File>
     <File>
@@ -761,7 +761,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\dhcp.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\dhcp.c</PathWithFileName>
       <FilenameWithoutPath>dhcp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -775,7 +775,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\dns.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\dns.c</PathWithFileName>
       <FilenameWithoutPath>dns.c</FilenameWithoutPath>
     </File>
     <File>
@@ -789,7 +789,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\init.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\init.c</PathWithFileName>
       <FilenameWithoutPath>init.c</FilenameWithoutPath>
     </File>
     <File>
@@ -803,7 +803,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\mem.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\mem.c</PathWithFileName>
       <FilenameWithoutPath>mem.c</FilenameWithoutPath>
     </File>
     <File>
@@ -817,7 +817,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\memp.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\memp.c</PathWithFileName>
       <FilenameWithoutPath>memp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -831,7 +831,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\netif.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\netif.c</PathWithFileName>
       <FilenameWithoutPath>netif.c</FilenameWithoutPath>
     </File>
     <File>
@@ -845,7 +845,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\pbuf.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\pbuf.c</PathWithFileName>
       <FilenameWithoutPath>pbuf.c</FilenameWithoutPath>
     </File>
     <File>
@@ -859,7 +859,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\raw.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\raw.c</PathWithFileName>
       <FilenameWithoutPath>raw.c</FilenameWithoutPath>
     </File>
     <File>
@@ -873,7 +873,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\stats.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\stats.c</PathWithFileName>
       <FilenameWithoutPath>stats.c</FilenameWithoutPath>
     </File>
     <File>
@@ -887,7 +887,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\sys.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\sys.c</PathWithFileName>
       <FilenameWithoutPath>sys.c</FilenameWithoutPath>
     </File>
     <File>
@@ -901,7 +901,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\tcp.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\tcp.c</PathWithFileName>
       <FilenameWithoutPath>tcp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -915,7 +915,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\tcp_in.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\tcp_in.c</PathWithFileName>
       <FilenameWithoutPath>tcp_in.c</FilenameWithoutPath>
     </File>
     <File>
@@ -929,7 +929,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\tcp_out.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\tcp_out.c</PathWithFileName>
       <FilenameWithoutPath>tcp_out.c</FilenameWithoutPath>
     </File>
     <File>
@@ -943,7 +943,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\timers.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\timers.c</PathWithFileName>
       <FilenameWithoutPath>timers.c</FilenameWithoutPath>
     </File>
     <File>
@@ -957,7 +957,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\udp.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\udp.c</PathWithFileName>
       <FilenameWithoutPath>udp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -971,7 +971,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\ipv4\autoip.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\ipv4\autoip.c</PathWithFileName>
       <FilenameWithoutPath>autoip.c</FilenameWithoutPath>
     </File>
     <File>
@@ -985,7 +985,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\ipv4\icmp.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\ipv4\icmp.c</PathWithFileName>
       <FilenameWithoutPath>icmp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -999,7 +999,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\ipv4\igmp.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\ipv4\igmp.c</PathWithFileName>
       <FilenameWithoutPath>igmp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1013,7 +1013,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet.c</PathWithFileName>
       <FilenameWithoutPath>inet.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1027,7 +1027,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\ipv4\inet_chksum.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\ipv4\inet_chksum.c</PathWithFileName>
       <FilenameWithoutPath>inet_chksum.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1041,7 +1041,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip.c</PathWithFileName>
       <FilenameWithoutPath>ip.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1055,7 +1055,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_addr.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_addr.c</PathWithFileName>
       <FilenameWithoutPath>ip_addr.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1069,7 +1069,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\core\ipv4\ip_frag.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\core\ipv4\ip_frag.c</PathWithFileName>
       <FilenameWithoutPath>ip_frag.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1083,7 +1083,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\netif\etharp.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\netif\etharp.c</PathWithFileName>
       <FilenameWithoutPath>etharp.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1097,7 +1097,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\api\tcpip.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\api\tcpip.c</PathWithFileName>
       <FilenameWithoutPath>tcpip.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1111,7 +1111,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\api\netifapi.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\api\netifapi.c</PathWithFileName>
       <FilenameWithoutPath>netifapi.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1125,7 +1125,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\api\netbuf.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\api\netbuf.c</PathWithFileName>
       <FilenameWithoutPath>netbuf.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1139,7 +1139,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\api\api_msg.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\api\api_msg.c</PathWithFileName>
       <FilenameWithoutPath>api_msg.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1153,13 +1153,13 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\lwip_lpc\lwip-1.4.0\src\api\api_lib.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\lwip-1.4.0\src\api\api_lib.c</PathWithFileName>
       <FilenameWithoutPath>api_lib.c</FilenameWithoutPath>
     </File>
   </Group>
 
   <Group>
-    <GroupName>freertos</GroupName>
+    <GroupName>FreeRTOS</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
@@ -1174,7 +1174,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\FreeRTOSV7.1.0\Source\tasks.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\FreeRTOSV7.1.0\Source\tasks.c</PathWithFileName>
       <FilenameWithoutPath>tasks.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1188,7 +1188,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\FreeRTOSV7.1.0\Source\queue.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\FreeRTOSV7.1.0\Source\queue.c</PathWithFileName>
       <FilenameWithoutPath>queue.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1202,7 +1202,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\FreeRTOSV7.1.0\Source\list.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\FreeRTOSV7.1.0\Source\list.c</PathWithFileName>
       <FilenameWithoutPath>list.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1216,7 +1216,7 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\FreeRTOSV7.1.0\Source\portable\MemMang\heap_3.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\FreeRTOSV7.1.0\Source\portable\MemMang\heap_3.c</PathWithFileName>
       <FilenameWithoutPath>heap_3.c</FilenameWithoutPath>
     </File>
     <File>
@@ -1225,12 +1225,12 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>61</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>C:\dev\git\lwip_work\lpc43xx\FreeRTOSV7.1.0\Source\portable\RVDS\ARM_CM4F\port.c</PathWithFileName>
+      <PathWithFileName>..\..\..\..\..\..\..\..\FreeRTOSV7.1.0\Source\portable\RVDS\ARM_CM4F\port.c</PathWithFileName>
       <FilenameWithoutPath>port.c</FilenameWithoutPath>
     </File>
   </Group>

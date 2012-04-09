@@ -65,6 +65,10 @@
 #error LPC_NUM_BUFF_RXDESCS must be at least 3
 #endif
 
+#ifndef LPC_CHECK_SLOWMEM
+#error LPC_CHECK_SLOWMEM must be 0 or 1
+#endif
+
 /** @defgroup lwip18xx_43xx_emac_DRIVER	lpc18xx/43xx EMAC driver for LWIP
  * @ingroup lwip_emac
  *
@@ -116,6 +120,14 @@ struct lpc_enetdata {
 /** \brief  LPC EMAC driver work data
  */
 static struct lpc_enetdata lpc_enetdata;
+
+#if LPC_CHECK_SLOWMEM == 1
+struct lpc_slowmem_array_t {
+	u32_t start;
+	u32_t end;
+};
+const struct lpc_slowmem_array_t slmem[] = LPC_SLOWMEM_ARRAY;
+#endif
 
 /* Write a value via the MII link (non-blocking) */
 void lpc_mii_write_noblock(u32_t PhyReg, u32_t Value)
@@ -578,7 +590,8 @@ void lpc_tx_reclaim(struct netif *netif)
 			lpc_netifdata->ptdesc[ridx].CTRLSTAT = TDES_ENH_TCH;
 
 		/* Free the pbuf associate with this descriptor */
-		pbuf_free(lpc_netifdata->txpbufs[ridx]);
+		if (lpc_netifdata->txpbufs[ridx])
+			pbuf_free(lpc_netifdata->txpbufs[ridx]);
 
 		/* Reclaim this descriptor */
 		lpc_netifdata->tx_free_descs++;
@@ -621,7 +634,50 @@ s32_t lpc_tx_ready(struct netif *netif)
 static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 {
 	struct lpc_enetdata *lpc_netifdata = netif->state;
-	u32_t idx, fidx, dn;
+	u32_t idx, fidx, dn, fdn;
+
+#if LPC_CHECK_SLOWMEM == 1
+	struct pbuf *q, *wp;
+	u8_t *dst;
+	int pcopy = 0;
+
+	/* Check packet address to determine if it's in slow memory and
+	   relocate if necessary */
+ 	for(q = p; ((q != NULL) && (pcopy == 0)); q = q->next) {
+		fidx = 0;
+		for (idx = 0; idx < sizeof(slmem);
+			idx += sizeof(struct lpc_slowmem_array_t)) {
+			if ((q->payload >= (void *) slmem[fidx].start) &&
+				(q->payload <= (void *) slmem[fidx].end)) {
+				/* Needs copy */
+				pcopy = 1;
+			}
+		}
+	}
+
+	if (pcopy) {
+		/* Create a new pbuf with the total pbuf size */
+		wp = pbuf_alloc(PBUF_RAW, (u16_t) EMAC_ETH_MAX_FLEN, PBUF_RAM);
+		if (!wp) {
+			/* Exit with error */
+			return ERR_MEM;
+		}
+
+		/* Copy pbuf */
+		dst = (u8_t *) wp->payload;
+		wp->tot_len = 0;
+ 		for(q = p; q != NULL; q = q->next) {
+			MEMCPY(dst, (u8_t *) q->payload, q->len);
+			dst += q->len;
+			wp->tot_len += q->len;
+		}
+		wp->len = wp->tot_len;
+
+		/* LWIP will free original pbuf on exit of function */
+
+		p = wp;
+	}
+#endif
 
 	/* Zero-copy TX buffers may be fragmented across mutliple payload
 	   chains. Determine the number of descriptors needed for the
@@ -649,20 +705,27 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 	while (dn > 0) {
 		dn--;
 
-		/* Save pointer to pbuf so we can reclain the memory for
-		   the pbuf after the buffer has been sent. */
-		lpc_netifdata->txpbufs[idx] = p;
-
 		/* Setup packet address and length */
 		lpc_netifdata->ptdesc[idx].B1ADD = (u32_t) p->payload;
 		lpc_netifdata->ptdesc[idx].BSIZE = (u32_t) TDES_ENH_BS1(p->len);
 
+		/* Save pointer to pbuf so we can reclain the memory for
+		   the pbuf after the buffer has been sent. Only the first
+		   pbuf in a chain is saved since the full chain doesn't
+		   need to be freed. */
 		/* For first packet only, first flag */
 		lpc_netifdata->tx_free_descs--;
-		if (idx == fidx)
+		if (idx == fidx) {
+			lpc_netifdata->txpbufs[idx] = p;
 			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_ENH_FS;
-		else
+
+			/* Increment reference count on this packet so LWIP doesn't
+			   attempt to free it on return from this call */
+			pbuf_ref(p);
+		} else {
+			lpc_netifdata->txpbufs[idx] = NULL;
 			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_OWN;
+		}
 
 		/* For last packet only, interrupt and last flag */
 		if (dn == 0)
@@ -681,10 +744,6 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 		idx++;
 		if (idx >= LPC_NUM_BUFF_TXDESCS)
 			idx = 0;
-
-		/* Increment reference count on this packet so LWIP doesn't
-		   attempt to free it on return from this call */
-		pbuf_ref(p);
 
 		/* Next packet fragment */
 		p = p->next;

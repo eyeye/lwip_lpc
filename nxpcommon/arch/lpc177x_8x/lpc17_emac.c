@@ -675,7 +675,7 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 	while (dn > 0) {
 		dn--;
 
-		lpc_enetif->txb[idx] = q;
+		lpc_enetif->txb[idx] = q; // FIXME WHEN FREEING PBUFS, ONLY FREE THE FIRST IN THE CHAIN, THIS WILL FREE ALL, SEE 43XX REF CODE
 
 		/* Only save pointer to free on last descriptor */
 		if (dn == 0) {

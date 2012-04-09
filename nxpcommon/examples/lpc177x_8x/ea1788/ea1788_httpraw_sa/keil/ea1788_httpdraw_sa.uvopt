@@ -1153,9 +1153,9 @@
   </Group>
 
   <AlienFiles>
-    <PathWithFilename>C:\dev\git\nxp\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_httpraw_sa\source\configs\iram\lwipopts.h</PathWithFilename>
-    <TopLine>48</TopLine>
-    <CurrentLine>68</CurrentLine>
+    <PathWithFilename>C:\dev\git\nxp\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_httpraw_sa\source\configs\iram\lpc_emac_config.h</PathWithFilename>
+    <TopLine>69</TopLine>
+    <CurrentLine>89</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1179,9 +1179,9 @@
   </AlienFiles>
 
   <AlienFiles>
-    <PathWithFilename>C:\dev\git\nxp\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_httpraw_sa\source\configs\iram\lpc_emac_config.h</PathWithFilename>
-    <TopLine>69</TopLine>
-    <CurrentLine>89</CurrentLine>
+    <PathWithFilename>C:\dev\git\nxp\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_httpraw_sa\source\configs\iram\lwipopts.h</PathWithFilename>
+    <TopLine>48</TopLine>
+    <CurrentLine>68</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1218,10 +1218,22 @@
           <CurrentLine>282</CurrentLine>
         </Doc>
         <Doc>
-          <Name>..\source\ea1788_httpraw_sa.c</Name>
+          <Name>..\..\ea1788_common\keil\startup_ea1788.s</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>73</TopLine>
-          <CurrentLine>73</CurrentLine>
+          <TopLine>149</TopLine>
+          <CurrentLine>149</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>C:\dev\git\nxp\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_httpraw_sa\source\configs\iram\lpc_emac_config.h</Name>
+          <ColumnNumber>30</ColumnNumber>
+          <TopLine>69</TopLine>
+          <CurrentLine>89</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>C:\dev\git\nxp\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_httpraw_sa\source\configs\iram\lwipopts.h</Name>
+          <ColumnNumber>25</ColumnNumber>
+          <TopLine>48</TopLine>
+          <CurrentLine>68</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\..\..\..\..\..\..\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</Name>
@@ -1230,22 +1242,10 @@
           <CurrentLine>413</CurrentLine>
         </Doc>
         <Doc>
-          <Name>..\source\configs\iram\lwipopts.h</Name>
-          <ColumnNumber>25</ColumnNumber>
-          <TopLine>48</TopLine>
-          <CurrentLine>68</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\source\configs\iram\lpc_emac_config.h</Name>
-          <ColumnNumber>30</ColumnNumber>
-          <TopLine>69</TopLine>
-          <CurrentLine>89</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\ea1788_common\keil\startup_ea1788.s</Name>
+          <Name>..\source\ea1788_httpraw_sa.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>149</TopLine>
-          <CurrentLine>149</CurrentLine>
+          <TopLine>73</TopLine>
+          <CurrentLine>73</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

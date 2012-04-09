@@ -6,7 +6,7 @@
 FLASH 0x14000000 0x100000 {
   ; All code and RO data in SPI FLASH
   ER_RO 0x14000000 0x100000 {
-    startup_LPC43xx.o (RESET, +FIRST)
+    startup_hitex4350_m4.o (RESET, +FIRST)
     *.o (+RO)
   }
 
