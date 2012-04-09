@@ -670,22 +670,27 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 	sys_mutex_lock(&lpc_enetif->TXLockMutex);
 #endif
 
+	/* Prevent LWIP from de-allocating this pbuf. The driver will
+	   free it once it's been transmitted. */
+	if (!notdmasafe)
+		pbuf_ref(p);
+
 	/* Setup transfers */
 	q = p;
 	while (dn > 0) {
 		dn--;
-
-		lpc_enetif->txb[idx] = q; // FIXME WHEN FREEING PBUFS, ONLY FREE THE FIRST IN THE CHAIN, THIS WILL FREE ALL, SEE 43XX REF CODE
 
 		/* Only save pointer to free on last descriptor */
 		if (dn == 0) {
 			/* Save size of packet and signal it's ready */
 			lpc_enetif->ptxd[idx].control = (q->len - 1) | EMAC_TCTRL_INT |
 				EMAC_TCTRL_LAST;
+			lpc_enetif->txb[idx] = q;
 		}
 		else {
 			/* Save size of packet, descriptor is not last */
 			lpc_enetif->ptxd[idx].control = (q->len - 1) | EMAC_TCTRL_INT;
+			lpc_enetif->txb[idx] = NULL;
 		}
 
 		LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
@@ -694,11 +699,6 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 
 		lpc_enetif->ptxd[idx].packet = (u32_t) q->payload;
 
-		/* Increment packet reference to prevent de-allocation only if buffers
-		   are zero-copy - the TX cleanup task will de-allocate it once the
-		   hardware is done with it. */
-		if (!notdmasafe)
-			pbuf_ref(q);
 		q = q->next;
 
 		idx++;

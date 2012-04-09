@@ -716,16 +716,21 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 		/* For first packet only, first flag */
 		lpc_netifdata->tx_free_descs--;
 		if (idx == fidx) {
-			lpc_netifdata->txpbufs[idx] = p;
 			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_ENH_FS;
 
 			/* Increment reference count on this packet so LWIP doesn't
 			   attempt to free it on return from this call */
 			pbuf_ref(p);
-		} else {
-			lpc_netifdata->txpbufs[idx] = NULL;
+		} else
 			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_OWN;
-		}
+
+		/* Save address of pbuf, but make sure it's associated with the
+		   last chained pbuf so it gets freed once all pbuf chains are
+		   transferred. */
+		if (!dn)
+			lpc_netifdata->txpbufs[idx] = p;
+		else
+			lpc_netifdata->txpbufs[idx] = NULL;
 
 		/* For last packet only, interrupt and last flag */
 		if (dn == 0)
