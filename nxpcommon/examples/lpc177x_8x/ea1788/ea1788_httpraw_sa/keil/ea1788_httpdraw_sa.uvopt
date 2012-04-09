@@ -500,8 +500,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>149</TopLine>
-      <CurrentLine>149</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\ea1788_common\keil\startup_ea1788.s</PathWithFileName>
       <FilenameWithoutPath>startup_ea1788.s</FilenameWithoutPath>
@@ -689,8 +689,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>413</TopLine>
-      <CurrentLine>413</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\..\..\..\..\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</PathWithFileName>
       <FilenameWithoutPath>lpc17_emac.c</FilenameWithoutPath>
@@ -773,8 +773,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>276</TopLine>
-      <CurrentLine>282</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\..\..\lpc_phy_lan8720.c</PathWithFileName>
       <FilenameWithoutPath>lpc_phy_lan8720.c</FilenameWithoutPath>
@@ -787,8 +787,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>73</TopLine>
-      <CurrentLine>73</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\source\ea1788_httpraw_sa.c</PathWithFileName>
       <FilenameWithoutPath>ea1788_httpraw_sa.c</FilenameWithoutPath>
@@ -1151,104 +1151,5 @@
       <FilenameWithoutPath>etharp.c</FilenameWithoutPath>
     </File>
   </Group>
-
-  <AlienFiles>
-    <PathWithFilename>C:\dev\git\nxp\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_httpraw_sa\source\configs\iram\lpc_emac_config.h</PathWithFilename>
-    <TopLine>69</TopLine>
-    <CurrentLine>89</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\dev\git\nxp\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_httpraw_sa\source\configs\iram\lwipopts.h</PathWithFilename>
-    <TopLine>48</TopLine>
-    <CurrentLine>68</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <MDIGroups>
-    <Orientation>1</Orientation>
-    <ActiveMDIGroup>0</ActiveMDIGroup>
-    <MDIGroup>
-      <Size>100</Size>
-      <ActiveTab>0</ActiveTab>
-      <Documents>
-        <Doc>
-          <Name>..\..\..\..\..\lpc_phy_lan8720.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>276</TopLine>
-          <CurrentLine>282</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\ea1788_common\keil\startup_ea1788.s</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>149</TopLine>
-          <CurrentLine>149</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>C:\dev\git\nxp\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_httpraw_sa\source\configs\iram\lpc_emac_config.h</Name>
-          <ColumnNumber>30</ColumnNumber>
-          <TopLine>69</TopLine>
-          <CurrentLine>89</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>C:\dev\git\nxp\lwip_lpc\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_httpraw_sa\source\configs\iram\lwipopts.h</Name>
-          <ColumnNumber>25</ColumnNumber>
-          <TopLine>48</TopLine>
-          <CurrentLine>68</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\..\..\..\..\lwip_lpc\nxpcommon\arch\lpc177x_8x\lpc17_emac.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>413</TopLine>
-          <CurrentLine>413</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\source\ea1788_httpraw_sa.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>73</TopLine>
-          <CurrentLine>73</CurrentLine>
-        </Doc>
-      </Documents>
-    </MDIGroup>
-  </MDIGroups>
 
 </ProjectOpt>

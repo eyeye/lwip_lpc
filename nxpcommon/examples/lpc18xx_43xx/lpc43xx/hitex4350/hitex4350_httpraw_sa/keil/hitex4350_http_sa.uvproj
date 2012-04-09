@@ -468,7 +468,7 @@
             <File>
               <FileName>debug_frmwrk.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\dev\git\nxp\LPC43XX\Drivers\source\debug_frmwrk.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\..\LPC43XX\Drivers\source\debug_frmwrk.c</FilePath>
             </File>
             <File>
               <FileName>lpc43xx_cgu.c</FileName>
@@ -1141,7 +1141,7 @@
             <File>
               <FileName>debug_frmwrk.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\dev\git\nxp\LPC43XX\Drivers\source\debug_frmwrk.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\..\LPC43XX\Drivers\source\debug_frmwrk.c</FilePath>
             </File>
             <File>
               <FileName>lpc43xx_cgu.c</FileName>
@@ -1814,7 +1814,7 @@
             <File>
               <FileName>debug_frmwrk.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\dev\git\nxp\LPC43XX\Drivers\source\debug_frmwrk.c</FilePath>
+              <FilePath>..\..\..\..\..\..\..\..\LPC43XX\Drivers\source\debug_frmwrk.c</FilePath>
             </File>
             <File>
               <FileName>lpc43xx_cgu.c</FileName>
