@@ -37,7 +37,7 @@
 #include "lpc43xx_cgu.h"
 #include "lpc43xx_rgu.h"
 #else
-#ifdef LPC43XX
+#ifdef LPC18XX
 #include "lpc18xx_cgu.h"
 #include "lpc18xx_rgu.h"
 #else
