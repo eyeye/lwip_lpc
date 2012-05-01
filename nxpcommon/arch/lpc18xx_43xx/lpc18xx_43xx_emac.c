@@ -49,6 +49,7 @@
 #include "lpc_emac_config.h"
 #include "lpc18xx_43xx_emac.h"
 #include "lpc_emac_config.h"
+#include "lpc_phy.h"
 
 // FIXME - still to do
 // Checksum offloading for packets using 43xx hardware
@@ -925,7 +926,7 @@ static err_t low_level_init(struct netif *netif)
 #endif
 
 	/* Initialize the PHY */
-	err = lpc_phy_init(netif);
+	err = lpc_phy_init(netif, LPC_EMAC_RMII);
 	if (err != ERR_OK)
  		return err;
 

@@ -48,6 +48,7 @@
 #define DP8_ANEEXP_REG      0x6  /**< Auto-neg Expansion Reg  */
 #define DP8_PHY_STAT_REG    0x10 /**< PHY Status Register  */
 #define DP8_PHY_INT_CTL_REG 0x11 /**< PHY Interrupt Control Register */
+#define DP8_PHY_RBR_REG     0x17 /**< PHY RMII and Bypass Register  */
 #define DP8_PHY_STS_REG     0x19 /**< PHY Status Register  */
 
 /** \brief DP83848 Control register definitions */
@@ -74,6 +75,9 @@
 #define DP8_LINK_STATUS    (1 << 2)   /**< 1=Link active */
 #define DP8_JABBER_DETECT  (1 << 1)   /**< Jabber detect */
 #define DP8_EXTEND_CAPAB   (1 << 0)   /**< Supports extended capabilities */
+
+/** \brief DP83848 PHY RBR MII dode definitions */
+#define DP8_RBR_RMII_MODE  (1 << 5)   /**< Use RMII mode */
 
 /** \brief DP83848 PHY status definitions */
 #define DP8_REMOTEFAULT    (1 << 6)   /**< Remote fault */
@@ -183,9 +187,10 @@ static s32_t lpc_update_phy_sts(struct netif *netif, u32_t linksts)
  *  controlled by setting up configuration defines in lpc_phy.h.
  *
  *  \param[in]     netif   NETIF structure
- *  \return         ERR_OK if the setup was successful, otherwise ERR_TIMEOUT
+ *  \param[in]     rmii    If set, configures the PHY for RMII mode
+ *  \return        ERR_OK if the setup was successful, otherwise ERR_TIMEOUT
  */
-err_t lpc_phy_init(struct netif *netif)
+err_t lpc_phy_init(struct netif *netif, int rmii)
 {
 	u32_t tmp;
 	s32_t i;
@@ -226,7 +231,12 @@ err_t lpc_phy_init(struct netif *netif)
 #if PHY_USE_FULL_DUPLEX==1
 	tmp |= DP8_DUPLEX_MODE;
 #endif
+
 	lpc_mii_write(DP8_BMCR_REG, tmp);
+
+	/* Enable RMII mode for PHY */
+	if (rmii)
+		lpc_mii_write(DP8_PHY_RBR_REG, DP8_RBR_RMII_MODE);
 
 	/* The link is not set active at this point, but will be detected
        later */

@@ -37,6 +37,7 @@
 #include "lpc177x_8x_clkpwr.h"
 #include "lpc17_emac.h"
 #include "lpc_emac_config.h"
+#include "lpc_phy.h"
 
 #ifndef LPC_EMAC_RMII
 #error LPC_EMAC_RMII is not defined!
@@ -879,7 +880,7 @@ static err_t low_level_init(struct netif *netif)
 #endif
 
 	/* Initialize the PHY and reset */
-	err = lpc_phy_init(netif);
+	err = lpc_phy_init(netif, LPC_EMAC_RMII);
 	if (err != ERR_OK)
  		return err;
 

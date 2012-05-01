@@ -55,9 +55,10 @@ s32_t lpc_phy_sts_sm(struct netif *netif);
  *  controlled by setting up configuration defines in lpc_phy.h.
  *
  *  \param[in]     netif   NETIF structure
- *  \return         ERR_OK if the setup was successful, otherwise ERR_TIMEOUT
+ *  \param[in]     rmii    If set, configures the PHY for RMII mode
+ *  \return        ERR_OK if the setup was successful, otherwise ERR_TIMEOUT
  */
-err_t lpc_phy_init(struct netif *netif);
+err_t lpc_phy_init(struct netif *netif, int rmii);
 
 /** \brief  Write a value via the MII link (non-blocking)
  *

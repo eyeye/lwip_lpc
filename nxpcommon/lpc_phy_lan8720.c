@@ -193,9 +193,10 @@ static s32_t lpc_update_phy_sts(struct netif *netif, u32_t linksts, u32_t sdsts)
  *  lpc_emac_config.h.
  *
  *  \param[in]     netif   NETIF structure
- *  \return         ERR_OK if the setup was successful, otherwise ERR_TIMEOUT
+ *  \param[in]     rmii    If set, configures the PHY for RMII mode
+ *  \return        ERR_OK if the setup was successful, otherwise ERR_TIMEOUT
  */
-err_t lpc_phy_init(struct netif *netif)
+err_t lpc_phy_init(struct netif *netif, int rmii)
 {
 	u32_t tmp, tmp1;
 	s32_t i;
