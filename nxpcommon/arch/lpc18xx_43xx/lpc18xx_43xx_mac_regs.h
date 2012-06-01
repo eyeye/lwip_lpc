@@ -35,7 +35,7 @@
 #ifdef LPC43XX
 #include "lpc43xx.h"
 #else
-#ifdef LPC43XX
+#ifdef LPC18XX
 #include "lpc18xx.h"
 #else
 #error LPC18XX or LPC43XX for target system not defined!
