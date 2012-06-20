@@ -105,7 +105,7 @@ static portTASK_FUNCTION( vSetupIFTask, pvParameters )
 	/* Add netif interface for lpc17xx_8x */
 	memset(lpc_netif, 0, sizeof(lpc_netif));
 	if (!netif_add(&lpc_netif, &ipaddr, &netmask, &gw, NULL, lpc_enetif_init,
-		ethernet_input))
+		tcpip_input))
 		LWIP_ASSERT("Net interface failed to initialize\r\n", 0);
 
 	netif_set_default(&lpc_netif);
