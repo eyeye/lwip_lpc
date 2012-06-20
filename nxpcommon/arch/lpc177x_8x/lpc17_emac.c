@@ -686,7 +686,7 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 			/* Save size of packet and signal it's ready */
 			lpc_enetif->ptxd[idx].control = (q->len - 1) | EMAC_TCTRL_INT |
 				EMAC_TCTRL_LAST;
-			lpc_enetif->txb[idx] = q;
+			lpc_enetif->txb[idx] = p;
 		}
 		else {
 			/* Save size of packet, descriptor is not last */

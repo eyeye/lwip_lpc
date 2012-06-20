@@ -628,14 +628,15 @@ s32_t lpc_tx_ready(struct netif *netif)
  *          become available.
  *
  *  \param[in] netif the lwip network interface structure for this lpc_enetif
- *  \param[in] p the MAC packet to send (e.g. IP packet including MAC addresses and type)
+ *  \param[in] sendp the MAC packet to send (e.g. IP packet including MAC addresses and type)
  *  \return ERR_OK if the packet could be sent or
  *         an err_t value if the packet couldn't be sent
  */
-static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
+static err_t lpc_low_level_output(struct netif *netif, struct pbuf *sendp)
 {
 	struct lpc_enetdata *lpc_netifdata = netif->state;
 	u32_t idx, fidx, dn, fdn;
+	struct pbuf *p = sendp;
 
 #if LPC_CHECK_SLOWMEM == 1
 	struct pbuf *q, *wp;
@@ -726,10 +727,10 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_OWN;
 
 		/* Save address of pbuf, but make sure it's associated with the
-		   last chained pbuf so it gets freed once all pbuf chains are
+		   first chained pbuf so it gets freed once all pbuf chains are
 		   transferred. */
 		if (!dn)
-			lpc_netifdata->txpbufs[idx] = p;
+			lpc_netifdata->txpbufs[idx] = sendp;
 		else
 			lpc_netifdata->txpbufs[idx] = NULL;
 
