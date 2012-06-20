@@ -720,9 +720,16 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *sendp)
 		if (idx == fidx) {
 			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_ENH_FS;
 
+#if LPC_CHECK_SLOWMEM == 1
+			/* If this is a copied pbuf, then avoid getting the extra reference
+			   or the TX reclaim will be off by 1 */
+			if (!pcopy)
+				pbuf_ref(p);
+#else
 			/* Increment reference count on this packet so LWIP doesn't
 			   attempt to free it on return from this call */
-			pbuf_ref(p);
+				pbuf_ref(p);
+#endif
 		} else
 			lpc_netifdata->ptdesc[idx].CTRLSTAT |= TDES_OWN;
 
