@@ -677,7 +677,7 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *sendp)
 
 		/* LWIP will free original pbuf on exit of function */
 
-		p = wp;
+		p = sendp = wp;
 	}
 #endif
 
