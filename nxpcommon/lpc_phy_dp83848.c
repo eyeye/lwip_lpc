@@ -25,6 +25,7 @@
 
 #include "lwip/opt.h"
 #include "lwip/err.h"
+#include "lwip/tcpip.h"
 #include "lwip/snmp.h"
 #include "lpc_emac_config.h"
 #include "lpc_phy.h"
@@ -168,10 +169,19 @@ static s32_t lpc_update_phy_sts(struct netif *netif, u32_t linksts)
 
 	if (physts.phy_link_active != olddphysts.phy_link_active) {
 		changed = 1;
+#if NO_SYS == 1
 		if (physts.phy_link_active)
-			netif_set_link_up(netif);
+            netif_set_link_up(netif);
 		else
 			netif_set_link_down(netif);
+#else
+		if (physts.phy_link_active)
+            tcpip_callback_with_block((tcpip_callback_fn) netif_set_link_up,
+                (void*) netif, 1);
+         else
+            tcpip_callback_with_block((tcpip_callback_fn) netif_set_link_down,
+                (void*) netif, 1);
+#endif
 
 		olddphysts.phy_link_active = physts.phy_link_active;
 	}
