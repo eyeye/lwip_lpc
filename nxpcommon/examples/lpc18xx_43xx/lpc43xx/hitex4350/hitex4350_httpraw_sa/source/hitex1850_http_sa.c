@@ -98,7 +98,6 @@ int main (void)
 	IP4_ADDR(&gw, 10, 1, 10, 1);
 	IP4_ADDR(&ipaddr, 10, 1, 10, 234);
 	IP4_ADDR(&netmask, 255, 255, 255, 0);
-	APP_PRINT_IP(&ipaddr);
 #endif
 
 	/* Add netif interface for lpc17xx_8x */
