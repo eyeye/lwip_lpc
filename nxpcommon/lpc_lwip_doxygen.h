@@ -145,6 +145,15 @@
  * @}
  */
 
+/** @defgroup HITEX1850	Hitex LPC1850 (HITEX1850) board
+ * @ingroup lpc_board
+ * @{
+ */
+
+/**		  
+ * @}
+ */
+
 /**		  
  * @}
  */
