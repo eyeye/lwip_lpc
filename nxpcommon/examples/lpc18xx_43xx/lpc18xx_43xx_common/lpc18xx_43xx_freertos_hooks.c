@@ -1,8 +1,8 @@
 /**********************************************************************
-* $Id$		lpc4350_freertos_hooks.c			2011-11-20
+* $Id$		lpc18xx_43xx_freertos_hooks.c			2011-11-20
 *//**
-* @file		lpc4350_freertos_hooks.c
-* @brief	FreeRTOS support hooks for the LPC43xx (and LPC18xx)
+* @file		lpc18xx_43xx_freertos_hooks.c
+* @brief	FreeRTOS support hooks for the LPC18xx (and LPC43xx)
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
@@ -34,7 +34,7 @@
 #include "lpc43xx.h"
 #else
 #ifdef LPC18XX
-#include "lpc43xx.h"
+#include "lpc18xx.h"
 #else
 #error LPC18XX or LPC43XX for target system not defined!
 #endif

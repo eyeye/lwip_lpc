@@ -1,0 +1,25 @@
+;-------------------------------------------------------------------------------------
+;   Keil scatter loading file
+;-------------------------------------------------------------------------------------
+
+; Load region is in SPI FLASH
+FLASH 0x14000000 0x4000000 {
+  ; All code and RO data in SPI FLASH
+  ER_RO 0x14000000 0x4000000 {
+    *.o (RESET, +FIRST)
+    *.o (+RO)
+  }
+
+  ; IRAM for data
+  ER_RW 0x10000000 0x18000 {
+    *.o (+RW)
+    *.o (+ZI)
+	  memp.o (+RW, +ZI)
+  }
+
+  ; DMA buffers need to be located in peripheral RAM, but not pbufs
+  PIRAM 0x10080000 0x0000A000 {
+		lpc18xx_43xx_emac.o (+RW, +ZI)
+		mem.o (+RW, +ZI)
+  }
+}
