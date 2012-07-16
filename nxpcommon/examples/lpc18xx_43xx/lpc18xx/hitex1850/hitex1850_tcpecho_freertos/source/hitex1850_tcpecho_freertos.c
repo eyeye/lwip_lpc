@@ -89,14 +89,12 @@ static portTASK_FUNCTION( vSetupIFTask, pvParameters )
 
 	/* Wait until the TCP/IP thread is finished before
 	   continuing or wierd things may happen */
-	//LWIP_DEBUGF(LWIP_DBG_ON, ("Waiting for TCPIP thread to initialize...\n"));
-	lpc_printf("Waiting for TCPIP thread to initialize...\r\n");
+	LWIP_DEBUGF(LWIP_DBG_ON, ("Waiting for TCPIP thread to initialize...\n"));
 	tcpip_init(tcpip_init_done_signal, &tcpipdone);
 	while (!tcpipdone);
 
-	//LWIP_DEBUGF(LWIP_DBG_ON, ("Starting LWIP TCP echo server...\n"));
-	lpc_printf("Starting LWIP TCP echo server...\r\n");
-
+	LWIP_DEBUGF(LWIP_DBG_ON, ("Starting LWIP TCP echo server...\n"));
+	
 	/* Static IP assignment */
 #if LWIP_DHCP
 	IP4_ADDR(&gw, 0, 0, 0, 0);
@@ -106,7 +104,6 @@ static portTASK_FUNCTION( vSetupIFTask, pvParameters )
 	IP4_ADDR(&gw, 10, 1, 10, 1);
 	IP4_ADDR(&ipaddr, 10, 1, 10, 234);
 	IP4_ADDR(&netmask, 255, 255, 255, 0);
-	APP_PRINT_IP(&ipaddr);
 #endif
 
 	/* Add netif interface for lpc17xx_8x */
@@ -139,12 +136,10 @@ static portTASK_FUNCTION( vSetupIFTask, pvParameters )
 			/* Set the state of the LED to on if the ethernet link is
 			   active or off is disconnected. */
 			if (lpc_netif.flags & NETIF_FLAG_LINK_UP) {
-				//LWIP_DEBUGF(LWIP_DBG_ON, ("Ethernet link up\n"));
-				lpc_printf("Ethernet link up \r\n");
+				LWIP_DEBUGF(LWIP_DBG_ON, ("Ethernet link up\n"));
 				led_set(1);
 			} else {
-				//LWIP_DEBUGF(LWIP_DBG_ON, ("Ethernet link down\n"));
-				lpc_printf("Ethernet link down \r\n");
+				LWIP_DEBUGF(LWIP_DBG_ON, ("Ethernet link down\n"));
 				led_set(0);
 			}
 		}
@@ -153,8 +148,8 @@ static portTASK_FUNCTION( vSetupIFTask, pvParameters )
 		msDelay(250);
 		if(!prt_ip) {
 					if(lpc_netif.ip_addr.addr) {
-						lpc_printf("IP_ADDR 0x%x NETMSK 0x%x GW 0x%x \r\n", 
-							(u32_t)lpc_netif.ip_addr.addr, (u32_t) lpc_netif.netmask.addr, (u32_t)lpc_netif.gw.addr);
+						LWIP_DEBUGF(LWIP_DBG_ON, ("IP_ADDR 0x%x NETMSK 0x%x GW 0x%x \r\n", 
+							(u32_t)lpc_netif.ip_addr.addr, (u32_t) lpc_netif.netmask.addr, (u32_t)lpc_netif.gw.addr));
 							prt_ip = 1;
 					}					
 		}
