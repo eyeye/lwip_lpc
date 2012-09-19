@@ -6,7 +6,7 @@
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
-* 
+*
 * Copyright(C) 2011, NXP Semiconductor
 * All rights reserved.
 *
@@ -68,7 +68,7 @@
 #define MEM_SIZE						16384
 
 /* DHCP is ok, UDP is required with DHCP */
-#define LWIP_DHCP                       1
+#define LWIP_DHCP                       0
 #define LWIP_UDP                        1
 
 /* Hostname can be used */
@@ -91,16 +91,18 @@
 /* There are more *_DEBUG options that can be selected.
    See opts.h. Make sure that LWIP_DEBUG is defined when
    building the code to use debug. */
-#define TCP_DEBUG                       LWIP_DBG_OFF
-#define ETHARP_DEBUG                    LWIP_DBG_OFF
-#define PBUF_DEBUG                      LWIP_DBG_OFF
-#define IP_DEBUG                        LWIP_DBG_OFF
+#define LWIP_DEBUG
+
+#define TCP_DEBUG                       LWIP_DBG_ON
+#define ETHARP_DEBUG                    LWIP_DBG_ON
+#define PBUF_DEBUG                      LWIP_DBG_ON
+#define IP_DEBUG                        LWIP_DBG_ON
 #define TCPIP_DEBUG                     LWIP_DBG_OFF
 #define DHCP_DEBUG                      LWIP_DBG_OFF
 #define UDP_DEBUG                       LWIP_DBG_OFF
 
 /* This define is custom for the LPC EMAC driver. Enabled it to
    get debug messages for the driver. */
-#define UDP_LPC_EMAC                    LWIP_DBG_OFF
+#define UDP_LPC_EMAC                    LWIP_DBG_ON
 
 #endif /* __LWIP_USER_OPT_H__ */

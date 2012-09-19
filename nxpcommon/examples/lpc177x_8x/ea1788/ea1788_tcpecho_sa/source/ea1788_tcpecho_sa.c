@@ -6,7 +6,7 @@
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
-* 
+*
 * Copyright(C) 2011, NXP Semiconductor
 * All rights reserved.
 *
@@ -59,13 +59,14 @@ static void prvSetupHardware(void)
 	board_setup();
 	led_set(0);
 
+
 	/* Setup a 1mS sysTick for the primary time base */
 	SysTick_Enable(1);
 
 	/* Initialize debug output via serial port */
 	debug_frmwrk_init();
 }
- 
+
 /** \brief  Application entry point
 
 	\return       Does not return
@@ -89,8 +90,8 @@ int main (void)
 	IP4_ADDR(&ipaddr, 0, 0, 0, 0);
 	IP4_ADDR(&netmask, 0, 0, 0, 0);
 #else
-	IP4_ADDR(&gw, 10, 1, 10, 1);
-	IP4_ADDR(&ipaddr, 10, 1, 10, 234);
+	IP4_ADDR(&gw, 192, 168, 1, 1);
+	IP4_ADDR(&ipaddr, 192, 168, 1, 234);
 	IP4_ADDR(&netmask, 255, 255, 255, 0);
 #endif
 

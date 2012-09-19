@@ -3,7 +3,7 @@
 <Workspace>
   <ConfigDictionary>
     
-  <CurrentConfigs><Project>ea1788_tcpecho_sa/dram_zc</Project></CurrentConfigs></ConfigDictionary>
+  <CurrentConfigs><Project>ea1788_tcpecho_sa/flash_zc</Project></CurrentConfigs></ConfigDictionary>
   <Desktop>
     <Static>
       <Workspace>
@@ -12,7 +12,7 @@
           
           
           
-        <Column0>190</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+        <Column0>278</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
       </Workspace>
       <Build>
         
@@ -20,11 +20,11 @@
         
         
       <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1395</ColumnWidth1><ColumnWidth2>372</ColumnWidth2><ColumnWidth3>93</ColumnWidth3></Build>
-    <Debug-Log><ColumnWidth0>18</ColumnWidth0><ColumnWidth1>1863</ColumnWidth1></Debug-Log><TerminalIO/></Static>
+    <Debug-Log><ColumnWidth0>18</ColumnWidth0><ColumnWidth1>1863</ColumnWidth1></Debug-Log><TerminalIO/><Find-in-Files><ColumnWidth0>448</ColumnWidth0><ColumnWidth1>64</ColumnWidth1><ColumnWidth2>769</ColumnWidth2></Find-in-Files></Static>
     <Windows>
       
       
-    <Wnd2>
+    <Wnd0>
         <Tabs>
           <Tab>
             <Identity>TabID-31977-26888</Identity>
@@ -32,11 +32,11 @@
             <Factory>Workspace</Factory>
             <Session>
               
-            <NodeDict><ExpandedNode>ea1788_tcpecho_sa</ExpandedNode><ExpandedNode>ea1788_tcpecho_sa/Startup</ExpandedNode><ExpandedNode>ea1788_tcpecho_sa/main.c</ExpandedNode><ExpandedNode>ea1788_tcpecho_sa/main.c/Output</ExpandedNode></NodeDict></Session>
+            <NodeDict><ExpandedNode>ea1788_tcpecho_sa</ExpandedNode><ExpandedNode>ea1788_tcpecho_sa/Application</ExpandedNode><ExpandedNode>ea1788_tcpecho_sa/CMSIS-CM3</ExpandedNode><ExpandedNode>ea1788_tcpecho_sa/Output</ExpandedNode><ExpandedNode>ea1788_tcpecho_sa/Startup</ExpandedNode></NodeDict></Session>
           </Tab>
         </Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd2><Wnd3>
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
         <Tabs>
           <Tab>
             <Identity>TabID-24512-29484</Identity>
@@ -44,22 +44,22 @@
             <Factory>Build</Factory>
             <Session/>
           </Tab>
-        <Tab><Identity>TabID-29632-10208</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs>
+        <Tab><Identity>TabID-29632-10208</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab><Tab><Identity>TabID-7669-13789</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab></Tabs>
         
-      <SelectedTab>0</SelectedTab></Wnd3></Windows>
+      <SelectedTab>0</SelectedTab></Wnd1></Windows>
     <Editor>
       
       
       
       
-    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source\tcpecho_sa_app.c</Filename><XPos>0</XPos><YPos>15</YPos><SelStart>842</SelStart><SelEnd>842</SelEnd></Tab><ActiveTab>0</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Core\Device\NXP\LPC177x_8x\Include\LPC177x_8x.h</Filename><XPos>0</XPos><YPos>1144</YPos><SelStart>43423</SelStart><SelEnd>43423</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\..\..\..\lwip-1.4.0\src\core\netif.c</Filename><XPos>0</XPos><YPos>193</YPos><SelStart>6521</SelStart><SelEnd>6521</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\..\..\..\lwip-1.4.0\src\include\lwip\debug.h</Filename><XPos>0</XPos><YPos>67</YPos><SelStart>3783</SelStart><SelEnd>3783</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\..\..\arch\lpc177x_8x\lpc17_emac.c</Filename><XPos>0</XPos><YPos>390</YPos><SelStart>11907</SelStart><SelEnd>11907</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\source\ea1788_tcpecho_sa.c</Filename><XPos>0</XPos><YPos>56</YPos><SelStart>1875</SelStart><SelEnd>1875</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\ea1788_common\IAR\configs\flash.icf</Filename><XPos>14</XPos><YPos>12</YPos><SelStart>1692</SelStart><SelEnd>1692</SelEnd></Tab><ActiveTab>5</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\flash_zc\List\c.map</Filename><XPos>0</XPos><YPos>1086</YPos><SelStart>69403</SelStart><SelEnd>69403</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</Filename><XPos>0</XPos><YPos>19</YPos><SelStart>1805</SelStart><SelEnd>1805</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
     <Positions>
       
       
       
       
       
-    <Top><Row0><Sizes><Toolbar-02751c20><key>iaridepm.enu1</key></Toolbar-02751c20></Sizes></Row0></Top><Left><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>324</Bottom><Right>264</Right><x>-2</x><y>-2</y><xscreen>169</xscreen><yscreen>190</yscreen><sizeHorzCX>88021</sizeHorzCX><sizeHorzCY>190381</sizeHorzCY><sizeVertCX>138542</sizeVertCX><sizeVertCY>653307</sizeVertCY></Rect></Wnd2></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>303</Bottom><Right>1922</Right><x>-2</x><y>-2</y><xscreen>1924</xscreen><yscreen>305</yscreen><sizeHorzCX>1002083</sizeHorzCX><sizeHorzCY>305611</sizeHorzCY><sizeVertCX>88021</sizeVertCX><sizeVertCY>190381</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-01b9d030><key>iaridepm.enu1</key></Toolbar-01b9d030></Sizes></Row0><Row1><Sizes/></Row1></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>656</Bottom><Right>369</Right><x>-2</x><y>-2</y><xscreen>86</xscreen><yscreen>135</yscreen><sizeHorzCX>58663</sizeHorzCX><sizeHorzCY>140333</sizeHorzCY><sizeVertCX>253070</sizeVertCX><sizeVertCY>634096</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>261</Bottom><Right>1468</Right><x>-2</x><y>-2</y><xscreen>1470</xscreen><yscreen>263</yscreen><sizeHorzCX>1002729</sizeHorzCX><sizeHorzCY>273389</sizeHorzCY><sizeVertCX>58663</sizeVertCX><sizeVertCY>140333</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Workspace>
 

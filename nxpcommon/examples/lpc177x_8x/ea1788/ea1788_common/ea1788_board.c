@@ -6,7 +6,7 @@
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
-* 
+*
 * Copyright(C) 2011, NXP Semiconductor
 * All rights reserved.
 *
@@ -72,6 +72,17 @@ void board_setup(void)
 	PINSEL_ConfigPin(1, 17, 1);
 	PINSEL_ConfigPin(1, 16, 1);
 	PINSEL_ConfigPin(1, 15, 1);
+
+    PINSEL_ConfigPin(4, 15, 0);
+
+    GPIO_SetDir(4, 15, 1);
+
+    GPIO_SetValue(4, 1<<15);
+    for( int i = 0; i < 10000; i++ );
+    GPIO_ClearValue(4, 1<<15);
+    for( int i = 0; i < 10000; i++ );
+    GPIO_SetValue(4, 1<<15);
+
 }
 
 /* Populates the MAC address for the board */

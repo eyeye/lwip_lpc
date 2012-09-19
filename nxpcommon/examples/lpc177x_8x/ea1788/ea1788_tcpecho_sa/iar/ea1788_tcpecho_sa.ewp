@@ -65,7 +65,7 @@
         </option>
         <option>
           <name>OGCoreOrChip</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>GRuntimeLibSelect</name>
@@ -87,7 +87,7 @@
         </option>
         <option>
           <name>OGLastSavedByProductVersion</name>
-          <state>6.30.4.53294</state>
+          <state>6.30.1.53141</state>
         </option>
         <option>
           <name>GeneralEnableMisra</name>
@@ -99,7 +99,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>default	None</state>
+          <state>LPC1788	NXP LPC1788</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -225,7 +225,7 @@
         <option>
           <name>CCAllowList</name>
           <version>1</version>
-          <state>1111111</state>
+          <state>0000000</state>
         </option>
         <option>
           <name>CCDebugInfo</name>
@@ -295,14 +295,14 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\source</state>
           <state>$PROJ_DIR$\..\..\..\..\..\arch</state>
-          <state>$PROJ_DIR$\..\..\..\..\..\..\..\Drivers\include</state>
-          <state>$PROJ_DIR$\..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Include</state>
+          <state>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Drivers\include</state>
+          <state>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Core\Device\NXP\LPC177x_8x\Include</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\lwip-1.4.0\src\include</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\lwip-1.4.0\src\include\ipv4</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\nxpcommon</state>
-          <state>$PROJ_DIR$\..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\BoardSupport</state>
+          <state>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Core\Device\NXP\LPC177x_8x\BoardSupport</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\contrib-1.4.0\apps\tcpecho_raw</state>
-          <state>$PROJ_DIR$\..\source\configs\flash_zc</state>
+          <state>$PROJ_DIR$\..\source\configs\flash</state>
           <state>$PROJ_DIR$\..\..\..\..\..\..\nxpcommon\arch\lpc177x_8x</state>
         </option>
         <option>
@@ -323,7 +323,7 @@
         </option>
         <option>
           <name>CCOptLevel</name>
-          <state>3</state>
+          <state>0</state>
         </option>
         <option>
           <name>CCOptStrategy</name>
@@ -332,7 +332,7 @@
         </option>
         <option>
           <name>CCOptLevelSlave</name>
-          <state>3</state>
+          <state>0</state>
         </option>
         <option>
           <name>CompilerMisraRules98</name>
@@ -591,6 +591,11 @@
       </data>
     </settings>
     <settings>
+      <name>Coder</name>
+      <archiveVersion>0</archiveVersion>
+      <data/>
+    </settings>
+    <settings>
       <name>CUSTOM</name>
       <archiveVersion>3</archiveVersion>
       <data>
@@ -696,7 +701,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>.\configs\flash_zc_ea1788.icf</state>
+          <state>$PROJ_DIR$\..\..\..\..\..\..\nxpcommon\examples\lpc177x_8x\ea1788\ea1788_common\IAR\configs\flash.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1505,6 +1510,11 @@
           <state>1</state>
         </option>
       </data>
+    </settings>
+    <settings>
+      <name>Coder</name>
+      <archiveVersion>0</archiveVersion>
+      <data/>
     </settings>
     <settings>
       <name>CUSTOM</name>
@@ -2423,6 +2433,11 @@
       </data>
     </settings>
     <settings>
+      <name>Coder</name>
+      <archiveVersion>0</archiveVersion>
+      <data/>
+    </settings>
+    <settings>
       <name>CUSTOM</name>
       <archiveVersion>3</archiveVersion>
       <data>
@@ -2756,6 +2771,9 @@
       <name>$PROJ_DIR$\..\..\ea1788_common\ea1788_board.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\source\ea1788_tcpecho_sa.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\..\..\..\contrib-1.4.0\apps\tcpecho_raw\echo.c</name>
     </file>
     <file>
@@ -2763,9 +2781,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\..\arch\lpc177x_8x\lpc17_emac.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\arch\lpc177x_8x\lpc17_emac_zcbuffs.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\..\arch\lpc_debug.c</name>
@@ -2779,41 +2794,38 @@
     <file>
       <name>$PROJ_DIR$\..\..\..\..\..\arch\sys_arch.c</name>
     </file>
-    <file>
-      <name>$PROJ_DIR$\..\source\tcpecho_sa_app.c</name>
-    </file>
   </group>
   <group>
     <name>CMSIS-CM3</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Core\Device\NXP\LPC177x_8x\Source\Templates\system_LPC177x_8x.c</name>
     </file>
   </group>
   <group>
     <name>Drivers</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\Drivers\source\debug_frmwrk.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Drivers\source\debug_frmwrk.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_clkpwr.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Drivers\source\lpc177x_8x_clkpwr.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_emc.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Drivers\source\lpc177x_8x_emc.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_gpio.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Drivers\source\lpc177x_8x_gpio.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_pinsel.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Drivers\source\lpc177x_8x_pinsel.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_systick.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Drivers\source\lpc177x_8x_systick.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_timer.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Drivers\source\lpc177x_8x_timer.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\Drivers\source\lpc177x_8x_uart.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\Drivers\source\lpc177x_8x_uart.c</name>
     </file>
   </group>
   <group>
@@ -2897,10 +2909,10 @@
   <group>
     <name>Startup</name>
     <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\..\BoardSupport\sdram_is42s32800d.c</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\..\lpc177x_8x\BoardSupport\sdram_is42s32800d.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\..\ea1788_common\IAR\startup_LPC177x_8x.s</name>
+      <name>$PROJ_DIR$\..\..\ea1788_common\IAR\startup_ea1788.s</name>
     </file>
   </group>
 </project>

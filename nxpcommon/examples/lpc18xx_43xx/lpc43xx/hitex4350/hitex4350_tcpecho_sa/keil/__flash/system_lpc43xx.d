@@ -1,0 +1,9 @@
+.\__flash\system_lpc43xx.o: ..\..\..\..\..\..\..\..\LPC43XX\Core\Device\NXP\LPC43xx\Source\Templates\system_LPC43xx.c
+.\__flash\system_lpc43xx.o: ..\..\..\..\..\..\..\..\LPC43XX\Core\Device\NXP\LPC43xx\Include\lpc43xx.h
+.\__flash\system_lpc43xx.o: E:\Keil\ARM\CMSIS\Include\core_cm4.h
+.\__flash\system_lpc43xx.o: E:\Keil\ARM\RV31\Inc\stdint.h
+.\__flash\system_lpc43xx.o: E:\Keil\ARM\CMSIS\Include\core_cmInstr.h
+.\__flash\system_lpc43xx.o: E:\Keil\ARM\CMSIS\Include\core_cmFunc.h
+.\__flash\system_lpc43xx.o: E:\Keil\ARM\CMSIS\Include\core_cm4_simd.h
+.\__flash\system_lpc43xx.o: ..\..\..\..\..\..\..\..\LPC43XX\Core\Device\NXP\LPC43xx\Include\system_LPC43xx.h
+.\__flash\system_lpc43xx.o: ..\..\..\..\..\..\..\..\LPC43XX\Core\Device\NXP\LPC43xx\Include\fpu_enable.h

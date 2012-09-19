@@ -6,7 +6,7 @@
 * @version	1.0
 * @date		20. Nov. 2011
 * @author	NXP MCU SW Application Team
-* 
+*
 * Copyright(C) 2011, NXP Semiconductor
 * All rights reserved.
 *
@@ -59,7 +59,7 @@
 
 #if NO_SYS == 0
 /** \brief  Driver transmit and receive thread priorities
- * 
+ *
  * Thread priorities for receive thread and TX cleanup thread. Alter
  * to prioritize receive or transmit bandwidth. In a heavily loaded
  * system or with LEIP_DEBUG enabled, the priorities might be better
@@ -68,7 +68,7 @@
 #define tskTXCLEAN_PRIORITY  (DEFAULT_THREAD_PRIO + 5)
 
 /** \brief  Debug output formatter lock define
- * 
+ *
  * When using FreeRTOS and with LWIP_DEBUG enabled, enabling this
  * define will allow RX debug messages to not interleave with the
  * TX messages (so they are actually readable). Not enabling this
@@ -128,6 +128,9 @@ struct lpc_enetdata {
 
 /** \brief  LPC EMAC driver work data
  */
+#if defined (__IAR_SYSTEMS_ICC__)
+#pragma data_alignment=8
+#endif
 ALIGNED(8) struct lpc_enetdata lpc_enetdata;
 
 /* Write a value via the MII link (non-blocking) */
@@ -180,7 +183,7 @@ u32_t lpc_mii_read_data(void)
 }
 
 /* Starts a read operation via the MII link (non-blocking) */
-void lpc_mii_read_noblock(u32_t PhyReg) 
+void lpc_mii_read_noblock(u32_t PhyReg)
 {
 	/* Read value at PHY address and register */
 	LPC_EMAC->MADR = (LPC_PHYDEF_PHYADDR << 8) | PhyReg;
@@ -188,7 +191,7 @@ void lpc_mii_read_noblock(u32_t PhyReg)
 }
 
 /* Read a value via the MII link (blocking) */
-err_t lpc_mii_read(u32_t PhyReg, u32_t *data) 
+err_t lpc_mii_read(u32_t PhyReg, u32_t *data)
 {
 	u32_t mst = 250;
 	err_t sts = ERR_OK;
@@ -291,7 +294,7 @@ s32_t lpc_rx_queue(struct netif *netif)
 }
 
 /** \brief  Sets up the RX descriptor ring buffers.
- * 
+ *
  *  This function sets up the descriptor list used for receive packets.
  *
  *  \param[in]  lpc_enetif  Pointer to driver data structure
@@ -434,7 +437,7 @@ static struct pbuf *lpc_low_level_input(struct netif *netif)
 #endif
 #endif
 
-	return p;  
+	return p;
 }
 
 /** \brief  Attempt to read a packet from the EMAC interface.
@@ -639,7 +642,7 @@ static err_t lpc_low_level_output(struct netif *netif, struct pbuf *p)
 	  		MEMCPY(dst, (u8_t *) q->payload, q->len);
 		  dst += q->len;
 		}
-		np->len = p->tot_len; 
+		np->len = p->tot_len;
 
 		LWIP_DEBUGF(UDP_LPC_EMAC | LWIP_DBG_TRACE,
 			("lpc_low_level_output: Switched to DMA safe buffer, old=%p, new=%p\n",
@@ -949,7 +952,7 @@ void lpc_emac_set_speed(int mbs_100)
  *
  * \param[in] netif the lwip network interface structure for this lpc_enetif
  * \param[in] q Pointer to pbug to send
- * \param[in] ipaddr IP address 
+ * \param[in] ipaddr IP address
  * \return ERR_OK or error code
  */
 err_t lpc_etharp_output(struct netif *netif, struct pbuf *q,
@@ -978,7 +981,7 @@ err_t lpc_enetif_init(struct netif *netif)
 	err_t err;
 
 	LWIP_ASSERT("netif != NULL", (netif != NULL));
-    
+
 	lpc_enetdata.netif = netif;
 
 	/* set MAC hardware address */

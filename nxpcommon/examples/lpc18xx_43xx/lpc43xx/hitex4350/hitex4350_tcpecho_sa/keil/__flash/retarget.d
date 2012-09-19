@@ -1,0 +1,13 @@
+.\__flash\retarget.o: ..\..\..\..\..\..\..\..\lwip_lpc\nxpcommon\arch\Retarget.c
+.\__flash\retarget.o: ..\..\..\..\..\..\..\..\LPC43XX\Drivers\include\debug_frmwrk.h
+.\__flash\retarget.o: ..\..\..\..\..\..\..\..\LPC43XX\Drivers\include\lpc43xx_uart.h
+.\__flash\retarget.o: ..\..\..\..\..\..\..\..\LPC43XX\Core\Device\NXP\LPC43xx\Include\lpc43xx.h
+.\__flash\retarget.o: E:\Keil\ARM\CMSIS\Include\core_cm4.h
+.\__flash\retarget.o: E:\Keil\ARM\RV31\Inc\stdint.h
+.\__flash\retarget.o: E:\Keil\ARM\CMSIS\Include\core_cmInstr.h
+.\__flash\retarget.o: E:\Keil\ARM\CMSIS\Include\core_cmFunc.h
+.\__flash\retarget.o: E:\Keil\ARM\CMSIS\Include\core_cm4_simd.h
+.\__flash\retarget.o: ..\..\..\..\..\..\..\..\LPC43XX\Core\Device\NXP\LPC43xx\Include\system_LPC43xx.h
+.\__flash\retarget.o: ..\..\..\..\..\..\..\..\LPC43XX\Drivers\include\lpc_types.h
+.\__flash\retarget.o: E:\Keil\ARM\RV31\Inc\stdio.h
+.\__flash\retarget.o: E:\Keil\ARM\RV31\Inc\rt_misc.h
